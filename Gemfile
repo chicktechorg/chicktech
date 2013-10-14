@@ -16,6 +16,8 @@ gem 'bootstrap-datetimepicker-rails'
 group :development, :test do
   gem 'rspec-rails'
   gem 'pry'
+  gem 'quiet_assets'
+
 end
 
 group :development do 
@@ -29,4 +31,9 @@ group :test do
   gem 'capybara'
   gem 'factory_girl_rails'
   gem 'launchy'
+end
+
+group :development do
+  gem 'better_errors'
+  gem 'binding_of_caller'
 end

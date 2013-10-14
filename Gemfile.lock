@@ -1,11 +1,4 @@
 GIT
-  remote: git://github.com/Nerian/bootstrap-datepicker-rails.git
-  revision: 42579640e693f832bdffd507041644f9d93a624a
-  specs:
-    bootstrap-datepicker-rails (1.1.1.8)
-      railties (>= 3.0)
-
-GIT
   remote: https://github.com/thomas-mcdonald/bootstrap-sass
   revision: ab2f7dd92491bd490e545c18d32e966567b84a3b
   specs:
@@ -48,6 +41,7 @@ GEM
       erubis (>= 2.6.6)
     binding_of_caller (0.7.2)
       debug_inspector (>= 0.0.1)
+    bootstrap-datetimepicker-rails (0.0.11)
     builder (3.1.4)
     cancan (1.6.10)
     capybara (2.1.0)
@@ -184,7 +178,7 @@ PLATFORMS
 DEPENDENCIES
   better_errors
   binding_of_caller
-  bootstrap-datepicker-rails!
+  bootstrap-datetimepicker-rails
   bootstrap-sass!
   cancan
   capybara
