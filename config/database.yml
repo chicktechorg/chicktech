@@ -2,6 +2,6 @@ development:
   adapter: postgresql
   database: chicktech_development
 
- test:
+test:
   adapter: postgresql
   database: chicktech_test
