@@ -11,6 +11,7 @@ gem 'devise'
 gem 'cancan'
 gem 'bootstrap-sass', git: 'https://github.com/thomas-mcdonald/bootstrap-sass'
 gem 'validates_timeliness'
+gem 'bootstrap-datetimepicker-rails'
 
 group :development, :test do
   gem 'rspec-rails'
