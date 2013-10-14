@@ -10,15 +10,22 @@ gem 'jbuilder'
 gem 'devise'
 gem 'cancan'
 gem 'bootstrap-sass', git: 'https://github.com/thomas-mcdonald/bootstrap-sass'
+gem 'validates_timeliness'
 
 group :development, :test do
   gem 'rspec-rails'
   gem 'pry'
 end
 
+group :development do 
+ gem 'better_errors'
+ gem 'binding_of_caller'
+end
+
 group :test do
-  gem 'better_errors'
   gem 'quiet_assets'
   gem 'shoulda-matchers'
   gem 'capybara'
+  gem 'factory_girl_rails'
+  gem 'launchy'
 end
