@@ -18,13 +18,9 @@ class UsersController < ApplicationController
   #   end
   # end
 
-  # def show
-  #   # if !user_signed_in?
-  #   #   redirect_to new_user_session_path
-  #   # else
-  #     @user = User.find(params[:id])
-  #   # end
-  # end
+  def show
+   @events = Event.all
+  end
 
 private
 

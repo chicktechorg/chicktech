@@ -1,2 +1,8 @@
 <h1>Page for <%= current_user.first_name %></h1>
 <h5>Events you are signed up for</h5>
+
+
+<h2>All Upcoming Chicktech Events</h2>
+  <% @events.each do |event| %>
+    <%= render event %> 
+  <% end %>
