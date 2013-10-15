@@ -4,6 +4,7 @@ describe Event do
   it { should validate_presence_of :name }
   it { should validate_presence_of :start }
   it { should validate_presence_of :finish }
+  it { should have_many :jobs }
 
   describe "#start" do
     it "should be valid if the event starts after the time it's created" do
