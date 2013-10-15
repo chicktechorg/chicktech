@@ -1,0 +1,23 @@
+<h1>Create a New Job</h1>
+<% if @job.errors.any? %>
+  <div class="alert alert-danger">
+    <h4>Please correct these errors:</h4>
+    <ul>
+      <% @job.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= form_for @job do |f| %>
+  <div class="form-group">
+    <%= f.label :name %>
+    <%= f.text_field :name, :class => 'form-control' %>
+  </div>
+  <div class="form-group">
+    <%= f.collection_select(:event_id, Event.upcoming, :id, :name) %>
+  </div>
+  <%= f.submit "Create Job" %>
+<% end %>
+
