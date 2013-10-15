@@ -1,5 +1,9 @@
 @import 'bootstrap';
 
+.field_with_errors {
+  @extend .has-error;
+}
+
 .navbar-brand {
   color: #E94E77 !important;
 }
