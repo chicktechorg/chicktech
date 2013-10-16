@@ -1,6 +1,13 @@
 <h1>Page for <%= current_user.first_name %></h1>
 <h5>Events you are signed up for:</h5>
-
+  <% current_user.events.each do |event| %>
+    <%= render event %>
+    <% event.jobs.each do |job| %>
+      <% if job.owned_by?(current_user) %>
+        <%= render job %>
+      <% end %>
+    <% end %>  
+  <% end %>
 
 <h2>All Upcoming Chicktech Events</h2>
   <% if @events %>
