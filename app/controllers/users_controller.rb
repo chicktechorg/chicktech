@@ -1,7 +1,7 @@
 class UsersController < ApplicationController
-  # def index
-  #   @users = User.all
-  # end
+  def index
+    @users = User.all
+  end
 
   # def new
   #   @user = User.new
@@ -18,9 +18,9 @@ class UsersController < ApplicationController
   #   end
   # end
 
-  # def show
-  #  @user = User.find(params[:id])
-  # end
+  def show
+   @user = User.find(params[:id])
+  end
 
 private
 
