@@ -4,6 +4,7 @@ describe Event do
   it { should validate_presence_of :name }
   it { should validate_presence_of :start }
   it { should validate_presence_of :finish }
+  it { should have_many :jobs }
 
   describe "#start" do
     it "should be valid if the event starts after the time it's created" do
@@ -24,5 +25,13 @@ describe Event do
       event_valid.should be_valid
       event_invalid.should_not be_valid
     end
+  end
+
+  it "returns only the upcoming events" do
+    fourty_minutes_from_now = Time.now + 40.minutes
+    event = FactoryGirl.create(:event, :start => Time.now + 1.hour)
+    event2 = FactoryGirl.create(:event, :start => Time.now + 30.minutes)
+    Time.stub(:now).and_return(fourty_minutes_from_now)
+    Event.upcoming.should eq [event]
   end
 end

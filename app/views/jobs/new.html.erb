@@ -1,0 +1,15 @@
+<h1>Create a New Job</h1>
+<% if @job.errors.any? %>
+  <div class="alert alert-danger">
+    <h4>Please correct these errors:</h4>
+    <ul>
+      <% @job.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= render 'jobs/form' %>
+
+

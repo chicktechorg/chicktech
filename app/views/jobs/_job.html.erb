@@ -1,0 +1,6 @@
+<ul>
+  <li><%= job.name %>: <%= job.event.name %></br>
+    <%= link_to "Delete this job", job_path(:id => job.id), :method => :delete, :data => { :confirm => 'Are you sure?' } %>
+    <%= link_to "Update", edit_job_path(:id => job.id, :event_id => job.event.id) %>
+    </li>
+</ul>
