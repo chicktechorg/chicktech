@@ -4,6 +4,5 @@
 <% end %>
 
 <% @event.jobs.each do |job| %>
-  <h4>Job Title: <%= job.name %></h4>
-  <p>Description: <%= job.description %></p>
+  <%= render job %>
 <% end %>
