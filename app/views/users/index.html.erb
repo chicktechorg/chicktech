@@ -1,5 +1,7 @@
 <ul>
   <% @users.each do |user| %>
-    <li><%= user.first_name %></li>
+    <li><%= link_to "#{user.first_name} #{user.last_name}", user %></li>
+    <li> <%= user.email %></li>
+    <p><%= link_to "remove", users_path(:id => user.id), :method => :delete, :class => "btn btn-danger", :id => "remove#{user.id}" %></p>
   <% end %>
 <ul>

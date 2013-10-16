@@ -155,6 +155,19 @@ feature "'Add volunteer' link" do
   end
 end
 
+feature "deleting a user" do
+  scenario "superadmin is able to delete user" do
+    superadmin = FactoryGirl.create(:superadmin)
+    sign_in(superadmin)
+    volunteer = FactoryGirl.create(:volunteer)
+    visit users_path
+    click_link "remove#{volunteer.id}"
+    visit users_path
+    page.should_not have_content volunteer.first_name
+  end
+end
+
+
 
 
 

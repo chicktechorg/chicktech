@@ -1,10 +1,14 @@
-<h1>Page for <%= current_user.first_name %></h1>
+<h1>Page for <%= @user.first_name %></h1>
+
+<p>Phone: <%= @user.phone %></p>
+<p>Role: <%= @user.role %></p>
+
+<% if user_signed_in? %>
 <h5>Events you are signed up for:</h5>
-
-
-<h2>All Upcoming Chicktech Events</h2>
-  <% if @events %>
+  <h2>All Upcoming Chicktech Events</h2>
+  <% if @events && %>
     <% @events.each do |event| %>
       <%= render event %> 
     <% end %>  
   <% end %>
+<% end %>
