@@ -1,4 +1,8 @@
-<h2><%= @event.name %></h2>
+<%= render @event %>
+<% if can? :manage, @event %>
+  <%= link_to "Add jobs", new_job_path(:event_id => @event), :class => "btn btn-success" %>
+<% end %>
+
 <% @event.jobs.each do |job| %>
   <h4>Job Title: <%= job.name %></h4>
   <p>Description: <%= job.description %></p>

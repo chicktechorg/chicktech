@@ -31,7 +31,6 @@ feature "Creating events" do
     visit new_event_path
     page.should have_content "Access denied."
   end
-
 end
 
 feature "Listing events" do 
@@ -52,4 +51,25 @@ feature "Listing events" do
     visit events_path
     page.should have_content "Access denied"
   end
+end
+
+feature "Adding a job" do
+  scenario "signed in as admin" do
+    admin = FactoryGirl.create(:admin)
+    event_1 = FactoryGirl.create(:event)
+    event_2 = FactoryGirl.create(:event)
+    sign_in(admin)
+    click_on(event_1.name)
+    page.should have_content "Add jobs"
+  end
+  
+  scenario "signed in as volunteer" do
+    volunteer = FactoryGirl.create(:volunteer)
+    event_1 = FactoryGirl.create(:event)
+    event_2 = FactoryGirl.create(:event)
+    sign_in(volunteer)
+    click_on(event_1.name)
+    page.should_not have_content "Add jobs"
+  end
+
 end

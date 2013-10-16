@@ -7,6 +7,7 @@ class EventsController < ApplicationController
 
   def new
     @event = Event.new
+    @events = Event.all
     # authorize! :create, @event
   end
 

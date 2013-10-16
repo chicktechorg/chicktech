@@ -4,14 +4,14 @@ class JobsController < ApplicationController
   end
 
   def new
-    @job = Job.new
+    @job = Job.new(:event_id => params[:event_id])
   end
 
   def create
     @job = Job.new(job_params)
     if @job.save
       flash[:notice] = "#{@job.name} has been successfully created."
-      redirect_to new_job_path
+      redirect_to event_path(@job.event.id)
     else
       flash[:alert] = "Something went wrong."
       render :new

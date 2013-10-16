@@ -6,7 +6,7 @@
         <li><%= link_to "Manage Volunteers", "#" %></li>
       <% end %>
       <% if current_user.role? :admin %>
-        <li><%= link_to "Manage Events", "#" %></li>
+        <li><%= link_to "Manage Events", "/events/new" %></li>
       <% end %>  
     <% end %>
   </ul>  
