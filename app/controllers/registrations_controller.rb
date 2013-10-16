@@ -7,19 +7,21 @@ class RegistrationsController < Devise::RegistrationsController
     authorize! :create, @user
   end
 
+ 
   def create
-    super
+    @user = User.new(user_params)
+    if @user.save
+      flash[:notice] = "#{@user.first_name} has successfully been created."
+      redirect_to users_path
+    else
+      flash[:alert] = "Something went wrong."
+      render :new
+    end
   end
 
-  def edit
-    super
-  end
+private
 
-  def update
-    super
-  end
-
-  def destroy
-    super
+  def user_params
+    params.require(:user).permit(:first_name, :last_name, :email, :phone, :password, :password_confirmation, :role)
   end
 end 
