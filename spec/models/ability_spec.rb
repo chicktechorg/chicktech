@@ -39,3 +39,18 @@ describe "Superadmin" do
     end
   end
 end
+
+describe "unauthorized user" do
+  describe "abilities" do
+    it "should not be allowed to create an event" do
+      user = User.new
+      ability = Ability.new(user)
+      ability.should_not be_able_to(:create, Event.new)
+    end
+    it "should not be allowed to read an event" do
+      user = User.new
+      ability = Ability.new(user)
+      ability.should_not be_able_to(:view, Event.new)
+    end
+  end
+end
