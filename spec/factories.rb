@@ -18,4 +18,9 @@ FactoryGirl.define do
     password 'voldemort'
     password_confirmation 'voldemort'
   end
+
+  factory :task do
+    description 'Example task'
+    sequence(:job_id) { |n| n.to_i }
+  end
 end

@@ -1,4 +1,5 @@
 <div>
   <h1><%= event.name %></h1><small><%= event.start.to_time.strftime("%b %-d, %Y @ %-I:%M%P") %></small> - <small><%= event.finish.to_time.strftime("%b %-d, %Y @ %-I:%M%P") %></small>
   <p><%= event.description %></p>
+  <%= link_to "Edit Event", edit_event_path(event) %>
 </div>
