@@ -3,6 +3,8 @@ require 'spec_helper'
 feature "Creating events" do
 
   scenario "with valid input" do
+    admin = FactoryGirl.create(:admin)
+    sign_in(admin)
     visit new_event_path
     fill_in 'Name', with: 'Example event'
     fill_in 'Description', with: 'Example event description'
@@ -16,9 +18,18 @@ feature "Creating events" do
   end
 
   scenario "without valid input" do
+    admin = FactoryGirl.create(:admin)
+    sign_in(admin)
     visit new_event_path
     click_on "Create Event"
     page.should have_content "blank"
+  end
+
+  scenario "not logged in as admin" do
+    volunteer = FactoryGirl.create(:volunteer)
+    sign_in(volunteer)
+    visit new_event_path
+    page.should have_content "Access denied."
   end
 
 end
@@ -26,6 +37,8 @@ end
 feature "Listing events" do 
 
   scenario "with several events" do
+    volunteer = FactoryGirl.create(:volunteer)
+    sign_in(volunteer)
     event_1 = FactoryGirl.create(:event)
     event_2 = FactoryGirl.create(:event)
     visit events_path
@@ -33,4 +46,10 @@ feature "Listing events" do
     page.should have_content event_2.name
   end
 
+  scenario "not signed in" do
+    event_1 = FactoryGirl.create(:event)
+    event_2 = FactoryGirl.create(:event)
+    visit events_path
+    page.should have_content "Access denied"
+  end
 end

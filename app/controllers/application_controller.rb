@@ -13,4 +13,9 @@ class ApplicationController < ActionController::Base
     devise_parameter_sanitizer.for(:sign_up) << :phone
     devise_parameter_sanitizer.for(:sign_up) << :role
   end
+
+  rescue_from CanCan::AccessDenied do |exception|
+    flash[:alert] = "Access denied."
+    redirect_to root_path
+  end
 end

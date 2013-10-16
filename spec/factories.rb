@@ -9,7 +9,12 @@ FactoryGirl.define do
     finish Time.now + 4.hours
   end
 
-  factory :user do
+  factory :task do
+    description 'Example task'
+    sequence(:job_id) { |n| n.to_i }
+  end
+
+  factory :volunteer, class: User do
     first_name 'Harry'
     last_name 'Potter'
     phone '5555555555'
@@ -19,8 +24,23 @@ FactoryGirl.define do
     password_confirmation 'voldemort'
   end
 
-  factory :task do
-    description 'Example task'
-    sequence(:job_id) { |n| n.to_i }
+  factory :admin, class: User do
+    first_name 'Severus'
+    last_name 'Snape'
+    phone '5555555555'
+    email 'potionsforlife@hogwarts.edu'
+    role 'admin'
+    password 'voldemort'
+    password_confirmation 'voldemort'
+  end
+
+  factory :superadmin, class: User do
+    first_name 'Albus'
+    last_name 'Dumbledore'
+    phone '5555555555'
+    email 'graybeard@hogwarts.edu'
+    role 'superadmin'
+    password 'voldemort'
+    password_confirmation 'voldemort'
   end
 end
