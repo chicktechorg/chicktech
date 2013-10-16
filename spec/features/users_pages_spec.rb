@@ -3,6 +3,8 @@ require 'spec_helper'
 feature 'Signing Up' do
   
   scenario 'with valid inputs' do
+    superadmin = FactoryGirl.create(:superadmin)
+    sign_in(superadmin)
     user = FactoryGirl.build(:volunteer)
     visit '/users/sign_up'
     fill_in 'First name', :with => user.first_name
@@ -17,6 +19,8 @@ feature 'Signing Up' do
   end
 
   scenario "with no inputs" do
+    superadmin = FactoryGirl.create(:superadmin)
+    sign_in(superadmin)
     user = FactoryGirl.build(:volunteer)
     visit '/users/sign_up'
     click_button "Sign up" 
@@ -24,6 +28,8 @@ feature 'Signing Up' do
   end
 
   scenario "with nonmatching password" do
+    superadmin = FactoryGirl.create(:superadmin)
+    sign_in(superadmin)
     user = FactoryGirl.build(:volunteer)
     visit '/users/sign_up'
     fill_in "Email", :with => user.email
@@ -31,6 +37,22 @@ feature 'Signing Up' do
     fill_in "Password confirmation", :with => "foobar"
     click_button "Sign up" 
     page.should have_content 'match'
+  end
+
+  context "when not signed in as a superadmin" do
+    it "should not have a 'sign up' link" do
+      user = FactoryGirl.build(:volunteer)
+      sign_in(user)
+      visit root_path
+      page.should_not have_content "Sign up"
+    end
+
+    it 'should block access to signing up' do
+      user = FactoryGirl.build(:admin)
+      sign_in(user)
+      visit new_user_registration_path
+      page.should have_content "Access denied"
+    end
   end
 end
 
