@@ -8,6 +8,12 @@ describe "Volunteer" do
       ability = Ability.new(user)
       ability.should_not be_able_to(:create, Event.new)
     end
+
+    it "should not be allowed to create a user" do
+      user = FactoryGirl.create(:volunteer)
+      ability = Ability.new(user)
+      ability.should_not be_able_to(:create, User.new)
+    end
   end
 end
 
@@ -47,6 +53,7 @@ describe "unauthorized user" do
       ability = Ability.new(user)
       ability.should_not be_able_to(:create, Event.new)
     end
+
     it "should not be allowed to read an event" do
       user = User.new
       ability = Ability.new(user)

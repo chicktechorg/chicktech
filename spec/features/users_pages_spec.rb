@@ -3,6 +3,8 @@ require 'spec_helper'
 feature 'Signing Up' do
   
   scenario 'with valid inputs' do
+    superadmin = FactoryGirl.create(:superadmin)
+    sign_in(superadmin)
     user = FactoryGirl.build(:volunteer)
     visit '/users/sign_up'
     fill_in 'First name', :with => user.first_name
@@ -17,6 +19,8 @@ feature 'Signing Up' do
   end
 
   scenario "with no inputs" do
+    superadmin = FactoryGirl.create(:superadmin)
+    sign_in(superadmin)
     user = FactoryGirl.build(:volunteer)
     visit '/users/sign_up'
     click_button "Sign up" 
@@ -24,6 +28,8 @@ feature 'Signing Up' do
   end
 
   scenario "with nonmatching password" do
+    superadmin = FactoryGirl.create(:superadmin)
+    sign_in(superadmin)
     user = FactoryGirl.build(:volunteer)
     visit '/users/sign_up'
     fill_in "Email", :with => user.email
@@ -31,6 +37,40 @@ feature 'Signing Up' do
     fill_in "Password confirmation", :with => "foobar"
     click_button "Sign up" 
     page.should have_content 'match'
+  end
+
+  context "when not signed in as a superadmin" do
+    it "should not have a 'sign up' link" do
+      user = FactoryGirl.build(:volunteer)
+      sign_in(user)
+      visit root_path
+      page.should_not have_content "Sign up"
+    end
+
+    it 'should block access to signing up' do
+      user = FactoryGirl.build(:admin)
+      sign_in(user)
+      visit new_user_registration_path
+      page.should have_content "Access denied"
+    end
+  end
+
+  context "when signed in as superadmin" do
+    it "should keep you signed in after adding a new user" do
+      superadmin = FactoryGirl.create(:superadmin)
+      volunteer = FactoryGirl.build(:volunteer)
+      sign_in(superadmin)
+      visit new_user_registration_path
+      fill_in 'First name', :with => volunteer.first_name
+      fill_in 'Last name', :with => volunteer.last_name
+      fill_in 'Phone', :with => volunteer.phone
+      fill_in 'Email', :with => volunteer.email
+      fill_in 'Password', :with => volunteer.password
+      fill_in 'Password confirmation', :with => volunteer.password_confirmation
+      select volunteer.role.humanize, :from => 'Role' 
+      click_button "Sign up"
+      page.should have_content superadmin.first_name
+    end
   end
 end
 
@@ -93,6 +133,25 @@ feature "'Manage Events' link" do
     fill_in "Password", :with => superuser.password
     click_button "Sign in" 
     page.should have_content 'Manage Events'
+  end
+end
+
+feature "'Add volunteer' link" do
+  scenario "when Admin is signed in" do
+    admin = FactoryGirl.create(:admin)
+    visit '/users/sign_in'
+    fill_in "Email", :with => admin.email
+    fill_in "Password", :with => admin.password
+    click_button "Sign in"
+    page.should_not have_content 'Add volunteer'
+  end
+  scenario "Superadmin is signed in" do
+    superuser = FactoryGirl.create(:superadmin)
+    visit '/users/sign_in'
+    fill_in "Email", :with => superuser.email
+    fill_in "Password", :with => superuser.password
+    click_button "Sign in" 
+    page.should have_content 'Add volunteer'
   end
 end
 
