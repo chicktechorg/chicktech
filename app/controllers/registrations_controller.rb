@@ -1,6 +1,6 @@
 class RegistrationsController < Devise::RegistrationsController
 
-  skip_before_filter :require_no_authentication, :only => [:new, :create]
+  skip_before_filter :require_no_authentication, :only => [:new, :create, :edit, :update]
 
   def new
     @user = User.new
@@ -21,6 +21,20 @@ class RegistrationsController < Devise::RegistrationsController
   def show
    @user = User.find(params[:id])
    @events = Event.all
+  end
+
+  def edit
+    @user = User.find(params[:id])
+  end
+
+  def update
+    @user = User.find(params[:user][:id])
+    if @user.update(user_params)
+      flash[:notice] = "User has been updated."
+      redirect_to @user
+    else
+      render :edit
+    end
   end
 
   def destroy

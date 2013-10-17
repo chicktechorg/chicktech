@@ -3,6 +3,8 @@
 <p>Phone: <%= @user.phone %></p>
 <p>Role: <%= @user.role %></p>
 
+<%= link_to "Edit", edit_user_path(@user) %>
+
 <% if user_signed_in? %>
 <h5>Events you are signed up for:</h5>
   <h2>All Upcoming Chicktech Events</h2>
