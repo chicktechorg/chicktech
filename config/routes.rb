@@ -1,7 +1,10 @@
 Chicktech::Application.routes.draw do
   resources :events
-  #devise_for :users, :controllers => {:registrations => "registrations"}, :except => [:index, :show]
-  devise_for :users
+  devise_for :users, :skip => [:registrations]
+    as :user do
+      get 'users/edit_password' => 'devise/registrations#edit', :as => 'change_password'
+      put 'users/:id' => 'devise/registrations#update', :as => 'user_registration'
+    end
   resources :users
   resources :jobs
   root :to => "static_pages#index"

@@ -188,6 +188,32 @@ feature "updating a user" do
   end
 end
 
+feature "changing password" do
+  scenario "logged in user is able to access change password form" do
+    volunteer = FactoryGirl.create(:volunteer)
+    sign_in(volunteer)
+    visit change_password_path
+    page.should have_content "Change Password"
+  end
+
+  scenario "logged in user is able to change their password" do 
+    volunteer = FactoryGirl.create(:volunteer)
+    sign_in(volunteer)
+    visit change_password_path
+    fill_in "Password", with: "spellsRkool"
+    fill_in "Password confirmation", with: "spellsRkool"
+    fill_in "Current password", with: volunteer.password
+    click_button "Update"
+    page.should have_content "successfully"
+  end
+end
+
+
+
+  # scenario "logged in user is able to change their password" do
+  #   volunteer = FactoryGirl.create(:volunteer)
+  #   sign_in
+
 
 
 
