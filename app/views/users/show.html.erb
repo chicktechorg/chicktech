@@ -1,18 +1,25 @@
-<h1>Page for <%= current_user.first_name %></h1>
-<h5>Events you are signed up for:</h5>
-<% current_user.unique_events.each do |event| %>
+<h1><%= "#{@user.first_name} #{@user.last_name}" %></h1>
+
+<p>Phone: <%= @user.phone %></p>
+<p>Role: <%= @user.role %></p>
+
+<h5><%= @user.first_name %>'s Jobs:</h5>
+<% @user.unique_events.each do |event| %>
   <%= render event %>
   <% event.jobs.each do |job| %>
-    <% if job.owned_by?(current_user) %>
+    <% if job.owned_by?(@user) %>
       <%= render job %>
     <% end %>
   <% end %>
 <% end %>
 
+<%= link_to "Edit", edit_user_path(@user) %>
 
-<h2>All Upcoming Chicktech Events</h2>
-  <% if @events %>
+<% if current_user == @user %>
+  <h2>All Upcoming Chicktech Events</h2>
+  <% if @events && %>
     <% @events.each do |event| %>
       <%= render event %> 
     <% end %>  
   <% end %>
+<% end %>
