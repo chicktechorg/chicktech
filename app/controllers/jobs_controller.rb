@@ -24,9 +24,17 @@ class JobsController < ApplicationController
 
   def update
     @job = Job.find(params[:id])
-    if @job.update(params[:job].permit(:name, :description))
-      flash[:notice] = "#{@job.name} got updated."
-      redirect_to jobs_path
+    if @job.update(params[:job].permit(:name, :description, :user_id))
+      if params[:job][:user_id] && @job.user_id != nil
+        flash[:notice] = "Congratulations! You are signed up for the job #{@job.name}"
+        redirect_to jobs_path
+      elsif params[:job][:user_id]
+        flash[:notice] = "You have resigned from the job #{@job.name}"
+        redirect_to jobs_path
+      else
+        flash[:notice] = "#{@job.name} got updated."
+        redirect_to jobs_path
+      end
     else
       render :edit
     end
@@ -47,6 +55,6 @@ class JobsController < ApplicationController
 private
 
   def job_params
-    params.require(:job).permit(:name, :event_id, :description)
+    params.require(:job).permit(:name, :event_id, :description, :user_id)
   end
 end

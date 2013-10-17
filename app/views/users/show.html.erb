@@ -3,6 +3,18 @@
 <p>Phone: <%= @user.phone %></p>
 <p>Role: <%= @user.role %></p>
 
+<h1>Page for <%= current_user.first_name if user_signed_in? %></h1>
+<h5>Events you are signed up for:</h5>
+<% @user.unique_events.each do |event| %>
+  <%= render event %>
+  <% event.jobs.each do |job| %>
+    <% if job.owned_by?(current_user) %>
+      <%= render job %>
+    <% end %>
+  <% end %>
+<% end %>
+
+
 <%= link_to "Edit", edit_user_path(@user) %>
 
 <% if user_signed_in? %>
