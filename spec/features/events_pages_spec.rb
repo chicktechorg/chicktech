@@ -31,7 +31,6 @@ feature "Creating events" do
     visit new_event_path
     page.should have_content "Access denied."
   end
-
 end
 
 feature "Listing events" do 
@@ -53,3 +52,75 @@ feature "Listing events" do
     page.should have_content "Access denied"
   end
 end
+
+feature "Adding a job" do
+  scenario "signed in as admin" do
+    admin = FactoryGirl.create(:admin)
+    event_1 = FactoryGirl.create(:event)
+    event_2 = FactoryGirl.create(:event)
+    sign_in(admin)
+    click_on(event_1.name)
+    page.should have_content "Add jobs"
+  end
+  
+  scenario "signed in as volunteer" do
+    volunteer = FactoryGirl.create(:volunteer)
+    event_1 = FactoryGirl.create(:event)
+    event_2 = FactoryGirl.create(:event)
+    sign_in(volunteer)
+    click_on(event_1.name)
+    page.should_not have_content "Add jobs"
+  end
+end
+
+feature "Signing up for jobs" do
+  scenario "signed in" do
+    volunteer = FactoryGirl.create(:volunteer)
+    event_1 = FactoryGirl.create(:event)
+    job = FactoryGirl.create(:job, :event_id => event_1.id)
+    sign_in(volunteer)
+    click_on(event_1.name)
+    page.should have_button "Sign Up!"
+  end
+
+  scenario "signing up for a job" do
+    volunteer = FactoryGirl.create(:volunteer)
+    event_1 = FactoryGirl.create(:event)
+    job = FactoryGirl.create(:job, :event_id => event_1.id)
+    sign_in(volunteer)
+    click_on(event_1.name)
+    click_on "Sign Up!"
+    page.should have_content "Congratulations"
+  end
+
+  scenario "job is already taken" do
+    volunteer = FactoryGirl.create(:volunteer)
+    event_1 = FactoryGirl.create(:event)
+    job = FactoryGirl.create(:job, :event_id => event_1.id)
+    sign_in(volunteer)
+    click_on(event_1.name)
+    click_on "Sign Up!"
+    page.should_not have_button "Sign Up!"
+    page.should have_button "Resign!"
+  end
+
+  scenario "jobs are taken by other users" do
+    volunteer1 = FactoryGirl.create(:volunteer)
+    event_1 = FactoryGirl.create(:event)
+    job = FactoryGirl.create(:job, :event_id => event_1.id)
+    sign_in(volunteer1)
+    click_on(event_1.name)
+    click_on "Sign Up!"
+    click_on "Sign out"
+    admin = FactoryGirl.create(:admin)
+    sign_in(admin)
+    click_on(event_1.name)
+    page.should_not have_button "Sign Up!"
+    page.should_not have_button "Resign!"
+  end
+end
+
+
+
+
+

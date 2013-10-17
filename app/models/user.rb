@@ -14,4 +14,12 @@ class User < ActiveRecord::Base
   validates_presence_of :last_name      
   validates_presence_of :phone
   validates_presence_of :role
+
+  has_many :jobs
+  has_many :events, through: :jobs
+
+  def unique_events
+    @events = Event.all
+    self.events.uniq
+  end
 end

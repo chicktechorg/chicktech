@@ -43,4 +43,9 @@ FactoryGirl.define do
     password 'voldemort'
     password_confirmation 'voldemort'
   end
+
+  factory :job do
+    name 'The Chosen One'
+    description 'Save Hogwarts'
+  end
 end

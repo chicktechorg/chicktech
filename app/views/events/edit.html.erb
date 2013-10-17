@@ -1,3 +1,4 @@
+<h1>Edit Event</h1>
 <% if @event.errors.any? %>
   <div class="alert alert-danger">
     <h4>Please correct these errors:</h4>
@@ -8,15 +9,5 @@
     </ul>
   </div>
 <% end %>
-<div>
-  <%= render '/events/form' %>
-</div>
 
-<div>
-<h2>All Upcoming Chicktech Events</h2>
-  <% if @events %>
-    <% @events.each do |event| %>
-      <%= render event %> 
-    <% end %>  
-  <% end %>
-</div>
+<%= render '/events/form' %>

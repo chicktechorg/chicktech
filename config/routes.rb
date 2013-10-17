@@ -1,6 +1,7 @@
 Chicktech::Application.routes.draw do
   resources :events
-  devise_for :users
+  devise_for :users, :controllers => {:registrations => "registrations"}
+  #devise_for :users
   resources :users, :only => [:show, :index]
   resources :jobs
   resources :tasks
