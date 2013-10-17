@@ -22,4 +22,12 @@ class User < ActiveRecord::Base
     @events = Event.all
     self.events.uniq
   end
+
+  # def send_welcome
+  #   UserMailer.welcome_email(self).deliver
+  # end
+
+  def send_information
+    UserMailer.send_information(self).deliver
+  end
 end
