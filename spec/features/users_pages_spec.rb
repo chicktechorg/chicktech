@@ -6,7 +6,7 @@ feature 'Signing Up' do
     superadmin = FactoryGirl.create(:superadmin)
     sign_in(superadmin)
     user = FactoryGirl.build(:volunteer)
-    visit '/users/sign_up'
+    visit new_user_path
     fill_in 'First name', :with => user.first_name
     fill_in 'Last name', :with => user.last_name
     fill_in 'Phone', :with => user.phone
@@ -22,7 +22,7 @@ feature 'Signing Up' do
     superadmin = FactoryGirl.create(:superadmin)
     sign_in(superadmin)
     user = FactoryGirl.build(:volunteer)
-    visit '/users/sign_up'
+    visit new_user_path
     click_button "Sign up" 
     page.should have_content 'blank'
   end
@@ -31,7 +31,7 @@ feature 'Signing Up' do
     superadmin = FactoryGirl.create(:superadmin)
     sign_in(superadmin)
     user = FactoryGirl.build(:volunteer)
-    visit '/users/sign_up'
+    visit new_user_path
     fill_in "Email", :with => user.email
     fill_in "Password", :with => user.password
     fill_in "Password confirmation", :with => "foobar"
@@ -50,7 +50,7 @@ feature 'Signing Up' do
     it 'should block access to signing up' do
       user = FactoryGirl.build(:admin)
       sign_in(user)
-      visit new_user_registration_path
+      visit new_user_path
       page.should have_content "Access denied"
     end
   end
@@ -60,7 +60,7 @@ feature 'Signing Up' do
       superadmin = FactoryGirl.create(:superadmin)
       volunteer = FactoryGirl.build(:volunteer)
       sign_in(superadmin)
-      visit new_user_registration_path
+      visit new_user_path
       fill_in 'First name', :with => volunteer.first_name
       fill_in 'Last name', :with => volunteer.last_name
       fill_in 'Phone', :with => volunteer.phone
@@ -154,6 +154,40 @@ feature "'Add volunteer' link" do
     page.should have_content 'Add volunteer'
   end
 end
+
+feature "deleting a user" do
+  scenario "superadmin is able to delete user" do
+    superadmin = FactoryGirl.create(:superadmin)
+    sign_in(superadmin)
+    volunteer = FactoryGirl.create(:volunteer)
+    visit users_path
+    click_link "remove#{volunteer.id}"
+    visit users_path
+    page.should_not have_content volunteer.first_name
+  end
+
+  scenario "user is able to delete itself" do
+    volunteer = FactoryGirl.create(:volunteer)
+    sign_in(volunteer)
+    visit users_path
+    click_link "remove#{volunteer.id}"
+    page.should_not have_content volunteer.first_name
+  end
+end
+
+feature "updating a user" do
+  scenario "superadmin is able to update a user" do
+    superadmin = FactoryGirl.create(:superadmin)
+    sign_in(superadmin)
+    volunteer = FactoryGirl.create(:volunteer)
+    visit user_path(volunteer)
+    click_link "Edit"
+    fill_in "Phone", with: "111"
+    click_button "Update"
+    page.should have_content "updated"
+  end
+end
+
 
 
 
