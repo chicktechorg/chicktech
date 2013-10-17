@@ -17,4 +17,9 @@ class User < ActiveRecord::Base
 
   has_many :jobs
   has_many :events, through: :jobs
+
+  def unique_events
+    @events = Event.all
+    self.events.uniq
+  end
 end

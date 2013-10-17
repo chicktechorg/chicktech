@@ -14,10 +14,12 @@
 
 <div class="job-descriptions">
   Description: <%= job.description %></p>
-  <span>
-    <%= link_to "Delete ", job_path(:id => job.id), :method => :delete, :data => { :confirm => 'Are you sure?' } %>
-  </span>
-  <span>   
-    <%= link_to "Edit", edit_job_path(:id => job.id, :event_id => job.event.id) %> 
-  </span>
+  <% if can? :manage, job %>
+    <span>
+      <%= link_to "Delete ", job_path(:id => job.id), :method => :delete, :data => { :confirm => 'Are you sure?' } %>
+    </span>
+    <span>   
+      <%= link_to "Edit", edit_job_path(:id => job.id, :event_id => job.event.id) %> 
+    </span>
+  <% end %>  
 </div>

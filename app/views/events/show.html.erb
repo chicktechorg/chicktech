@@ -3,6 +3,7 @@
   <%= link_to "Add jobs", new_job_path(:event_id => @event), :class => "btn btn-success" %>
 <% end %>
 
+<h3>Jobs for this event</h3>
 <% @event.jobs.each do |job| %>
   <%= render job %>
 <% end %>
