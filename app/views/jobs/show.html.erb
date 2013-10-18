@@ -1,1 +1,44 @@
+<% if @task.errors.any? %>
+  <div class="alert alert-danger">
+    <h4>Please correct these errors:</h4>
+    <ul>
+      <% @task.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+
 <%= render @job %>
+
+<div class="form-group">
+<%= form_for @task do |f| %>
+  <%= f.label :description %>
+  <%= f.text_field :description, :size => "25" %>
+  <%= f.hidden_field :job_id, :value => @job.id %>
+  <%= f.hidden_field :done, :value => false %>
+  <%= f.submit %>
+<% end %>
+</div>
+
+<div class="task-group">
+  <div class="not-done">
+    <h4>Not Done</h4>
+    <ul id="not-done-task-list">
+      <% @job.incompleted_tasks.each do |task| %>
+        <li><%= render 'jobs/task_form', :task => task %></li>
+      <% end %>
+    </ul> 
+  </div>
+
+  <div class="done">
+    <h4>Done</h4>
+    <ul id="done-task-list">
+      <% @job.completed_tasks.each do |task| %>
+        <li><%= render 'jobs/task_form', :task => task %></li>
+      <% end %>
+    </ul>
+  </div>
+</div>
+

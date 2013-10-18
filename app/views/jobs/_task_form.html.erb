@@ -1,0 +1,4 @@
+<%= form_for task, :class => "edit_task", remote: true do |f| %>
+  <%= f.check_box :done %>
+  <%= f.label :done, task.description %> 
+<% end %>

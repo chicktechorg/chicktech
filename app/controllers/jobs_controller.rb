@@ -42,6 +42,7 @@ class JobsController < ApplicationController
 
   def show
     @job = Job.find(params[:id])
+    @task = Task.new(params[:job_id])
   end
 
   def destroy

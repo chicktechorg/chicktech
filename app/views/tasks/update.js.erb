@@ -1,0 +1,9 @@
+<% if @task.done? %>
+  $('#<%= "edit_task_" + @task.id.to_s %>').parent().remove();
+  $('#done-task-list').append("<li><%= j render '/jobs/task_form', :task => @task %></li>")
+  $('#<%= "edit_task_" + @task.id.to_s %>').submitOnCheck();
+<% else %>
+  $('#<%= "edit_task_" + @task.id.to_s %>').parent().remove();
+  $('#not-done-task-list').append("<li><%= j render '/jobs/task_form', :task => @task %></li>")
+  $('#<%= "edit_task_" + @task.id.to_s %>').submitOnCheck();
+<% end %>
