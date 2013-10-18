@@ -1,7 +1,9 @@
 class User < ActiveRecord::Base
+
+  attr_reader :raw_invitation_token
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable, 
-  devise :database_authenticatable, :registerable,
+  devise :database_authenticatable, :registerable, :invitable,
          :recoverable, :rememberable, :trackable, :validatable
 
   ROLES = %w[volunteer admin superadmin]

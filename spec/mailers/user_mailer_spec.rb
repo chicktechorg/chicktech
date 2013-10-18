@@ -1,12 +1,12 @@
 require "spec_helper"
 
 describe UserMailer do
-  describe 'welcome_email' do
+  describe 'send_information' do
     let(:user) { FactoryGirl.create(:volunteer) }
-    let(:mail) { UserMailer.welcome_email(user) }
+    let(:mail) { UserMailer.send_information(user) }
 
     it 'renders the subject' do
-      mail.subject.should eq 'Welcome to Chicktech'
+      mail.subject.should eq 'ChickTech Updates'
     end
 
     it 'renders the receiver email' do
