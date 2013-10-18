@@ -17,4 +17,16 @@ describe User do
     job2 = FactoryGirl.create(:job, :user_id => user.id, :event_id => event.id)
     user.unique_events.should eq [event]
   end
+
+  # it "sends an e-mail on sign up" do
+  #   user = FactoryGirl.create(:volunteer)
+  #   user.send_welcome
+  #   ActionMailer::Base.deliveries.last.to.should == [user.email]
+  # end
+
+  it "sends an e-mail" do
+    user = FactoryGirl.create(:volunteer)
+    user.send_information
+    ActionMailer::Base.deliveries.last.to.should == [user.email]
+  end
 end

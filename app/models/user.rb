@@ -1,6 +1,6 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable
+  # :confirmable, :lockable, :timeoutable and :omniauthable, 
   devise :database_authenticatable, :registerable,
          :recoverable, :rememberable, :trackable, :validatable
 
@@ -21,5 +21,13 @@ class User < ActiveRecord::Base
   def unique_events
     @events = Event.all
     self.events.uniq
+  end
+
+  # def send_welcome
+  #   UserMailer.welcome_email(self).deliver
+  # end
+
+  def send_information
+    UserMailer.send_information(self).deliver
   end
 end
