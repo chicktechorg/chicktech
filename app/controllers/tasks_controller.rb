@@ -11,7 +11,7 @@ class TasksController < ApplicationController
     @task = Task.new(task_params)
     if @task.save
       flash[:notice] = "Task has been successfully created."
-      redirect_to job_path(@task.job.id)
+      redirect_to job_path(@task.job)
     else
       flash[:alert] = "Sorry, something went wrong."
       render :new
@@ -25,13 +25,18 @@ class TasksController < ApplicationController
     @task = Task.find(params[:id])
     @task.update(task_params)
     respond_to do |format|
-      format.html { redirect_to job_path(task.job.id)}
+      format.html { redirect_to job_path(@task.job)}
       format.js
     end
   end
 
-  # def destroy
-  # end
+  def destroy
+    @task = Task.destroy(params[:id])
+    respond_to do |format|
+      format.html { redirect_to job_path(@task.job)}
+      format.js
+    end
+  end
 
 private
 

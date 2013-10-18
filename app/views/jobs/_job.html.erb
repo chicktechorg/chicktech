@@ -1,5 +1,5 @@
-<h4>Job Title: <%= link_to job.name, job_path(:id => job.id) %></h4>
-<% if !job.user_id %>
+<h4>Job Title: <%= link_to job.name, job %></h4>
+<% if job.user_id.nil? %>
   <%= form_for job do |f| %>
     <%= f.hidden_field :user_id, :value => current_user.id %>
     <%= f.submit "Sign Up!", :method => :patch, :class => "btn btn-primary btn-mini" %>

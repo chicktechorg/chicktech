@@ -13,6 +13,7 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       flash[:notice] = "#{@user.first_name} has successfully been created."
+
       redirect_to users_path
     else
       flash[:alert] = "Something went wrong."
@@ -24,6 +25,7 @@ class UsersController < ApplicationController
    @user = User.find(params[:id])
    @events = Event.all
    @jobs = Job.all
+   redirect_to edit_user_path(@user) if @user.first_name.nil?
   end
 
   def edit

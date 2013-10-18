@@ -11,7 +11,7 @@ class JobsController < ApplicationController
     @job = Job.new(job_params)
     if @job.save
       flash[:notice] = "#{@job.name} has been successfully created."
-      redirect_to event_path(@job.event.id)
+      redirect_to @job.event
     else
       flash[:alert] = "Something went wrong."
       render :new
@@ -27,13 +27,13 @@ class JobsController < ApplicationController
     if @job.update(params[:job].permit(:name, :description, :user_id))
       if params[:job][:user_id] && @job.user_id != nil
         flash[:notice] = "Congratulations! You are signed up for the job #{@job.name}"
-        redirect_to jobs_path
+        redirect_to @job
       elsif params[:job][:user_id]
         flash[:notice] = "You have resigned from the job #{@job.name}"
-        redirect_to jobs_path
+        redirect_to @job
       else
         flash[:notice] = "#{@job.name} got updated."
-        redirect_to jobs_path
+        redirect_to @job
       end
     else
       render :edit

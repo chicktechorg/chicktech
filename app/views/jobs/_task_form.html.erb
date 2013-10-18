@@ -1,4 +1,6 @@
 <%= form_for task, :class => "edit_task", remote: true do |f| %>
   <%= f.check_box :done %>
   <%= f.label :done, task.description %> 
+  <small><%= link_to "(remove)", task, method: :delete, remote: true %></small>
+        
 <% end %>
