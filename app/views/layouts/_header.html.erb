@@ -1,16 +1,20 @@
 <nav class="navbar navbar-static-top" role="navigation">
   <ul class='nav navbar-nav '>
+    
     <li><%=link_to image_tag("ChickTech_logo_2_02.jpg", :class => 'logo-image'), root_path %></li>
     <% if user_signed_in? %>
+
       <% if current_user.role? :superadmin %>
         <li><%= link_to "Manage Volunteers", "#", { :class => 'nav-font'} %></li>
       <% end %>
       <% if current_user.role? :admin %>
         <li><%= link_to "Manage Events", "/events/new", { :class => 'nav-font'} %></li>
       <% end %>  
+<!-- <div class="hr">
+      <hr />
+    </div> -->
     <% end %>
   </ul>  
-
   <ul class='nav navbar-nav pull-right'>
     <% if user_signed_in? %>
       <% if can? :create, User %>
@@ -19,7 +23,6 @@
       
       <li><%= link_to "Sign out", destroy_user_session_path, :method => :delete, :class => 'nav-font' %></li>
     <% else %>
-      <li><%= link_to "Sign in", new_user_session_path, { :class => 'nav-font'}  %></li>
     <% end %>
   </ul>
 </nav>

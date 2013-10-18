@@ -1,6 +1,6 @@
 <%= render @event %>
 <% if can? :manage, @event %>
-  <%= link_to "Add jobs", new_job_path(:event_id => @event), :class => "btn btn-success" %>
+  <%= link_to "Add jobs", new_job_path(:event_id => @event) %>
 <% end %>
 
 <h3>Jobs for this event</h3>
