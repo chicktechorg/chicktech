@@ -4,10 +4,25 @@
   @extend .has-error;
 }
 
-.navbar-brand {
-  color: #E94E77 !important;
-}
 
 .job-descriptions {
   margin-left: 3%;
+}
+
+.logo-image {
+  width: 150px;
+}
+
+.nav-font {
+  color: #736759;
+  margin-top: 30px;
+  font-size: 20px;
+}
+
+.nav-font:hover {
+  color: #ef669e;
+}
+
+.nav > li > a:hover, .nav > li > a:focus {
+  background-color: transparent;
 }
