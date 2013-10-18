@@ -2,8 +2,10 @@ require 'spec_helper'
 
 feature 'Creating jobs' do
 
+  let(:admin) { FactoryGirl.create(:admin) }
+  let(:event) { FactoryGirl.create(:event) }
+
   scenario 'with valid inputs' do
-    admin = FactoryGirl.create(:admin)
     event = FactoryGirl.create(:event)
     sign_in(admin)
     visit new_job_path
@@ -14,8 +16,6 @@ feature 'Creating jobs' do
   end
 
   scenario 'with no inputs' do
-    admin = FactoryGirl.create(:admin)
-    event = FactoryGirl.build(:event)
     sign_in(admin)
     visit new_job_path
     click_on 'Create Job' 

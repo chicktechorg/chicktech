@@ -1,4 +1,9 @@
-<h4>Job Title: <%= link_to job.name, job_path(:id => job.id) %></h4>
+<h3>Job Title: <%= link_to job.name, job_path(:id => job.id) %></h3>
+
+<% if job.taken? %>
+  <div>Taken by: <%= job.user.first_name %> <%= job.user.last_name %></div>
+<% end %>
+
 <% if !job.user_id %>
   <%= form_for job do |f| %>
     <%= f.hidden_field :user_id, :value => current_user.id %>

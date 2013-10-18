@@ -3,7 +3,7 @@
     <li><%= link_to "ChickTech", root_path, :class => "navbar-brand" %></li>
     <% if user_signed_in? %>
       <% if current_user.role? :superadmin %>
-        <li><%= link_to "Manage Volunteers", "#" %></li>
+        <li><%= link_to "Manage Volunteers", users_path %></li>
       <% end %>
       <% if current_user.role? :admin %>
         <li><%= link_to "Manage Events", "/events/new" %></li>
@@ -13,9 +13,6 @@
 
   <ul class='nav navbar-nav pull-right'>
     <% if user_signed_in? %>
-      <% if can? :create, User %>
-        <li><%= link_to "Add volunteer", new_user_path %></li>
-      <% end %>
       <li class="navbar-text">Signed in as <%= current_user.first_name %></li>
       <li><%= link_to "Sign out", destroy_user_session_path, :method => :delete %></li>
     <% else %>

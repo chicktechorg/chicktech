@@ -7,4 +7,8 @@ class Job < ActiveRecord::Base
   def owned_by?(user)
     self.user_id == user.id
   end
+
+  def taken?
+    self.user_id != nil
+  end
 end
