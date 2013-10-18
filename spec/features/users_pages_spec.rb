@@ -82,7 +82,7 @@ feature "Signing in" do
     fill_in "Email", :with => user.email
     fill_in "Password", :with => user.password
     click_button "Sign in" 
-    page.should have_content 'Signed in as'
+    page.should have_content 'successfully'
   end
 
   scenario "with incorrect information" do
