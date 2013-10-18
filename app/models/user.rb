@@ -1,7 +1,7 @@
 class User < ActiveRecord::Base
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable, 
-  devise :database_authenticatable, :registerable,
+  devise :database_authenticatable, :registerable, :invitable,
          :recoverable, :rememberable, :trackable, :validatable
 
   ROLES = %w[volunteer admin superadmin]
@@ -10,9 +10,9 @@ class User < ActiveRecord::Base
     ROLES.index(base_role.to_s) <= ROLES.index(role)
   end
 
-  validates_presence_of :first_name
-  validates_presence_of :last_name      
-  validates_presence_of :phone
+  # validates_presence_of :first_name
+  # validates_presence_of :last_name      
+  # validates_presence_of :phone
   validates_presence_of :role
 
   has_many :jobs
