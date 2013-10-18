@@ -4,12 +4,57 @@
   @extend .has-error;
 }
 
-.navbar-brand {
-  color: #E94E77 !important;
+.welcome {
+  color: #736759;
+  text-align: center;
+  font-size: 50px;
+}
+
+.sign-in-button {
+  -webkit-border-radius: 10;
+  -moz-border-radius: 10;
+  border-radius: 10px;
+  font-family: Arial;
+  color: #FFF;
+  font-size: 23px;
+  background: #ef669e;
+  padding: 9px 20px 10px 20px;
+  text-decoration: none;
+  text-align: center;
+  top: 40%;
+  position: relative;
+  margin-right: 0 auto;
+  margin-left: 0 auto;
+
+}
+
+.sign-in-button:hover {
+  background: #e32976;
+  text-decoration: none;
+  color: white;
+}
+
+.sign-in-button-small {
+  -webkit-border-radius: 10;
+  -moz-border-radius: 10;
+  border-radius: 10px;
+  font-family: Arial;
+  color: #FFF;
+  font-size: 18px;
+  background: #ef669e;
+  padding: 9px 10px 9px 10px;
+  text-decoration: none;
+  border: none;
+  margin-bottom: 25px;
+}
+
+.sign-in-button-small:hover {
+  background: #e32976;
+  text-decoration: none;
 }
 
 .job-descriptions {
-  margin-left: 3%;
+  text-indent: 30px;
 }
 
 ul {
@@ -24,4 +69,175 @@ ul {
 .not-done {
   float: left;
   margin-right: 25%;
+}
+
+.logo-image {
+  width: 150px;
+}
+
+.nav-font {
+  color: #736759; /* light brown */
+  margin-top: 30px;
+  font-size: 20px;
+}
+
+.nav-font:hover {
+  color: #ef669e; /* chicktech pink */
+}
+
+.nav > li > a:hover, .nav > li > a:focus {
+  background-color: transparent;
+}
+
+.center-pane {
+  margin:140px 0px; 
+  padding:0px;
+  text-align:center;
+}
+
+.alert-info {
+  background-color: #4bbbbd; /* chicktech blue */
+  color: white;
+}
+
+.alert-danger {
+  background-color: #ef669e;
+  color: #736759;
+}
+
+a {
+  color: #4bbbbd;
+}
+
+.headers {
+  color: #736759;
+  font-size: 40px;
+
+}
+
+.form-control-sign-in {
+  width: 100% !important;
+  display: block;
+  height: 34px;
+  padding: 6px 12px;
+  font-size: 14px;
+  line-height: 1.42857;
+  color: #555555;
+  vertical-align: middle;
+  background-color: white;
+  border: 1px solid #cccccc;
+  border-radius: 4px;
+  -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
+  -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+  transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+  margin: 0 auto; 
+}
+
+hr {
+  background: #ddd; 
+  clear: both; 
+  float: none; 
+  width: 80%; 
+  height: 1px;
+  margin: 0 0 1.4em;
+  border: none; 
+}
+
+.new_user {
+  width: 300px;
+  margin: 0 auto;
+
+}
+
+body {
+  color: #736759;
+}
+
+label {
+  float: left;
+  color: #736759; /* light brown */
+
+}
+
+.edit-links {
+  font-size: 10px;
+}
+
+.check-box {
+  float: left;
+ }
+
+.drop-below {
+  margin-top: 55px;
+
+}
+
+.contact-info {
+  color: #736759;
+  text-align: center ;
+}
+
+.container {
+  width: 500px;
+}
+
+hr.style-four {
+  border: 0;
+  height: 1px;
+  background-image: -webkit-linear-gradient(left, rgba(0,0,0,0), rgba(75, 187, 189, 1), rgba(0,0,0,0)); 
+  background-image:    -moz-linear-gradient(left, rgba(0,0,0,0), rgba(75, 187, 189, 1), rgba(0,0,0,0)); 
+  background-image:     -ms-linear-gradient(left, rgba(0,0,0,0), rgba(75, 187, 189, 1), rgba(0,0,0,0)); 
+  background-image:      -o-linear-gradient(left, rgba(0,0,0,0), rgba(75, 187, 189, 1), rgba(0,0,0,0)); 
+  x-shadow: inset 0 12px 12px -12px rgba(0,0,0,0.5);
+  margin: 0 auto;
+}
+
+.section-header {
+  font-size: 20px;
+}
+
+.create-button {
+ -webkit-border-radius: 10;
+  -moz-border-radius: 10;
+  border-radius: 10px;
+  font-family: Arial;
+  color: #FFF;
+  font-size: 18px;
+  background: #ef669e;
+  padding: 9px 10px 9px 10px;
+  text-decoration: none;
+  border: none;
+  margin-bottom: 25px;
+}
+
+.create-button:hover {
+  background: #e32976;
+  text-decoration: none;
+  color: white;
+}
+
+.event-name {
+  color: #ef669e;
+}
+
+/*Make sure to come back and change this to a link*/
+.submit-no-button {
+  -webkit-border-radius: 10;
+  -moz-border-radius: 10;
+  border-radius: 10px;
+  font-family: Arial;
+  color: #FFF;
+  font-size: 18px;
+  background: #ef669e;
+  padding: 9px 10px 9px 10px;
+  text-decoration: none;
+  border: none;
+  margin-bottom: 25px;
+}
+
+.submit-no-button:hover {
+  background: #e32976;
+  text-decoration: none;
+  color: white;
 }

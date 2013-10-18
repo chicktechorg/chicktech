@@ -82,7 +82,7 @@ feature "Signing in" do
     fill_in "Email", :with => user.email
     fill_in "Password", :with => user.password
     click_button "Sign in" 
-    page.should have_content 'Signed in as'
+    page.should have_content 'successfully'
   end
 
   scenario "with incorrect information" do
@@ -136,22 +136,12 @@ feature "'Manage Events' link" do
   end
 end
 
-feature "'Add volunteer' link" do
-  scenario "when Admin is signed in" do
-    admin = FactoryGirl.create(:admin)
-    visit '/users/sign_in'
-    fill_in "Email", :with => admin.email
-    fill_in "Password", :with => admin.password
-    click_button "Sign in"
-    page.should_not have_content 'Add volunteer'
-  end
+feature "Invite a user link" do
   scenario "Superadmin is signed in" do
     superuser = FactoryGirl.create(:superadmin)
-    visit '/users/sign_in'
-    fill_in "Email", :with => superuser.email
-    fill_in "Password", :with => superuser.password
-    click_button "Sign in" 
-    page.should have_content 'Add volunteer'
+    sign_in(superuser)
+    visit users_path
+    page.should have_content 'Invite a new user'
   end
 end
 

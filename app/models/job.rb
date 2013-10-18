@@ -16,4 +16,8 @@ class Job < ActiveRecord::Base
   def incompleted_tasks
     tasks.incomplete
   end
+
+  def taken?
+    self.user_id != nil
+  end
 end

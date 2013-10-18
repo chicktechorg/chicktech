@@ -74,49 +74,49 @@ feature "Adding a job" do
 end
 
 feature "Signing up for jobs" do
+
+  let(:volunteer) { FactoryGirl.create(:volunteer) }
+  let(:admin) { FactoryGirl.create(:admin) }
+  
   scenario "signed in" do
-    volunteer = FactoryGirl.create(:volunteer)
-    event_1 = FactoryGirl.create(:event)
-    job = FactoryGirl.create(:job, :event_id => event_1.id)
+    event = FactoryGirl.create(:event)
+    job = FactoryGirl.create(:job, :event_id => event.id) 
     sign_in(volunteer)
-    click_on(event_1.name)
+    click_on(event.name)
     page.should have_button "Sign Up!"
   end
 
   scenario "signing up for a job" do
-    volunteer = FactoryGirl.create(:volunteer)
-    event_1 = FactoryGirl.create(:event)
-    job = FactoryGirl.create(:job, :event_id => event_1.id)
+    event = FactoryGirl.create(:event)
+    job = FactoryGirl.create(:job, :event_id => event.id) 
     sign_in(volunteer)
-    click_on(event_1.name)
+    click_on(event.name)
     click_on "Sign Up!"
     page.should have_content "Congratulations"
   end
 
   scenario "job is already taken" do
-    volunteer = FactoryGirl.create(:volunteer)
-    event_1 = FactoryGirl.create(:event)
-    job = FactoryGirl.create(:job, :event_id => event_1.id)
+    event = FactoryGirl.create(:event)
+    job = FactoryGirl.create(:job, :event_id => event.id) 
     sign_in(volunteer)
-    click_on(event_1.name)
+    click_on(event.name)
     click_on "Sign Up!"
     page.should_not have_button "Sign Up!"
     page.should have_button "Resign!"
   end
 
   scenario "jobs are taken by other users" do
-    volunteer1 = FactoryGirl.create(:volunteer)
-    event_1 = FactoryGirl.create(:event)
-    job = FactoryGirl.create(:job, :event_id => event_1.id)
-    sign_in(volunteer1)
-    click_on(event_1.name)
+    event = FactoryGirl.create(:event)
+    job = FactoryGirl.create(:job, :event_id => event.id) 
+    sign_in(volunteer)
+    click_on(event.name)
     click_on "Sign Up!"
     click_on "Sign out"
-    admin = FactoryGirl.create(:admin)
     sign_in(admin)
-    click_on(event_1.name)
+    click_on(event.name)
     page.should_not have_button "Sign Up!"
     page.should_not have_button "Resign!"
+    page.should have_content "Taken by"
   end
 end
 

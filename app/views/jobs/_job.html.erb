@@ -1,25 +1,24 @@
-<h4>Job Title: <%= link_to job.name, job %></h4>
-<% if job.user_id.nil? %>
-  <%= form_for job do |f| %>
-    <%= f.hidden_field :user_id, :value => current_user.id %>
-    <%= f.submit "Sign Up!", :method => :patch, :class => "btn btn-primary btn-mini" %>
-  <% end %>
-<% end %>
-<% if job.owned_by?(current_user) %> 
-  <%= form_for job do |f| %>
-    <%= f.hidden_field :user_id, :value => nil %>
-    <%= f.submit "Resign!", :method => :patch, :class => "btn btn-alert btn-mini" %>
-  <% end %>
-<% end %>
-
 <div class="job-descriptions">
-  Description: <%= job.description %></p>
+  <h4>Job Title: <%= link_to job.name, job_path(:id => job.id) %></h4>
+  <% if job.taken? %>
+    <div>Taken by: <%= job.user.first_name %> <%= job.user.last_name %></div>
+  <% else %>
+    <%= form_for job do |f| %>
+      <%= f.hidden_field :user_id, :value => current_user.id %>
+      <%= f.submit "Sign Up!", :method => :patch, :class => "submit-no-button" %>
+    <% end %>
+  <% end %>
+  <% if job.owned_by?(current_user) %> 
+    <%= form_for job do |f| %>
+      <%= f.hidden_field :user_id, :value => nil %>
+      <%= f.submit "Resign!", :method => :patch, :class => "submit-no-button" %>
+    <% end %>
+  <% end %>
+
+
+  <p> Description: <%= job.description %></p>
   <% if can? :manage, job %>
-    <span>
       <%= link_to "Delete ", job_path(:id => job.id), :method => :delete, :data => { :confirm => 'Are you sure?' } %>
-    </span>
-    <span>   
       <%= link_to "Edit", edit_job_path(:id => job.id, :event_id => job.event.id) %> 
-    </span>
   <% end %>  
 </div>
