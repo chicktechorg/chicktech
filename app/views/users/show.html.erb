@@ -1,6 +1,7 @@
 <div class='contact-info'>
   <h1 class='user-name'><%= "#{@user.first_name} #{@user.last_name}" %></h1>
   <p>Phone: <%= @user.phone %></p>
+  <p>Email: <%= @user.email %></p>
   <p>Role: <%= @user.role %></p>
   <%= link_to "Edit Profile", edit_user_path(@user), :class => 'edit-links' %>  <!-- should be in a <p> tag, perhaps? -->
 </div>
