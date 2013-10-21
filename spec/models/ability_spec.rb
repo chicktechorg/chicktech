@@ -15,7 +15,11 @@ describe "Volunteer" do
       ability.should_not be_able_to(:create, User.new)
     end
 
-    #fixme add test that can read an event
+    it "should allow a volunteer to read" do
+      user = FactoryGirl.create(:volunteer)
+      ability = Ability.new(user)
+      ability.should be_able_to(:read, Event)
+    end    
   end
 end
 
@@ -63,5 +67,3 @@ describe "unauthorized user" do
     end
   end
 end
-
-#fixme permissions for tasks and jobs

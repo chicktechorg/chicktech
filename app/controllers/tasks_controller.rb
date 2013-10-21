@@ -1,14 +1,7 @@
-#fixme remove comments
-#fixme add newline at end of file
-
 class TasksController < ApplicationController
   def index
     @tasks = Task.all
   end
-
-  # def new
-  #   @task = Task.new(params[:job])
-  # end
 
   def create
     @task = Task.new(task_params)
@@ -20,9 +13,6 @@ class TasksController < ApplicationController
       render :new
     end
   end
-
-  # def edit
-  # end
 
   def update
     @task = Task.find(params[:id])

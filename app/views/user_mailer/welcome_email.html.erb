@@ -5,17 +5,16 @@
   </head>
   <body>
     <h1>Welcome to ChickTech, <%= @user.first_name %></h1>
-    <p> <!-- #fixme p-tag-ception -->
+    <p>
       You have been signed up to ChickTech.
       Your username is your e-mail address: <%= @user.email %>.
       Please follow this link to create your password.
-
-      <p>Someone has requested a link to change your password. You can do this through the link below.</p>
-
-      <p><%= link_to 'Change my password', edit_password_url(@resource, :reset_password_token => @token) %></p>
-
-      <p>If you didn't request this, please ignore this email.</p>
-      <p>Your password won't change until you access the link above and create a new one.</p>
+    </p>
+    <p>Click on the link below to add your informaiton and select a password.</p>
+    <p><%= link_to 'Change my password', edit_password_url(@resource, :reset_password_token => @token) %>
+    </p>
+    <p>If you didn't request this, please ignore this email.</p>
+    <p>Your password won't change until you access the link above and create a new one.
     </p>
     <p>
       To login to the site, just follow this link: <%= @url %>.

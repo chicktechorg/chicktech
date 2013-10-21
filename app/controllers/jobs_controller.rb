@@ -24,19 +24,18 @@ class JobsController < ApplicationController
 
   def update
     @job = Job.find(params[:id])
-    if @job.update(params[:job].permit(:name, :description, :user_id)) #fixme why not use job_params here?
-      if params[:job][:user_id] && @job.user_id != nil #if params[:job][:signed_up]
-        flash[:notice] = "Congratulations! You are signed up for the job #{@job.name}."
-        redirect_to @job
-      elsif params[:job][:user_id] #if params[:job][:resigned], set volunteer_id to current_user.id
-        flash[:notice] = "You have resigned from the job #{@job.name}."
-        redirect_to @job
-      else
-        flash[:notice] = "#{@job.name} got updated."
-        redirect_to @job
-      end
-    else
-      render :edit
+    if params[:job][:signing_up]
+      @job.update(user_id: current_user.id)
+      flash[:notice] = "Congratulations! You are signed up for the job #{@job.name}."
+      redirect_to @job
+    elsif params[:job][:resigning]
+      @job.update(user_id: nil)
+      flash[:notice] = "You have resigned from the job #{@job.name}."
+      redirect_to @job
+    else 
+      @job.update(job_params)
+      flash[:notice] = "#{@job.name} got updated."
+      redirect_to @job
     end
   end
 
@@ -56,6 +55,6 @@ class JobsController < ApplicationController
 private
 
   def job_params
-    params.require(:job).permit(:name, :event_id, :description, :user_id) #fixme don't permit user id to be set externally
+    params.require(:job).permit(:name, :event_id, :description) #fixme don't permit user id to be set externally
   end
 end
