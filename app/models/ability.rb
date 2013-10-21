@@ -5,9 +5,13 @@ class Ability
     if user
       if user.role? :volunteer
         can :read, Event
+        can :manage, Task
+        can :manage, Job
       end
       if user.role? :admin
         can :manage, Event
+        can :manage, Task
+        can :manage, Job
       end
       if user.role? :superadmin
         can :manage, :all

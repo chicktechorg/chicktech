@@ -197,3 +197,13 @@ feature "changing password" do
     page.should have_content "successfully"
   end
 end
+
+feature "user_signed_in?" do
+  scenario "logged in user is redirected to their show page is their home page" do
+    volunteer = FactoryGirl.create(:volunteer)
+    sign_in(volunteer)
+    visit root_path
+    page.should have_content volunteer.first_name
+  end
+end
+
