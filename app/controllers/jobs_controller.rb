@@ -37,21 +37,6 @@ class JobsController < ApplicationController
       flash[:notice] = "#{@job.name} got updated."
       redirect_to @job
     end
-
-    # if @job.update(params[:job].permit(:name, :description, :user_id)) #fixme why not use job_params here?
-    #   if params[:job][:user_id] && @job.user_id != nil #if params[:job][:signed_up]
-    #     flash[:notice] = "Congratulations! You are signed up for the job #{@job.name}."
-    #     redirect_to @job
-    #   elsif params[:job][:user_id] #if params[:job][:resigned], set volunteer_id to current_user.id
-    #     flash[:notice] = "You have resigned from the job #{@job.name}."
-    #     redirect_to @job
-    #   else
-    #     flash[:notice] = "#{@job.name} got updated."
-    #     redirect_to @job
-    #   end
-    # else
-    #   render :edit
-    # end
   end
 
   def show
