@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 feature "Creating events" do
-
   scenario "with valid input" do
     admin = FactoryGirl.create(:admin)
     sign_in(admin)
@@ -34,7 +33,6 @@ feature "Creating events" do
 end
 
 feature "Listing events" do 
-
   scenario "with several events" do
     volunteer = FactoryGirl.create(:volunteer)
     sign_in(volunteer)
@@ -74,7 +72,6 @@ feature "Adding a job" do
 end
 
 feature "Signing up for jobs" do
-
   let(:volunteer) { FactoryGirl.create(:volunteer) }
   let(:admin) { FactoryGirl.create(:admin) }
   
@@ -119,9 +116,3 @@ feature "Signing up for jobs" do
     page.should have_content "Taken by"
   end
 end
-
-
-
-
-
-#fixme clean up extra line breaks
