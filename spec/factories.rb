@@ -11,6 +11,7 @@ FactoryGirl.define do
 
   factory :task do
     description 'Example task'
+    event
     job
     #fixme create more associations like this
   end
