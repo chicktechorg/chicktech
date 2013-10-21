@@ -1,3 +1,6 @@
+#fixme remove comments
+#fixme line break at end
+
 class EventsController < ApplicationController
   authorize_resource
   def index
@@ -29,7 +32,7 @@ class EventsController < ApplicationController
 
   def edit 
     @event = Event.find(params[:id])
-    render :edit
+    render :edit #fixme don't need to call render when template has same name as action
   end
 
   def update
@@ -50,7 +53,7 @@ class EventsController < ApplicationController
     redirect_to events_path
   end
 
-
+#line breaks!
 
 private
 

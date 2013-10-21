@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 feature 'Signing Up' do
-  
   scenario 'with valid inputs' do
     superadmin = FactoryGirl.create(:superadmin)
     sign_in(superadmin)
@@ -75,7 +74,6 @@ feature 'Signing Up' do
 end
 
 feature "Signing in" do
-
   scenario "with correct information" do
     user = FactoryGirl.create(:volunteer)
     visit '/users/sign_in'
@@ -103,6 +101,7 @@ feature "'Manage Volunteers' link" do
     click_button "Sign in" 
     page.should have_content 'Manage Volunteers'
   end
+
   scenario "when Admin is signed in" do
     admin = FactoryGirl.create(:admin)
     visit '/users/sign_in'
@@ -111,6 +110,7 @@ feature "'Manage Volunteers' link" do
     click_button "Sign in"
     page.should_not have_content 'Manage Volunteers'
   end
+
   scenario "when no one is signed in" do
     visit root_path
     page.should_not have_content 'Manage Volunteers'
@@ -197,15 +197,3 @@ feature "changing password" do
     page.should have_content "successfully"
   end
 end
-
-
-
-  # scenario "logged in user is able to change their password" do
-  #   volunteer = FactoryGirl.create(:volunteer)
-  #   sign_in
-
-
-
-
-
-

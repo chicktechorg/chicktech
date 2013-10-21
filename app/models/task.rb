@@ -12,6 +12,7 @@ class Task < ActiveRecord::Base
   end
   
 private
+
   def set_not_done
     self.done ||= false
   end

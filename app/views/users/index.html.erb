@@ -4,7 +4,11 @@
 <ul>
   <% @users.each do |user| %>
     <li><%= link_to "#{user.first_name} #{user.last_name}", user %></li>
-    <li> <%= user.email %></li>
-    <p><%= link_to "remove", user_path(user), :method => :delete, :class => "btn btn-danger", :id => "remove#{user.id}" %></p>
+    <li><%= user.email %></li>
+    <li><%= link_to "remove",
+                    user_path(user),
+                    :method => :delete,
+                    :class => "btn btn-danger",
+                    :id => "remove#{user.id}" %></li>
   <% end %>
 <ul>

@@ -1,5 +1,4 @@
 class UsersController < ApplicationController
-
   def index
     @users = User.all
   end
@@ -13,7 +12,6 @@ class UsersController < ApplicationController
     @user = User.new(user_params)
     if @user.save
       flash[:notice] = "#{@user.first_name} has successfully been created."
-
       redirect_to users_path
     else
       flash[:alert] = "Something went wrong."
@@ -25,7 +23,7 @@ class UsersController < ApplicationController
    @user = User.find(params[:id])
    @events = Event.all
    @jobs = Job.all
-   redirect_to edit_user_path(@user) if @user.first_name.nil?
+   redirect_to edit_user_path(@user) if @user.first_name.nil? # push down to model
   end
 
   def edit
@@ -46,7 +44,7 @@ class UsersController < ApplicationController
   def destroy
     @user = User.find(params[:id])
     @user.destroy
-    flash[:notice] = "Your user has been destroyed"
+    flash[:notice] = "Your user has been destroyed."
     redirect_to users_path
   end
 
@@ -55,5 +53,4 @@ private
   def user_params
     params.require(:user).permit(:first_name, :last_name, :email, :phone, :password, :password_confirmation, :role)
   end
-
 end

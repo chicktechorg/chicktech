@@ -1,3 +1,6 @@
+#fixme remove comments
+#fixme add newline at end of file
+
 class TasksController < ApplicationController
   def index
     @tasks = Task.all

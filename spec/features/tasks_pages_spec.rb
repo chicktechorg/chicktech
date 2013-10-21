@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 feature "Creating tasks" do
-  
   scenario "with input from volunteer" do
     volunteer = FactoryGirl.create(:volunteer)
     event = FactoryGirl.create(:event)
@@ -15,7 +14,6 @@ feature "Creating tasks" do
 end
 
 feature 'Removing tasks' do
-
   scenario 'by clicking a remove link' do
     volunteer = FactoryGirl.create(:volunteer)
     event = FactoryGirl.create(:event)
@@ -29,7 +27,6 @@ feature 'Removing tasks' do
 end
 
 feature 'Clicking on a task' do
-
   scenario 'that is incomplete', js: true do
     volunteer = FactoryGirl.create(:volunteer)
     event = FactoryGirl.create(:event)
@@ -39,6 +36,7 @@ feature 'Clicking on a task' do
     visit job_path(job)
     check task.description
     within("#done-task-list") { page.should have_content task.description }
+    #fixme does this really test the right thing?
   end
 
   scenario 'that is complete', js: true do

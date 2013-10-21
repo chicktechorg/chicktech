@@ -14,6 +14,8 @@ describe "Volunteer" do
       ability = Ability.new(user)
       ability.should_not be_able_to(:create, User.new)
     end
+
+    #fixme add test that can read an event
   end
 end
 
@@ -61,3 +63,5 @@ describe "unauthorized user" do
     end
   end
 end
+
+#fixme permissions for tasks and jobs

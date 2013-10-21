@@ -18,15 +18,11 @@ describe User do
     user.unique_events.should eq [event]
   end
 
-  # it "sends an e-mail on sign up" do
-  #   user = FactoryGirl.create(:volunteer)
-  #   user.send_welcome
-  #   ActionMailer::Base.deliveries.last.to.should == [user.email]
-  # end
-
   it "sends an e-mail" do
     user = FactoryGirl.create(:volunteer)
     user.send_information
-    ActionMailer::Base.deliveries.last.to.should == [user.email]
+    ActionMailer::Base.deliveries.last.to.should eq [user.email]
   end
+
+  #fixme need a test for role
 end

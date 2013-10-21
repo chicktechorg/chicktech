@@ -27,11 +27,13 @@ describe Event do
     end
   end
 
-  it "returns only the upcoming events" do
-    fourty_minutes_from_now = Time.now + 40.minutes
-    event = FactoryGirl.create(:event, :start => Time.now + 1.hour)
-    event2 = FactoryGirl.create(:event, :start => Time.now + 30.minutes)
-    Time.stub(:now).and_return(fourty_minutes_from_now)
-    Event.upcoming.should eq [event]
+  describe ".upcoming" do
+    it "returns only the upcoming events" do
+      fourty_minutes_from_now = Time.now + 40.minutes
+      event = FactoryGirl.create(:event, :start => Time.now + 1.hour)
+      event2 = FactoryGirl.create(:event, :start => Time.now + 30.minutes)
+      Time.stub(:now).and_return(fourty_minutes_from_now)
+      Event.upcoming.should eq [event]
+    end
   end
 end

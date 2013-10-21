@@ -1,7 +1,6 @@
 require 'spec_helper'
 
 feature 'Creating jobs' do
-
   let(:admin) { FactoryGirl.create(:admin) }
   let(:event) { FactoryGirl.create(:event) }
 
