@@ -4,17 +4,16 @@
     <div>Taken by: <%= job.user.first_name %> <%= job.user.last_name %></div>
   <% else %>
     <%= form_for job do |f| %>
-      <%= f.hidden_field :user_id, :value => current_user.id %>
+      <%= f.hidden_field :signing_up, :value => true %>
       <%= f.submit "Sign Up!", :method => :patch, :class => "submit-no-button" %>
     <% end %>
   <% end %>
   <% if job.owned_by?(current_user) %> 
     <%= form_for job do |f| %>
-      <%= f.hidden_field :user_id, :value => nil %>
+      <%= f.hidden_field :resigning, :value => true %>
       <%= f.submit "Resign!", :method => :patch, :class => "submit-no-button" %>
     <% end %>
   <% end %>
-
 
   <p> Description: <%= job.description %></p>
   <% if can? :manage, job %>

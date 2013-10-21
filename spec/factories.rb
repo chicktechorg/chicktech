@@ -67,5 +67,6 @@ FactoryGirl.define do
   factory :job do
     name 'The Chosen One'
     description 'Save Hogwarts'
+    event
   end
 end

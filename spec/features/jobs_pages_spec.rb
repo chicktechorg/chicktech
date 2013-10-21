@@ -21,3 +21,23 @@ feature 'Creating jobs' do
     page.should have_content 'blank'
   end
 end
+
+feature 'User signs up for a job' do
+  let(:volunteer) { FactoryGirl.create(:volunteer) }
+  let(:job) { FactoryGirl.create(:job)}
+  before { sign_in(volunteer) }
+
+  scenario 'successfully' do
+    visit event_path(job.event)
+    click_on 'Sign Up!'
+    page.should have_content 'Congratulations!'
+  end
+
+  scenario 'resigns from a job' do
+    volunteer.jobs << job
+    visit event_path(job.event)
+    click_on 'Resign!'
+    page.should have_content 'resigned'
+  end
+end
+
