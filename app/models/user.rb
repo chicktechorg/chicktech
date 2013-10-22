@@ -1,4 +1,5 @@
 class User < ActiveRecord::Base
+
   attr_reader :raw_invitation_token
 
   validates_presence_of :first_name
@@ -6,7 +7,7 @@ class User < ActiveRecord::Base
   validates_presence_of :phone
   validates_presence_of :role
 
-  has_many :jobs
+  has_many :jobs, :dependent => :nullify
   has_many :events, through: :jobs
 
   # Include default devise modules. Others available are:
