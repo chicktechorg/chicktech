@@ -7,12 +7,16 @@ describe "Volunteer" do
     before { @ability = Ability.new(user) }
     subject { @ability }
 
-    it { should_not be_able_to(:create, Event.new) }
-    it { should_not be_able_to(:create, User.new) }
-    it { should_not be_able_to(:create, Job.new) }
-    it { should be_able_to(:read, Event.new) }
-    it { should be_able_to(:read, User.new) }
-    it { should be_able_to(:read, Job.new) }
+    [:create, :destroy].each do |action|
+      it { should_not be_able_to(action, Event.new) }
+      it { should_not be_able_to(action, User.new) }
+      it { should_not be_able_to(action, Job.new) }
+      it { should_not be_able_to(action, City.new) }
+    end
+
+    [Event.new, User.new, Job.new, City.new].each do |model|
+      it { should be_able_to(:read, model) }
+    end
 
     describe "managing tasks" do
       let(:job) { FactoryGirl.create(:job) }
@@ -36,6 +40,7 @@ describe "Admin" do
     
     it { should be_able_to(:manage, Event.new) }
     it { should be_able_to(:manage, Job.new) }
+    it { should be_able_to(:manage, City.new) }
     it { should_not be_able_to(:manage, User.new) }
   end
 end
@@ -46,9 +51,7 @@ describe "Superadmin" do
     before { @ability = Ability.new(superadmin) }
     subject { @ability }
 
-    it { should be_able_to(:manage, User.new) }
-    it { should be_able_to(:manage, Event.new) }
-    it { should be_able_to(:manage, Job.new) }
+    it { should be_able_to(:manage, :all) }
   end
 end
 
@@ -63,6 +66,7 @@ describe "unauthorized user" do
       it { should_not be_able_to(action, Job.new) }
       it { should_not be_able_to(action, User.new) }
       it { should_not be_able_to(action, Task.new) }
+      it { should_not be_able_to(action, City.new) }
     end
   end
 end

@@ -1,0 +1,26 @@
+<h1>Cities</h1>
+
+<div class="form-group">
+  <%= form_for @city do |f| %>
+    <% if @city.errors.any? %>
+      <div class="alert alert-danger">
+        <h4>Please correct these errors:</h4>
+        <ul>
+          <% @city.errors.full_messages.each do |message| %>
+            <li><%= message %></li>
+          <% end %>
+        </ul>
+      </div>
+    <% end %>
+    
+    <%= f.label :name %>
+    <%= f.text_field :name, :size => "25", placeholder: 'Portland, OR' %>
+    <%= f.submit 'Add' %>
+  <% end %>
+</div>
+
+<ul>
+  <% @cities.each do |city| %>
+    <li><%= city.name %> <%= link_to '(remove)', city_path(city), method: :delete %></li>
+  <% end %>
+</ul>
