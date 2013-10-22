@@ -40,7 +40,7 @@ FactoryGirl.define do
   end
 
   factory :job do
-    name 'The Chosen One'
+    sequence(:name) { |n| "The Chose One #{n}" }
     description 'Save Hogwarts'
     event
   end
