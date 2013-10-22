@@ -7,7 +7,7 @@ describe User do
   it { should validate_uniqueness_of :email }
   it { should validate_presence_of :role }
 
-  it { should have_many :jobs }
+  it { should have_many(:jobs).dependent(:nullify) }
   it { should have_many(:events).through(:jobs) }
 
   it "tells you each unique event it is signed up for" do
@@ -22,14 +22,5 @@ describe User do
     user = FactoryGirl.create(:volunteer)
     user.send_information
     ActionMailer::Base.deliveries.last.to.should eq [user.email]
-  end
-
-  it "removes all job associations when a user is deleted" do
-    user = FactoryGirl.create(:volunteer)
-    job1 = FactoryGirl.create(:job, :user_id => user.id)
-    job2 = FactoryGirl.create(:job, :user_id => user.id)
-    user.destroy
-    job1.reload.user_id.should be_nil
-    job2.reload.user_id.should be_nil
   end
 end

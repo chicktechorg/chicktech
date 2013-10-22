@@ -1,5 +1,4 @@
 class User < ActiveRecord::Base
-
   attr_reader :raw_invitation_token
 
   validates_presence_of :first_name
