@@ -7,7 +7,7 @@ describe User do
   it { should validate_uniqueness_of :email }
   it { should validate_presence_of :role }
 
-  it { should have_many :jobs }
+  it { should have_many(:jobs).dependent(:nullify) }
   it { should have_many(:events).through(:jobs) }
 
   it "tells you each unique event it is signed up for" do
@@ -23,6 +23,4 @@ describe User do
     user.send_information
     ActionMailer::Base.deliveries.last.to.should eq [user.email]
   end
-
-  #fixme need a test for role
 end

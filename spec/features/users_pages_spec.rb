@@ -163,6 +163,16 @@ feature "deleting a user" do
     click_link "remove#{volunteer.id}"
     page.should_not have_content volunteer.first_name
   end
+
+  scenario "should make users jobs available" do
+    superadmin = FactoryGirl.create(:superadmin)
+    volunteer = FactoryGirl.create(:volunteer)
+    sign_in(superadmin)
+    job = FactoryGirl.create(:job, :user_id => volunteer.id)
+    volunteer.destroy
+    visit job_path(job)
+    find('.submit-no-button').value.should eq 'Sign Up!'
+  end
 end
 
 feature "updating a user" do
