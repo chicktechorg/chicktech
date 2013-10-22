@@ -12,7 +12,6 @@ FactoryGirl.define do
   factory :task do
     description 'Example task'
     job
-    #fixme create more associations like this
   end
 
   factory :volunteer, class: User do

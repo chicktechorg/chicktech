@@ -1,17 +1,12 @@
-#fixme remove comments
-#fixme line break at end
-
 class EventsController < ApplicationController
   authorize_resource
   def index
     @events = Event.all
-
   end
 
   def new
     @event = Event.new
     @events = Event.all
-    # authorize! :create, @event
   end
 
   def create
@@ -22,17 +17,14 @@ class EventsController < ApplicationController
     else
       render :new
     end
-    # authorize! :create, @event
   end
 
   def show
     @event = Event.find(params[:id])
-    # authorize! :read, @event
   end
 
   def edit 
     @event = Event.find(params[:id])
-    render :edit #fixme don't need to call render when template has same name as action
   end
 
   def update
@@ -52,8 +44,6 @@ class EventsController < ApplicationController
     flash[:notice] = "Your event #{@name} has been destroyed."
     redirect_to events_path
   end
-
-#line breaks!
 
 private
 

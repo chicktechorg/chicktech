@@ -8,7 +8,7 @@ class Ability
         can :manage, Task, :job => { :user_id => user.id }
       end
       if user.role? :admin
-        can :manage, [Event, Job]
+        can :manage, [Event, Job, Task]
       end
       if user.role? :superadmin
         can :manage, :all
