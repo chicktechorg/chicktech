@@ -41,3 +41,14 @@ feature 'User signs up for a job' do
   end
 end
 
+feature 'Admin deletes a job' do
+  let(:superadmin) { FactoryGirl.create(:superadmin) }
+  let(:job) { FactoryGirl.create(:job) }
+  before { sign_in(superadmin) }
+
+  scenario 'successfully' do
+    visit job_path(job)
+    click_on 'Delete'
+    page.should have_content "'#{job.name}' deleted."
+  end
+end

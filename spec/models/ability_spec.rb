@@ -3,65 +3,66 @@ require 'cancan/matchers'
 
 describe "Volunteer" do
   describe "abilities" do
-    it "should not be allowed to create an event" do
-      user = FactoryGirl.create(:volunteer)
-      ability = Ability.new(user)
-      ability.should_not be_able_to(:create, Event.new)
-    end
+    let(:user) { FactoryGirl.create(:volunteer) }
+    before { @ability = Ability.new(user) }
+    subject { @ability }
 
-    it "should not be allowed to create a user" do
-      user = FactoryGirl.create(:volunteer)
-      ability = Ability.new(user)
-      ability.should_not be_able_to(:create, User.new)
-    end
+    it { should_not be_able_to(:create, Event.new) }
+    it { should_not be_able_to(:create, User.new) }
+    it { should_not be_able_to(:create, Job.new) }
+    it { should be_able_to(:read, Event.new) }
+    it { should be_able_to(:read, User.new) }
+    it { should be_able_to(:read, Job.new) }
 
-    #fixme add test that can read an event
+    describe "managing tasks" do
+      let(:job) { FactoryGirl.create(:job) }
+      before do
+        user.jobs << job
+        @ability = Ability.new(user)
+      end
+      subject { @ability }
+      
+      it { should be_able_to(:manage, job.tasks.new) }
+      it { should_not be_able_to(:manage, Job.new) }
+    end
   end
 end
 
 describe "Admin" do
   describe "abilities" do
-    it "should be able to manage events" do 
-      user = FactoryGirl.create(:admin)
-      event = FactoryGirl.create(:event)
-      ability = Ability.new(user)
-      ability.should be_able_to(:manage, event)
-    end
+    let(:admin) { FactoryGirl.create(:admin) }
+    before { @ability = Ability.new(admin) }
+    subject { @ability }
+    
+    it { should be_able_to(:manage, Event.new) }
+    it { should be_able_to(:manage, Job.new) }
+    it { should_not be_able_to(:manage, User.new) }
   end
 end
 
 describe "Superadmin" do
   describe "abilities" do
-    it "should be able to manage users" do 
-      user = FactoryGirl.create(:superadmin)
-      volunteer = FactoryGirl.build(:volunteer)
-      ability = Ability.new(user)
-      ability.should be_able_to(:manage, volunteer)
-    end
+    let(:superadmin) { FactoryGirl.create(:superadmin) }
+    before { @ability = Ability.new(superadmin) }
+    subject { @ability }
 
-    it "should be able to manage events" do
-      user = FactoryGirl.create(:superadmin)
-      event = FactoryGirl.create(:event)
-      ability = Ability.new(user)
-      ability.should be_able_to(:manage, event)
-    end
+    it { should be_able_to(:manage, User.new) }
+    it { should be_able_to(:manage, Event.new) }
+    it { should be_able_to(:manage, Job.new) }
   end
 end
 
 describe "unauthorized user" do
   describe "abilities" do
-    it "should not be allowed to create an event" do
-      user = User.new
-      ability = Ability.new(user)
-      ability.should_not be_able_to(:create, Event.new)
-    end
+    @user = User.new(role: nil)
+    let(:ability) { Ability.new(@user) }
+    subject { ability }
 
-    it "should not be allowed to read an event" do
-      user = User.new
-      ability = Ability.new(user)
-      ability.should_not be_able_to(:view, Event.new)
+    [:create, :read, :update, :destroy].each do |action|
+      it { should_not be_able_to(action, Event.new) }
+      it { should_not be_able_to(action, Job.new) }
+      it { should_not be_able_to(action, User.new) }
+      it { should_not be_able_to(action, Task.new) }
     end
   end
 end
-
-#fixme permissions for tasks and jobs

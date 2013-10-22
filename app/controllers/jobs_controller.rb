@@ -46,15 +46,14 @@ class JobsController < ApplicationController
 
   def destroy
     @job = Job.find(params[:id])
-    # name = @job.name
     @job.destroy
-    flash[:notice] = "Job '#{@job.name}' deleted." #fixme does this actually work?
+    flash[:notice] = "Job '#{@job.name}' deleted."
     redirect_to new_job_path 
   end
 
 private
 
   def job_params
-    params.require(:job).permit(:name, :event_id, :description) #fixme don't permit user id to be set externally
+    params.require(:job).permit(:name, :event_id, :description)
   end
 end
