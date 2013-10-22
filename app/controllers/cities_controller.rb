@@ -10,8 +10,8 @@ class CitiesController < ApplicationController
       flash[:notice] = "#{@city.name} has been added."
       redirect_to cities_path
     else
-      flash[:alert] = "City name cannot be blank"
-      redirect_to cities_path
+      @cities = City.all
+      render :index
     end
   end
 
@@ -22,7 +22,7 @@ class CitiesController < ApplicationController
   def destroy
     @city = City.find(params[:id])
     @city.destroy
-    flash[:alert] = "#{@city.name} has been deleted."
+    flash[:notice] = "#{@city.name} has been deleted."
     redirect_to cities_path
   end
 

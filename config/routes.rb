@@ -7,7 +7,7 @@ Chicktech::Application.routes.draw do
     end
   resources :users
   resources :jobs
-  resources :tasks
-  resources :cities
+  resources :tasks, :except => [:new, :edit, :show]
+  resources :cities, :except => [:new, :edit, :update]
   root :to => "static_pages#index"
 end
