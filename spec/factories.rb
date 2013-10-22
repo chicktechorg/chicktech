@@ -44,4 +44,8 @@ FactoryGirl.define do
     description 'Save Hogwarts'
     event
   end
+
+  factory :city do
+    name 'Portland, OR'
+  end
 end

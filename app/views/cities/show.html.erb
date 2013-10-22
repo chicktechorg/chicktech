@@ -1,0 +1,5 @@
+<h1>Events around <%= @city.name %></h1>
+
+<% @city.events.each do |event| %>
+  <%= render event %>
+<% end %>

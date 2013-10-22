@@ -8,5 +8,6 @@ Chicktech::Application.routes.draw do
   resources :users
   resources :jobs
   resources :tasks
+  resources :cities
   root :to => "static_pages#index"
 end
