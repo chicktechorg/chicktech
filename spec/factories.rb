@@ -7,12 +7,17 @@ FactoryGirl.define do
     description 'Example event description'
     start Time.now + 1.hour
     finish Time.now + 4.hours
-    
+
   end
 
   factory :team do
     name 'Logistics'
     event
+  end
+
+  factory :leadership_role do
+    name 'Project Manager'
+    association :user, factory: :volunteer
   end
 
   factory :job do

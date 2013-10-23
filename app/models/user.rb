@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   has_many :jobs, :dependent => :nullify
   has_many :events, through: :jobs, source: :workable, source_type: 'Event'
   has_many :teams, through: :jobs, source: :workable, source_type: 'Team'
+  has_many :leadership_roles
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable, 
