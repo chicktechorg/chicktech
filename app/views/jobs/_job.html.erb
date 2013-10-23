@@ -8,7 +8,7 @@
       <%= f.submit "Sign Up!", :method => :patch, :class => "submit-no-button" %>
     <% end %>
   <% end %>
-  <% if job.owned_by?(current_user) %> 
+  <% if job.owned_by?(current_user) %>
     <%= form_for job do |f| %>
       <%= f.hidden_field :resigning, :value => true %>
       <%= f.submit "Resign!", :method => :patch, :class => "submit-no-button" %>
@@ -17,7 +17,7 @@
 
   <p> Description: <%= job.description %></p>
   <% if can? :manage, job %>
-      <%= link_to "Delete", job_path(:id => job.id), :method => :delete, :data => { :confirm => 'Are you sure?' } %>
-      <%= link_to "Edit", edit_job_path(:id => job.id, :event_id => job.event.id) %> 
+      <%= link_to "Delete", job_path(job), :method => :delete, :data => { :confirm => 'Are you sure?' } %>
+      <%= link_to "Edit", edit_job_path(job) %> 
   <% end %>  
 </div>

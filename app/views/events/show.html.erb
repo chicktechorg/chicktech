@@ -1,6 +1,6 @@
 <%= render @event %>
 <% if can? :manage, @event %>
-  <%= link_to "Add jobs", new_job_path(:event_id => @event) %>
+  <%= link_to "Add jobs", new_job_path(:job => { workable_id: @event.id, workable_type: 'Event' }) %>
 <% end %>
 
 <% if @event.jobs.any? %>

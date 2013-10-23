@@ -77,7 +77,7 @@ feature "Signing up for jobs" do
   
   scenario "signed in" do
     event = FactoryGirl.create(:event)
-    job = FactoryGirl.create(:job, :event_id => event.id) 
+    event.jobs << FactoryGirl.create(:job) 
     sign_in(volunteer)
     click_on(event.name)
     page.should have_button "Sign Up!"
@@ -85,7 +85,7 @@ feature "Signing up for jobs" do
 
   scenario "signing up for a job" do
     event = FactoryGirl.create(:event)
-    job = FactoryGirl.create(:job, :event_id => event.id) 
+    event.jobs << FactoryGirl.create(:job) 
     sign_in(volunteer)
     click_on(event.name)
     click_on "Sign Up!"
@@ -94,7 +94,7 @@ feature "Signing up for jobs" do
 
   scenario "job is already taken" do
     event = FactoryGirl.create(:event)
-    job = FactoryGirl.create(:job, :event_id => event.id) 
+    event.jobs << FactoryGirl.create(:job) 
     sign_in(volunteer)
     click_on(event.name)
     click_on "Sign Up!"
@@ -104,7 +104,7 @@ feature "Signing up for jobs" do
 
   scenario "jobs are taken by other users" do
     event = FactoryGirl.create(:event)
-    job = FactoryGirl.create(:job, :event_id => event.id) 
+    event.jobs << FactoryGirl.create(:job) 
     sign_in(volunteer)
     click_on(event.name)
     click_on "Sign Up!"

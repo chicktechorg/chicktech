@@ -7,7 +7,8 @@ class User < ActiveRecord::Base
   validates_presence_of :role
 
   has_many :jobs, :dependent => :nullify
-  has_many :events, through: :jobs
+  has_many :events, through: :jobs, source: :workable, source_type: 'Event'
+  has_many :teams, through: :jobs, source: :workable, source_type: 'Team'
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable, 
@@ -21,8 +22,11 @@ class User < ActiveRecord::Base
   end
 
   def unique_events
-    @events = Event.all
-    self.events.uniq
+    events.uniq
+  end
+
+  def unique_teams
+    teams.uniq
   end
 
   def send_information

@@ -7,11 +7,31 @@ FactoryGirl.define do
     description 'Example event description'
     start Time.now + 1.hour
     finish Time.now + 4.hours
+    
+  end
+
+  factory :team do
+    name 'Logistics'
+    event
+  end
+
+  factory :job do
+    sequence(:name) { |n| "The Chose One #{n}" }
+    description 'Save Hogwarts'
+    association :workable, factory: :event
+  
+    factory :team_job do
+      association :workable, factory: :team
+    end  
   end
 
   factory :task do
     description 'Example task'
     job
+  end
+  
+  factory :city do
+    name 'Portland, OR'
   end
 
   factory :volunteer, class: User do
@@ -37,15 +57,5 @@ FactoryGirl.define do
       email 'graybeard@hogwarts.edu'
       role 'superadmin'
     end
-  end
-
-  factory :job do
-    sequence(:name) { |n| "The Chose One #{n}" }
-    description 'Save Hogwarts'
-    event
-  end
-
-  factory :city do
-    name 'Portland, OR'
   end
 end
