@@ -1,4 +1,6 @@
 class TasksController < ApplicationController
+  authorize_resource
+  
   def index
     @tasks = Task.all
   end

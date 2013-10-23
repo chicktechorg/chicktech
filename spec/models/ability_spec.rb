@@ -18,6 +18,8 @@ describe "Volunteer" do
       it { should be_able_to(:read, model) }
     end
 
+    it { should be_able_to(:update, Job.new) }
+
     describe "managing tasks" do
       let(:job) { FactoryGirl.create(:job) }
       before do

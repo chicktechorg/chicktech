@@ -1,5 +1,6 @@
 class EventsController < ApplicationController
   authorize_resource
+  
   def index
     @events = Event.all
   end
