@@ -6,6 +6,7 @@ describe Job do
   it { should validate_presence_of :name }
   it { should validate_presence_of :event_id }
   it { should have_many :tasks }
+  it { should have_many :comments }
 
 
   let(:volunteer) { FactoryGirl.create(:volunteer) }
