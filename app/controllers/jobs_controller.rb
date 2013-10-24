@@ -1,4 +1,6 @@
 class JobsController < ApplicationController
+  authorize_resource
+  
   def index
     @jobs = Job.all
   end

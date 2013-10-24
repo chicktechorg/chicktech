@@ -1,8 +1,10 @@
 require 'spec_helper'
 
 feature "Creating events" do
+  let(:admin) { FactoryGirl.create(:admin) }
+  before { FactoryGirl.create(:city) }
+
   scenario "with valid input" do
-    admin = FactoryGirl.create(:admin)
     sign_in(admin)
     visit new_event_path
     fill_in 'Name', with: 'Example event'
@@ -12,12 +14,12 @@ feature "Creating events" do
     select 'December', from: 'event_finish_2i'
     select '15', from: 'event_finish_3i'
     select '30', from: 'event_finish_5i'
+    select  'Portland, OR', from: 'event[city_id]'
     click_on "Create Event"
     expect(page).to have_content "successfully"
   end
 
   scenario "without valid input" do
-    admin = FactoryGirl.create(:admin)
     sign_in(admin)
     visit new_event_path
     click_on "Create Event"
@@ -25,16 +27,15 @@ feature "Creating events" do
   end
 
   scenario "not logged in as admin" do
-    volunteer = FactoryGirl.create(:volunteer)
-    sign_in(volunteer)
     visit new_event_path
     page.should have_content "Access denied."
   end
 end
 
-feature "Listing events" do 
+feature "Listing events" do
+  let(:volunteer) { FactoryGirl.create(:volunteer) }
+
   scenario "with several events" do
-    volunteer = FactoryGirl.create(:volunteer)
     sign_in(volunteer)
     event_1 = FactoryGirl.create(:event)
     event_2 = FactoryGirl.create(:event)

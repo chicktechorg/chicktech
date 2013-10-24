@@ -5,6 +5,7 @@ class Ability
     if user
       if user.role? :volunteer
         can :read, [Event, Job, User, City]
+        can :update, Job
         can :manage, Task, :job => { :user_id => user.id }
       end
       if user.role? :admin

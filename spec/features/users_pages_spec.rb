@@ -156,14 +156,6 @@ feature "deleting a user" do
     page.should_not have_content volunteer.first_name
   end
 
-  scenario "user is able to delete itself" do
-    volunteer = FactoryGirl.create(:volunteer)
-    sign_in(volunteer)
-    visit users_path
-    click_link "remove#{volunteer.id}"
-    page.should_not have_content volunteer.first_name
-  end
-
   scenario "should make users jobs available" do
     superadmin = FactoryGirl.create(:superadmin)
     volunteer = FactoryGirl.create(:volunteer)
