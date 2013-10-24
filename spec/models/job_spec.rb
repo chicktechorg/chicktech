@@ -8,7 +8,6 @@ describe Job do
   it { should have_many :tasks }
   it { should have_many :comments }
 
-
   let(:volunteer) { FactoryGirl.create(:volunteer) }
   let(:event) { FactoryGirl.create(:event) }
 
