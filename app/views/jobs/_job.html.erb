@@ -17,7 +17,7 @@
 
   <p> Description: <%= job.description %></p>
   <% if can? :manage, job %>
-      <%= link_to "Delete", job_path(:id => job.id), :method => :delete, :data => { :confirm => 'Are you sure?' } %>
-      <%= link_to "Edit", edit_job_path(:id => job.id, :event_id => job.event.id) %> 
+      <p><%= link_to "Delete", job_path(:id => job.id), :method => :delete, :data => { :confirm => 'Are you sure?' } %></p>
+      <p><%= link_to "Edit", edit_job_path(:id => job.id, :event_id => job.event.id) %></p> 
   <% end %>  
 </div>

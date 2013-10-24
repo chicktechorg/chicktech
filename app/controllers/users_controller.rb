@@ -39,7 +39,6 @@ class UsersController < ApplicationController
       flash[:notice] = "User has been updated."
       redirect_to users_path
     else
-      binding.pry
       render :edit
     end
   end

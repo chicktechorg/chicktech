@@ -15,7 +15,6 @@ class JobsController < ApplicationController
       flash[:notice] = "#{@job.name} has been successfully created."
       redirect_to @job.event
     else
-      flash[:alert] = "Something went wrong."
       render :new
     end
   end
