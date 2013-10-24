@@ -12,9 +12,10 @@ describe "Volunteer" do
       it { should_not be_able_to(action, User.new) }
       it { should_not be_able_to(action, Job.new) }
       it { should_not be_able_to(action, City.new) }
+      it { should_not be_able_to(action, Team.new) }
     end
 
-    [Event.new, User.new, Job.new, City.new].each do |model|
+    [Event.new, User.new, Job.new, City.new, Team.new].each do |model|
       it { should be_able_to(:read, model) }
     end
 

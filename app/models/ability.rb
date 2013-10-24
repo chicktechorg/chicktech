@@ -4,7 +4,7 @@ class Ability
   def initialize(user)
     if user
       if user.role? :volunteer
-        can :read, [Event, Job, User, City]
+        can :read, [Event, Job, User, City, Team]
         can :manage, Task, :job => { :user_id => user.id }
         can :update, Event, :leadership_role => { :user_id => user.id }
         can :manage, Team, :event => { :leadership_role => { :user_id => user.id } }
