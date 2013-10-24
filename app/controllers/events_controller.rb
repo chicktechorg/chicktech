@@ -14,7 +14,6 @@ class EventsController < ApplicationController
   def new
     @event = Event.new
     @events = Event.all
-    @cities = City.all
   end
 
   def create
