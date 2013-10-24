@@ -71,6 +71,33 @@ feature "Adding a job" do
   end
 end
 
+feature "Adding a team" do
+  context "as an admin" do
+    it "page should have content 'Add a team'" do
+      admin = FactoryGirl.create(:admin)
+      event_1 = FactoryGirl.create(:event)
+      sign_in(admin)
+      click_on(event_1.name)
+      page.should have_content "Add a team"
+    end
+  end
+
+  context "as an event leader" do
+    it "page should have content 'Add a team'" do
+      volunteer = FactoryGirl.create(:volunteer)
+      leadership_role = FactoryGirl.create(:leadership_role, :user => volunteer)
+      event_1 = FactoryGirl.create(:event, :leadership_role => leadership_role)
+      sign_in(volunteer)
+      click_on(event_1.name)
+      page.should have_content "Add a team"
+    end
+  end
+end
+
+# feature "Signing up to be a Event Leader" do
+
+# end
+
 feature "Signing up for jobs" do
   let(:volunteer) { FactoryGirl.create(:volunteer) }
   let(:admin) { FactoryGirl.create(:admin) }

@@ -32,6 +32,35 @@ describe "Volunteer" do
   end
 end
 
+describe "Event leader" do
+  describe "abilities" do
+    let(:user) { FactoryGirl.create(:volunteer) }
+    before do
+      @event = FactoryGirl.create(:event, leadership_role: FactoryGirl.create(:leadership_role, user: user))
+      @ability = Ability.new(user)
+    end
+    subject { @ability }
+
+    it { should be_able_to(:update, @event) }
+    it { should be_able_to(:manage, Team.new(event: @event)) }
+    it { should be_able_to(:manage, Job.new(workable: @event)) }
+  end
+end
+
+describe "Team leader" do
+  describe "abilities" do
+    let(:user) { FactoryGirl.create(:volunteer) }
+    before do
+      @team = FactoryGirl.create(:team, leadership_role: FactoryGirl.create(:leadership_role, user: user))
+      @ability = Ability.new(user)
+    end
+    subject { @ability }
+
+    it { should be_able_to(:update, @team) }
+    it { should be_able_to(:manage, Job.new(workable: @team)) }
+  end
+end
+
 describe "Admin" do
   describe "abilities" do
     let(:admin) { FactoryGirl.create(:admin) }

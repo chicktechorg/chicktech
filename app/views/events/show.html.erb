@@ -1,7 +1,9 @@
 <%= render @event %>
-<% if can? :manage, @event %>
+<% if can? :update, @event %>
   <%= link_to "Add jobs", new_job_path(:job => { workable_id: @event.id, workable_type: 'Event' }) %>
+  <%= link_to "Add a team", new_team_path(:team => { event_id: @event.id }) %>
 <% end %>
+
 
 <% if @event.jobs.any? %>
   <h3>Jobs for this event</h3>
