@@ -1,5 +1,5 @@
 <div class="job-descriptions">
-  <h4>Job Title: <%= link_to job.name, job_path(:id => job.id) %></h4>
+  <h4>Job Title: <%= link_to job.name, job_path(job) %></h4>
   <% if job.taken? %>
     <div>Taken by: <%= job.user.first_name %> <%= job.user.last_name %></div>
   <% else %>

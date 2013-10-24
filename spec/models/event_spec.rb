@@ -5,6 +5,7 @@ describe Event do
   it { should validate_presence_of :start }
   it { should validate_presence_of :finish }
   it { should have_many :jobs }
+  it { should have_many :teams }
   it { should belong_to :city }
   it { should belong_to :leadership_role }
 
