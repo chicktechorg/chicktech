@@ -1,20 +1,20 @@
-Volunteer Management System for nonprofit tech organization ChickTech
-
-Dedicated to providing hands-on opportunities for girls and woman to get engaged with technology
+Volunteer Management System for Chicktech, a nonprofit organization dedicated to providing hands-on opportunities for girls and women to get engaged with technology.
 
 http://www.chicktech.org/
 
 This project was built by:
 
 Geneva Skeen     @geneeves
+
 Dustin Brown     @dustinbrownman
+
 Ana Tighe        @anatighe
+
 Brittany Winston @tallgirltaadaa
+
 Eleanor Mark     @eleanormark
 
-in conjuction with Epicodus web development bootcamp as an intern final project
-
-Fall 2013
+The project is being built as an internship project in the Epicodus Web Development bootcamp (Fall 2013).
 
 This application is not currently being maintained.
 
