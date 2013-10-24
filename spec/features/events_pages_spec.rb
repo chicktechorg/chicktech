@@ -2,6 +2,7 @@ require 'spec_helper'
 
 feature "Creating events" do
   let(:admin) { FactoryGirl.create(:admin) }
+  before { FactoryGirl.create(:city) }
 
   scenario "with valid input" do
     sign_in(admin)
@@ -13,6 +14,7 @@ feature "Creating events" do
     select 'December', from: 'event_finish_2i'
     select '15', from: 'event_finish_3i'
     select '30', from: 'event_finish_5i'
+    select  'Portland, OR', from: 'event[city_id]'
     click_on "Create Event"
     expect(page).to have_content "successfully"
   end
