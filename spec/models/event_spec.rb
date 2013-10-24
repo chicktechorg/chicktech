@@ -6,8 +6,8 @@ describe Event do
   it { should validate_presence_of :finish }
   it { should have_many :jobs }
   it { should have_many :teams }
+  it { should have_one :leadership_role }
   it { should belong_to :city }
-  it { should belong_to :leadership_role }
 
   describe "#start" do
     it "should be valid if the event starts after the time it's created" do

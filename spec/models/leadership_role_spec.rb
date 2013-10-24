@@ -2,6 +2,7 @@ require 'spec_helper'
 
 describe LeadershipRole do
   it { should belong_to :user }
+  it { should belong_to :leadable }
 
   # it 'tells you who the user is who is the leader' do
   #   user = FactoryGirl.create(:volunteer)

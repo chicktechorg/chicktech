@@ -5,7 +5,7 @@ class Event < ActiveRecord::Base
   has_many :jobs, as: :workable
   has_many :teams
   belongs_to :city
-  belongs_to :leadership_role
+  has_one :leadership_role, :as => :leadable
 
   def self.upcoming
     Event.where("start > ?", Time.now)
