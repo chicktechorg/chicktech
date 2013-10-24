@@ -2,6 +2,7 @@ class Job < ActiveRecord::Base
   belongs_to :event
   belongs_to :user
   has_many :tasks
+  has_many :comments, :as => :commentable
   validates_presence_of :name
   validates_presence_of :event_id
 
