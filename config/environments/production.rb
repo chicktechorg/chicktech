@@ -82,7 +82,6 @@ Chicktech::Application.configure do
   config.action_mailer.perform_deliveries = true
   config.action_mailer.raise_delivery_errors = true
   config.action_mailer.smtp_settings = {
-    # :tls => :true,
     :authentication => :plain,
     :address => ENV['ACTION_MAILER_SMTP_ADDRESS'],
     :port => ENV['ACTION_MAILER_SMTP_PORT'],
