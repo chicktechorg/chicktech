@@ -7,10 +7,20 @@
 
 <button class="btn btn-primary btn-block" id="add-job-button">Add a job to this team</button>
 
-<% if @team.leadership_role.nil? %>
-  <%= render 'leadership_roles/form' %>
-<% elsif can? :destory, @team.leadership_role %>
-  <%= link_to 'Resign', leadership_role_path(@team.leadership_role), method: :delete, data: {confirm: 'Are you sure?'} %>
+<% if @team.leadership_role.available? %>
+  <%= form_for @team.leadership_role do |f| %>
+    <%= f.hidden_field :signing_up, :value => true %>
+    <%= f.submit "Take the lead!", :class => "submit-no-button" %>
+  <% end %>
+<% elsif can? :update, @team.leadership_role %>
+  <%= form_for @team.leadership_role do |f| %>
+    <%= f.hidden_field :resigning, :value => false %>
+    <%= f.submit "Resign!", :class => "submit-no-button" %>
+  <% end %>
+<% end %>
+
+<% if @team.leader %>
+  <h4>Team lead: <%= "#{@team.leader.first_name} #{@team.leader.last_name}" %></h4> 
 <% end %>
 
 <div id='new-job'>

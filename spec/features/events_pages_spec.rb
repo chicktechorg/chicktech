@@ -154,10 +154,10 @@ feature "Signing up for jobs" do
   end
 
   scenario "job is already taken" do
-    event = FactoryGirl.create(:event)
-    event.jobs << FactoryGirl.create(:job) 
+    @event = FactoryGirl.create(:event)
+    @event.jobs << FactoryGirl.create(:job) 
     sign_in(volunteer)
-    click_on(event.name)
+    click_on(@event.name)
     click_on "Sign Up!"
     page.should_not have_button "Sign Up!"
     page.should have_button "Resign!"

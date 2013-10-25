@@ -116,17 +116,23 @@ feature "Signing up to be an Team Leader" do
       sign_in(volunteer)
       @team = FactoryGirl.create(:team)
       visit team_path(@team)
-      find('#new_leadership_role').should have_button('Take the lead!')
+      page.should have_button('Take the lead!')
     end
   end
 
   context "when there is a leader" do
-    it "should not have a button to become the leader" do
+    before do
       sign_in(volunteer)
-      @team = FactoryGirl.create(:team)
-      @leadership_role = FactoryGirl.create(:leadership_role, leadable: @team)
+      @team = FactoryGirl.create(:team_with_leader)
       visit team_path(@team)
+    end
+
+    it "should not have a button to become the leader" do
       page.should_not have_button('Take the lead!')
+    end
+
+    it "should show the leader's name" do
+      page.should have_content @team.leader.first_name
     end
   end
 end
