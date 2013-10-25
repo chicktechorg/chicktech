@@ -1,11 +1,10 @@
 <div>
   <h1><%= link_to event.name, event_path(event.id), :class => 'event-name' %></h1><small><%= event.start.to_time.strftime("%b %-d, %Y @ %-I:%M%P") %></small> - <small><%= event.finish.to_time.strftime("%b %-d, %Y @ %-I:%M%P") %></small>
   <p><%= event.description %></p>
-  <%= link_to "Edit Event", edit_event_path(event) %>
   <% if can? :manage, event %>
     <div>
-      <%= link_to "Edit", edit_event_path(event) %>
-      <%= link_to "Delete", event_path(event), :method => :delete, :data => { :confirm => 'Are you sure?' } %>
+      <p><%= link_to "Edit Event Details", edit_event_path(event) %></p>
+      <p><%= link_to "Delete", event_path(event), :method => :delete, :data => { :confirm => 'Are you sure?' } %></p>
     </div>
   <% end %>
 </div>

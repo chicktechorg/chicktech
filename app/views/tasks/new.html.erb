@@ -1,5 +1,14 @@
 <h1>Add tasks</h1>
-
+<% if @task.errors.any? %>
+    <div class="alert alert-danger">
+      <h3>Please correct these problems</h3>
+      <ul>
+        <% @task.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 <%= form_for @task do |f| %>
   <div class="form-group">
     <%= f.label :description %>

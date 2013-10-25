@@ -9,6 +9,9 @@
       <% if current_user.role? :admin %>
         <li><%= link_to "Manage Events", "/events/new", :class => 'nav-font' %></li>
       <% end %>  
+      <li><%= link_to "Cities", cities_path, :class => 'nav-font' %></li>
+
+      <li><%= link_to "My Events", root_path, :class => 'nav-font' %></li>
     <% end %>
   </ul>  
   <ul class='nav navbar-nav pull-right'>

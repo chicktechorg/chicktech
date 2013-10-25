@@ -1,4 +1,6 @@
 class UsersController < ApplicationController
+  authorize_resource
+  
   def index
     @users = User.all
   end
@@ -23,6 +25,7 @@ class UsersController < ApplicationController
    @user = User.find(params[:id])
    @events = Event.all
    @jobs = Job.all
+   @cities = City.all
    redirect_to edit_user_path(@user) if @user.first_name.nil? # push down to model
   end
 
@@ -36,7 +39,6 @@ class UsersController < ApplicationController
       flash[:notice] = "User has been updated."
       redirect_to users_path
     else
-      binding.pry
       render :edit
     end
   end

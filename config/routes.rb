@@ -10,6 +10,7 @@ Chicktech::Application.routes.draw do
   resources :tasks, :except => [:new, :edit, :show]
   resources :cities, :except => [:new, :edit, :update]
   resources :teams
-  resources :leadership_roles
+  resources :leadership_roles, :only => :update
+  resources :comments
   root :to => "static_pages#index"
 end

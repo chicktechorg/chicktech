@@ -1,4 +1,14 @@
 <h2>Please enter your information</h2>
+<% if @user.errors.any? %>
+    <div class="alert alert-danger">
+      <h3>Please correct these problems</h3>
+      <ul>
+        <% @user.errors.full_messages.each do |message| %>
+          <li><%= message %></li>
+        <% end %>
+      </ul>
+    </div>
+  <% end %>
 
 <%= form_for(@user) do |f| %>
 

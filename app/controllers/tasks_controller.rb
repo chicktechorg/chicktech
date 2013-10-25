@@ -1,4 +1,6 @@
 class TasksController < ApplicationController
+  authorize_resource
+  
   def index
     @tasks = Task.all
   end
@@ -9,7 +11,6 @@ class TasksController < ApplicationController
       flash[:notice] = "Task has been successfully created."
       redirect_to job_path(@task.job)
     else
-      flash[:alert] = "Sorry, something went wrong."
       render :new
     end
   end

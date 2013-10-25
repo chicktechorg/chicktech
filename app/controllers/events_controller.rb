@@ -1,7 +1,14 @@
 class EventsController < ApplicationController
   authorize_resource
+  
   def index
     @events = Event.all
+    # if there is a filter on cities in params, only grab the events from that city
+    if params[:city]
+      @events = Event.where(:city_id => params[:city][:city_id])
+    else
+      @events = Event.all
+    end
   end
 
   def new
@@ -12,6 +19,7 @@ class EventsController < ApplicationController
 
   def create
     @event = Event.new(event_params)
+    @cities = City.all
     if @event.save
       flash[:notice] = "Event created successfully!"
       redirect_to @event

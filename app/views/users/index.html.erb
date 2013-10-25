@@ -2,7 +2,7 @@
 <h3><%= link_to "Invite a new user", new_user_invitation_path %></h3>
 
 <ul>
-  <% @users.each do |user| %>
+  <% @users.confirmed.each do |user| %>
     <li><%= link_to "#{user.first_name} #{user.last_name}", user %></li>
     <li><%= user.email %></li>
     <li><%= link_to "remove",
@@ -12,3 +12,20 @@
                     :id => "remove#{user.id}" %></li>
   <% end %>
 <ul>
+
+<h2> Pending Users </h2>
+  <ul>
+    <% @users.pending.each do |user| %>
+      <% if user %>
+        <li><%= user.email %></li>
+        <li><%= link_to "remove",
+                    user_path(user),
+                    :method => :delete,
+                    :class => "btn btn-danger",
+                    :id => "remove#{user.id}" %></li>
+      <% else %>
+        <%= There are no pending users %>
+      <% end %>
+    <% end %>
+  </ul>
+

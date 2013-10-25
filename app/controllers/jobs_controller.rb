@@ -1,4 +1,6 @@
 class JobsController < ApplicationController
+  authorize_resource
+  
   def index
     @jobs = Job.all
   end
@@ -13,7 +15,6 @@ class JobsController < ApplicationController
       flash[:notice] = "#{@job.name} has been successfully created."
       redirect_to @job.workable
     else
-      flash[:alert] = "Something went wrong."
       render :new
     end
   end

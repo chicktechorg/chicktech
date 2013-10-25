@@ -19,6 +19,8 @@ describe "Volunteer" do
       it { should be_able_to(:read, model) }
     end
 
+    it { should be_able_to(:update, Job.new) }
+
     describe "managing tasks" do
       let(:job) { FactoryGirl.create(:job) }
       before do
@@ -37,6 +39,15 @@ describe "Volunteer" do
 
       it { should be_able_to :update, event_without_leader.leadership_role }
       it { should_not be_able_to :update, event_with_leader.leadership_role }
+    end
+
+    describe "signing up for a job" do
+      let(:job) { FactoryGirl.create(:job) }
+      let(:other_user) { FactoryGirl.create(:volunteer) }
+
+      it { should be_able_to :update, Job.new }
+      it { should be_able_to :update, Job.new(user: user) }
+      it { should_not be_able_to :update, other_user.jobs.new }
     end
   end
 end
