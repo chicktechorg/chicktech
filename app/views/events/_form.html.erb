@@ -21,5 +21,10 @@
     <%= f.datetime_select :finish, ampm: true, prompt: { day: 'Day', month: 'Month' },
                                    start_year: Time.now.year %>
   </div>
+  <%= f.fields_for :leadership_role, @leadership_role do |ff| %>
+    <%= ff.hidden_field :name %>
+    <%= ff.hidden_field :leadable_id %>
+    <%= ff.hidden_field :leadable_type %>
+  <% end %>
   <%= f.submit :class => 'create-button' %>
 <% end %>

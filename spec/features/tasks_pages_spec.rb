@@ -3,8 +3,7 @@ require 'spec_helper'
 feature "Creating tasks" do
   scenario "with input from volunteer" do
     volunteer = FactoryGirl.create(:volunteer)
-    event = FactoryGirl.create(:event)
-    job = FactoryGirl.create(:job, :event_id => event.id)
+    job = FactoryGirl.create(:job)
     sign_in(volunteer)
     visit job_path(job)
     fill_in 'Description', with: 'Example task description'
