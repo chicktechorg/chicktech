@@ -7,7 +7,15 @@ FactoryGirl.define do
     description 'Example event description'
     start Time.now + 1.hour
     finish Time.now + 4.hours
+    leadership_role
+  end
 
+  factory :event_without_leader, class: Event do
+    sequence(:name) { |n| "Event #{n}" }
+    description 'Example event description'
+    start Time.now + 1.hour
+    finish Time.now + 4.hours
+    association :leadership_role, factory: :open_leadership_role
   end
 
   factory :team do
@@ -18,6 +26,10 @@ FactoryGirl.define do
   factory :leadership_role do
     name 'Project Manager'
     association :user, factory: :volunteer
+  end
+
+  factory :open_leadership_role, class: LeadershipRole do
+    name 'Coordinator'
   end
 
   factory :job do

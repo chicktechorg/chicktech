@@ -30,6 +30,14 @@ describe "Volunteer" do
       it { should be_able_to(:manage, job.tasks.new) }
       it { should_not be_able_to(:manage, Job.new) }
     end
+
+    describe "taking the lead" do
+      let(:event_with_leader) { FactoryGirl.create(:event) }
+      let(:event_without_leader) { FactoryGirl.create(:event_without_leader) }
+
+      it { should be_able_to :update, event_without_leader.leadership_role }
+      it { should_not be_able_to :update, event_with_leader.leadership_role }
+    end
   end
 end
 
@@ -45,7 +53,7 @@ describe "Event leader" do
     it { should be_able_to(:update, @event) }
     it { should be_able_to(:manage, Team.new(event: @event)) }
     it { should be_able_to(:manage, Job.new(workable: @event)) }
-    it { should be_able_to(:destroy, @event.leadership_role) }
+    it { should be_able_to(:update, @event.leadership_role) }
   end
 end
 
@@ -60,7 +68,7 @@ describe "Team leader" do
 
     it { should be_able_to(:update, @team) }
     it { should be_able_to(:manage, Job.new(workable: @team)) }
-    it { should be_able_to(:destroy, @team.leadership_role) }
+    it { should be_able_to(:update, @team.leadership_role) }
   end
 end
 

@@ -1,19 +1,27 @@
 require 'spec_helper'
 
 feature "Creating events" do
-  scenario "with valid input" do
-    admin = FactoryGirl.create(:admin)
-    sign_in(admin)
-    visit new_event_path
-    fill_in 'Name', with: 'Example event'
-    fill_in 'Description', with: 'Example event description'
-    select 'December', from: 'event_start_2i'
-    select '15', from: 'event_start_3i'
-    select 'December', from: 'event_finish_2i'
-    select '15', from: 'event_finish_3i'
-    select '30', from: 'event_finish_5i'
-    click_on "Create Event"
-    expect(page).to have_content "successfully"
+  context "with valid input" do
+    subject { page }
+    before do
+      admin = FactoryGirl.create(:admin)
+      sign_in(admin)
+      visit new_event_path
+      fill_in 'Name', with: 'Example event'
+      fill_in 'Description', with: 'Example event description'
+      select 'December', from: 'event_start_2i'
+      select '15', from: 'event_start_3i'
+      select 'December', from: 'event_finish_2i'
+      select '15', from: 'event_finish_3i'
+      select '30', from: 'event_finish_5i'
+      click_on "Create Event"
+    end
+
+    it { should have_content "successfully" }
+
+    it "should also create a leadership role" do
+      Event.all.first.leadership_role.should_not be_nil
+    end
   end
 
   scenario "without valid input" do
@@ -54,10 +62,9 @@ end
 feature "Adding a job" do
   scenario "signed in as admin" do
     admin = FactoryGirl.create(:admin)
-    event_1 = FactoryGirl.create(:event)
-    event_2 = FactoryGirl.create(:event)
+    event = FactoryGirl.create(:event)
     sign_in(admin)
-    click_on(event_1.name)
+    click_on(event.name)
     page.should have_content "Add jobs"
   end
   
@@ -73,22 +80,21 @@ end
 
 feature "Adding a team" do
   context "as an admin" do
+    let(:admin) { FactoryGirl.create(:admin) }
+
     it "page should have content 'Add a team'" do
-      admin = FactoryGirl.create(:admin)
-      event_1 = FactoryGirl.create(:event)
+      event = FactoryGirl.create(:event)
       sign_in(admin)
-      click_on(event_1.name)
+      click_link(event.name)
       page.should have_content "Add a team"
     end
   end
 
   context "as an event leader" do
     it "page should have content 'Add a team'" do
-      volunteer = FactoryGirl.create(:volunteer)
-      leadership_role = FactoryGirl.create(:leadership_role, :user => volunteer)
-      event_1 = FactoryGirl.create(:event, :leadership_role => leadership_role)
-      sign_in(volunteer)
-      click_on(event_1.name)
+      event = FactoryGirl.create(:event)
+      sign_in(event.leader)
+      click_on(event.name)
       page.should have_content "Add a team"
     end
   end
@@ -101,18 +107,27 @@ feature "Signing up to be an Event Leader" do
     it "should have a button to become the leader" do
       sign_in(volunteer)
       @event = FactoryGirl.create(:event)
+      @event.leadership_role.user_id = nil
+      @event.leadership_role.save
       visit event_path(@event)
-      find('#new_leadership_role').should have_button('Take the lead!')
+      page.should have_button('Take the lead!')
     end
   end
 
   context "when there is a leader" do
-    it "should not have a button to become the leader" do
+    before do
       sign_in(volunteer)
       @event = FactoryGirl.create(:event)
       @leadership_role = FactoryGirl.create(:leadership_role, leadable: @event)
       visit event_path(@event)
+    end
+
+    it "should not have a button to become the leader" do
       page.should_not have_button('Take the lead!')
+    end
+
+    it "should show the leader's name" do
+      page.should have_content @event.leader.first_name
     end
   end
 end
@@ -158,7 +173,6 @@ feature "Signing up for jobs" do
     sign_in(admin)
     click_on(event.name)
     page.should_not have_button "Sign Up!"
-    page.should_not have_button "Resign!"
     page.should have_content "Taken by"
   end
 end

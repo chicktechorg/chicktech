@@ -10,7 +10,8 @@ class Ability
         can :manage, Team, :event => { :leadership_role => { :user_id => user.id } }
         can :manage, Job, :workable => { :leadership_role => { :user_id => user.id } }
         can :update, Team, :leadership_role => { :user_id => user.id }
-        can :destroy, LeadershipRole, :user => user
+        can :update, LeadershipRole, :user => user
+        can :update, LeadershipRole, :user => nil
       end
       if user.role? :admin
         can :manage, [Event, Job, Task, City, LeadershipRole]

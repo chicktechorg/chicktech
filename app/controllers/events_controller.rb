@@ -7,6 +7,7 @@ class EventsController < ApplicationController
   def new
     @event = Event.new
     @events = Event.all
+    @leadership_role = LeadershipRole.new(leadable: @event)
   end
 
   def create
@@ -49,6 +50,6 @@ class EventsController < ApplicationController
 private
 
   def event_params
-    params.require(:event).permit(:name, :description, :start, :finish)
+    params.require(:event).permit(:name, :description, :start, :finish, :leadership_role_attributes => [:name, :leadable_id, :leadable_type])
   end
 end

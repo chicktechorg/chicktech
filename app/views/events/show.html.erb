@@ -4,10 +4,20 @@
   <%= link_to "Add a team", new_team_path(:team => { event_id: @event.id }) %>
 <% end %>
 
-<% if @event.leadership_role.nil? %>
-  <%= render 'leadership_roles/form' %>
-<% elsif can? :destroy, @event.leadership_role %>
-  <%= link_to 'Resign', leadership_role_path(@event.leadership_role), method: :delete, data: {confirm: 'Are you sure?'} %>
+<% if @event.leadership_role.available? %>
+  <%= form_for @event.leadership_role do |f| %>
+    <%= f.hidden_field :signing_up, :value => true %>
+    <%= f.submit "Take the lead!", :class => "submit-no-button" %>
+  <% end %>
+<% elsif can? :update, @event.leadership_role %>
+  <%= form_for @event.leadership_role do |f| %>
+    <%= f.hidden_field :resigning, :value => false %>
+    <%= f.submit "Resign!", :class => "submit-no-button" %>
+  <% end %>
+<% end %>
+
+<% if @event.leader %>
+  <h4>Event lead: <%= "#{@event.leader.first_name} #{@event.leader.last_name}" %></h4> 
 <% end %>
 
 <% if @event.jobs.any? %>
