@@ -180,7 +180,16 @@ label {
 }
 
 .container {
-  width: 500px;
+  width: 2000px;
+}
+
+.container-left {
+  float:left;
+  width: 30%;
+}
+
+.container-mid {
+
 }
 
 hr.style-four {
@@ -245,4 +254,24 @@ hr.style-four {
 
 .header-center {
   text-align: center;
+}
+
+.col-xs-2 {
+  width: 25%;
+  margin-right: 4%;
+}
+
+.col-xs-4 {
+  margin-left: 2%;
+}
+
+@media (max-width: 800px){
+  .container-fluid{ width: 100%
+  }
+  .row-fluid{ width: 100%
+  }
+  .col-xs-4 { width: 100%
+  }
+  .col-xs-2 { width: 100%
+  }
 }
