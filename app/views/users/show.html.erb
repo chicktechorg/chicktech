@@ -1,46 +1,33 @@
-<div class='container-fluid'>
-  <div class='row-fluid'>
-    <div class="col-xs-2">
-      <div class='span3'>
-        <div class='contact-info'>
-          <h1 class='user-name'><%= "#{@user.first_name} #{@user.last_name}" %></h1>
-          <p>Phone: <%= @user.phone %></p>
-          <p>Email: <%= @user.email %></p>
-          <p>Role: <%= @user.role %></p>
-          <%= link_to "Edit Profile", edit_user_path(@user), :class => 'edit-links' %>  <!-- should be in a <p> tag, perhaps? -->
-        </div>
-      </div>
-    </div>
-  </div>
- 
-  <div class='row-fluid'>
-    <div class="col-xs-4">
-      <div class='span3'>
-        <div class='user-jobs'>
-          <h2 class='section-header'><%= @user.first_name %>'s Jobs:</h2>
-          <% @user.unique_events.each do |event| %>
-            <%= render event %>
-            <% event.jobs.each do |job| %>
-              <% if job.owned_by?(@user) %>
-                <%= render job %>
-              <% end %>
-            <% end %>
-          <% end %>
-        </div>
-      </div>
-    </div>
-  </div>
 
-  <div class='row-fluid'>
-    <div class="col-xs-4">
-      <div class='span3'>
-        <%= render 'cities/dropdown', :cities => @cities %>
-      </div>
+
+<div class="container">
+  <div class="row">
+
+    <div class="col-lg-4  contact-info">
+      <h1 class='user-name'><%= "#{@user.first_name} #{@user.last_name}" %></h1>
+      <p>Phone: <%= @user.phone %></p>
+      <p>Email: <%= @user.email %></p>
+      <p>Role: <%= @user.role %></p>
+      <%= link_to "Edit Profile", edit_user_path(@user), :class => 'edit-links' %>  <!-- should be in a <p> tag, perhaps? -->
     </div>
+
+    <div class="col-lg-4 user-jobs">
+      <h2 class='section-header'><%= @user.first_name %>'s Jobs:</h2>
+      <% @user.unique_events.each do |event| %>
+        <%= render event %>
+        <% event.jobs.each do |job| %>
+          <% if job.owned_by?(@user) %>
+            <%= render job %>
+          <% end %>
+        <% end %>
+      <% end %>
+    </div>
+
+    <div class="col-lg-4">
+      <%= render 'cities/dropdown', :cities => @cities %>
+    </diV>
   </div>
 </div>
-
-
 
 
 
