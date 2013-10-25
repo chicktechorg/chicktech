@@ -39,7 +39,7 @@ feature "City pages" do
     context "viewing one city" do
       before do
         @city = FactoryGirl.create(:city)
-        @city2 = FactoryGirl.create(:city)
+        @city2 = FactoryGirl.create(:city, :name => "Seattle, WA")
         @event = FactoryGirl.create(:event, :city_id => @city.id)
         @event2 = FactoryGirl.create(:event, :city_id => @city2.id)
         visit city_path(@city)

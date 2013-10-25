@@ -34,39 +34,45 @@ end
 
 feature "Listing events" do
   let(:volunteer) { FactoryGirl.create(:volunteer) }
+  before { @city = FactoryGirl.create(:city) }
 
   scenario "with several events" do
     sign_in(volunteer)
-    event_1 = FactoryGirl.create(:event)
-    event_2 = FactoryGirl.create(:event)
+    event_1 = FactoryGirl.create(:event, :city_id => @city.id)
+    event_2 = FactoryGirl.create(:event, :city_id => @city.id)
     visit events_path
     page.should have_content event_1.name
     page.should have_content event_2.name
   end
 
   scenario "not signed in" do
-    event_1 = FactoryGirl.create(:event)
-    event_2 = FactoryGirl.create(:event)
+    event_1 = FactoryGirl.create(:event, :city_id => @city.id)
+    event_2 = FactoryGirl.create(:event, :city_id => @city.id)
     visit events_path
     page.should have_content "Access denied"
   end
 end
 
 feature "Adding a job" do
+  before { @city = FactoryGirl.create(:city) }
   scenario "signed in as admin" do
     admin = FactoryGirl.create(:admin)
-    event_1 = FactoryGirl.create(:event)
-    event_2 = FactoryGirl.create(:event)
+    event_1 = FactoryGirl.create(:event, :city_id => @city.id)
+    event_2 = FactoryGirl.create(:event, :city_id => @city.id)
     sign_in(admin)
+    select  'Portland, OR', from: 'city[city_id]'
+    click_on 'Search'
     click_on(event_1.name)
     page.should have_content "Add jobs"
   end
   
   scenario "signed in as volunteer" do
     volunteer = FactoryGirl.create(:volunteer)
-    event_1 = FactoryGirl.create(:event)
-    event_2 = FactoryGirl.create(:event)
+    event_1 = FactoryGirl.create(:event, :city_id => @city.id)
+    event_2 = FactoryGirl.create(:event, :city_id => @city.id)
     sign_in(volunteer)
+    select  'Portland, OR', from: 'city[city_id]'
+    click_on 'Search'
     click_on(event_1.name)
     page.should_not have_content "Add jobs"
   end
@@ -75,28 +81,35 @@ end
 feature "Signing up for jobs" do
   let(:volunteer) { FactoryGirl.create(:volunteer) }
   let(:admin) { FactoryGirl.create(:admin) }
+  before { @city = FactoryGirl.create(:city) }
   
   scenario "signed in" do
-    event = FactoryGirl.create(:event)
+    event = FactoryGirl.create(:event, :city_id => @city.id)
     job = FactoryGirl.create(:job, :event_id => event.id) 
     sign_in(volunteer)
+    select  'Portland, OR', from: 'city[city_id]'
+    click_on 'Search'
     click_on(event.name)
     page.should have_button "Sign Up!"
   end
 
   scenario "signing up for a job" do
-    event = FactoryGirl.create(:event)
+    event = FactoryGirl.create(:event, :city_id => @city.id)
     job = FactoryGirl.create(:job, :event_id => event.id) 
     sign_in(volunteer)
+    select  'Portland, OR', from: 'city[city_id]'
+    click_on 'Search'
     click_on(event.name)
     click_on "Sign Up!"
     page.should have_content "Congratulations"
   end
 
   scenario "job is already taken" do
-    event = FactoryGirl.create(:event)
+    event = FactoryGirl.create(:event, :city_id => @city.id)
     job = FactoryGirl.create(:job, :event_id => event.id) 
     sign_in(volunteer)
+    select  'Portland, OR', from: 'city[city_id]'
+    click_on 'Search'
     click_on(event.name)
     click_on "Sign Up!"
     page.should_not have_button "Sign Up!"
@@ -104,13 +117,17 @@ feature "Signing up for jobs" do
   end
 
   scenario "jobs are taken by other users" do
-    event = FactoryGirl.create(:event)
+    event = FactoryGirl.create(:event, :city_id => @city.id)
     job = FactoryGirl.create(:job, :event_id => event.id) 
     sign_in(volunteer)
+    select  'Portland, OR', from: 'city[city_id]'
+    click_on 'Search'
     click_on(event.name)
     click_on "Sign Up!"
     click_on "Sign out"
     sign_in(admin)
+    select  'Portland, OR', from: 'city[city_id]'
+    click_on 'Search'
     click_on(event.name)
     page.should_not have_button "Sign Up!"
     page.should_not have_button "Resign!"
