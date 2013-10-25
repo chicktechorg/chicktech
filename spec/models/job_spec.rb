@@ -21,7 +21,6 @@ describe Job do
   end
 
   it "should return all the complete tasks for a job" do
-    # event = FactoryGirl.create(:event)
     job = FactoryGirl.create(:job)
     task1 = FactoryGirl.create(:task, :job_id => job.id)
     task2 = FactoryGirl.create(:task, :job_id => job.id, :done => true) 

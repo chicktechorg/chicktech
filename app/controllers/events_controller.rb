@@ -3,7 +3,6 @@ class EventsController < ApplicationController
   
   def index
     @events = Event.all
-    # if there is a filter on cities in params, only grab the events from that city
     if params[:city]
       @events = Event.where(:city_id => params[:city][:city_id])
     else
@@ -30,7 +29,6 @@ class EventsController < ApplicationController
 
   def show
     @event = Event.find(params[:id])
-    @leadership_role = LeadershipRole.new(leadable: @event)
   end
 
   def edit 
