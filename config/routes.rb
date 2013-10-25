@@ -9,5 +9,6 @@ Chicktech::Application.routes.draw do
   resources :jobs
   resources :tasks, :except => [:new, :edit, :show]
   resources :cities, :except => [:new, :edit, :update]
+  resources :comments
   root :to => "static_pages#index"
 end

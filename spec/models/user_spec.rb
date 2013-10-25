@@ -1,3 +1,4 @@
+
 require 'spec_helper'
 
 describe User do
@@ -22,5 +23,23 @@ describe User do
     user = FactoryGirl.create(:volunteer)
     user.send_information
     ActionMailer::Base.deliveries.last.to.should eq [user.email]
+  end
+
+  describe "pending" do
+    it "tells you which users have pending invitations" do
+      confirmed_user = FactoryGirl.create(:volunteer, :invitation_token => nil)
+      pending_user = FactoryGirl.build(:volunteer, :invitation_token => 'sample token')
+      pending_user.save(:validate => false)
+      User.pending.should eq [pending_user]
+    end
+  end
+
+  describe "confirmed" do
+    it "tells you which users are confirmed users" do
+      confirmed_user = FactoryGirl.create(:volunteer, :invitation_token => nil)
+      pending_user = FactoryGirl.build(:volunteer, :invitation_token => 'sample token')
+      pending_user.save(:validate => false)
+      User.confirmed.should eq [confirmed_user]
+    end
   end
 end

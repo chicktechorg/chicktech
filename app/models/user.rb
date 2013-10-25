@@ -28,4 +28,12 @@ class User < ActiveRecord::Base
   def send_information
     UserMailer.send_information(self).deliver
   end
+
+  def self.pending
+    User.where("invitation_token IS NOT NULL")
+  end
+
+  def self.confirmed
+    User.where("invitation_token IS NULL")
+  end
 end
