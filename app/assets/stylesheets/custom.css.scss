@@ -1,7 +1,9 @@
 @import 'bootstrap';
 
 body{
-  padding-bottom: 60px;
+  padding-top: 100px;
+  min-height: 100%;
+  color: #736759;
 }
 
 .field_with_errors {
@@ -77,6 +79,7 @@ ul {
 
 .logo-image {
   width: 150px;
+  padding-top: 0px;
 }
 
 .nav-font {
@@ -154,10 +157,6 @@ hr {
 
 }
 
-body {
-  color: #736759;
-}
-
 label {
   float: left;
   color: #736759; /* light brown */
@@ -184,7 +183,7 @@ label {
 }
 
 .container {
-  width: 2000px;
+  width: 100%;
 }
 
 .container-left {
@@ -256,19 +255,30 @@ hr.style-four {
   color: white;
 }
 
-.header-center {
+/*.header-center {
   text-align: center;
-}
+}*/
 
 .col-xs-2 {
   width: 25%;
   margin-right: 4%;
+  border-style:solid;
+  border-width:5px; 
+  border-radius: 14px;
 }
 
 .col-xs-4 {
   margin-left: 2%;
 }
 
+/*@media (max-width: 1242px){
+  .navbar-nav {
+    display: none;
+  }
+  .navbar-toggle {
+    width:100%;
+  }
+}*/
 @media (max-width: 800px){
   .container-fluid{ width: 100%
   }
@@ -280,16 +290,17 @@ hr.style-four {
   }
 }
 
-.container-footer {
- /* background:rgba(0, 153, 153, 0.85);
-  width: 100%;
-  height:60px;
-  position:fixed;
-  bottom:0px;
-  margin:0px;
-  margin-bottom: -1px;
-  z-index: 1000;*/
+/*@media (min-width: 960px) {
+  .navbar .brand {
+  }
+  .navbar-head {
+    padding-top:0px;
+    margin-top: 0px;
+  }
 
+}*/
+
+.container-footer {
    position:fixed;
    bottom:0px;
    width:100%;
@@ -297,3 +308,13 @@ hr.style-four {
     background:rgba(0, 153, 153, 1)
 
 }
+
+.navbar-default .navbar-toggle {
+  width: 8%;
+}
+
+.navbar-default{
+    background-color: transparent;
+    border-color: transparent;
+}
+
