@@ -1,4 +1,5 @@
 class LeadershipRolesController < ApplicationController
+  authorize_resource
 
   def update
     @leadership_role = LeadershipRole.find(params[:id])
