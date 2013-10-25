@@ -14,7 +14,7 @@ describe UserMailer do
     end
 
     it 'renders the sender email' do
-      mail.from.should eq ['noreply@chicktech.org']
+      mail.from.should eq ['noreply@chicktech.herokuapp.com']
     end
 
     it 'renders the user name' do
