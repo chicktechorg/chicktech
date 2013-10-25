@@ -4,6 +4,12 @@
   <%= link_to "Add a team", new_team_path(:team => { event_id: @event.id }) %>
 <% end %>
 
+<% if @event.leadership_role.nil? %>
+  <%= render 'leadership_roles/form' %>
+<% elsif can? :destroy, @event.leadership_role %>
+  <%= link_to 'Resign', leadership_role_path(@event.leadership_role), method: :delete, data: {confirm: 'Are you sure?'} %>
+<% end %>
+
 <% if @event.jobs.any? %>
   <h3>Jobs for this event</h3>
   <% @event.jobs.each do |job| %>
@@ -18,10 +24,10 @@
   <% @event.teams.each do |team| %>
     <h4><%= link_to team.name, team %>
       <small>
-        <%= link_to '(delete)', team_path(team), method: :delete, :data => { 
-                                                                :confirm => 
-                                                                'Are you sure? This will delete all
-                                                                jobs within this team' } %>
+        <%= link_to '(delete)', team_path(team),
+                      method: :delete,
+                      :data => { :confirm => 'Are you sure? This will delete all
+                                              jobs within this team' } %>
       </small>
     </h4>
   <% end %>

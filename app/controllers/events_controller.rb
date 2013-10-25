@@ -21,6 +21,7 @@ class EventsController < ApplicationController
 
   def show
     @event = Event.find(params[:id])
+    @leadership_role = LeadershipRole.new(leadable: @event)
   end
 
   def edit 

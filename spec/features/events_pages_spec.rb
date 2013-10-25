@@ -94,9 +94,28 @@ feature "Adding a team" do
   end
 end
 
-# feature "Signing up to be a Event Leader" do
+feature "Signing up to be an Event Leader" do
+  let(:volunteer) { FactoryGirl.create(:volunteer) }
 
-# end
+  context "when there is no leader" do
+    it "should have a button to become the leader" do
+      sign_in(volunteer)
+      @event = FactoryGirl.create(:event)
+      visit event_path(@event)
+      find('#new_leadership_role').should have_button('Take the lead!')
+    end
+  end
+
+  context "when there is a leader" do
+    it "should not have a button to become the leader" do
+      sign_in(volunteer)
+      @event = FactoryGirl.create(:event)
+      @leadership_role = FactoryGirl.create(:leadership_role, leadable: @event)
+      visit event_path(@event)
+      page.should_not have_button('Take the lead!')
+    end
+  end
+end
 
 feature "Signing up for jobs" do
   let(:volunteer) { FactoryGirl.create(:volunteer) }

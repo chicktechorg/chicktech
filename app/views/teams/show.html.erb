@@ -7,6 +7,12 @@
 
 <button class="btn btn-primary btn-block" id="add-job-button">Add a job to this team</button>
 
+<% if @team.leadership_role.nil? %>
+  <%= render 'leadership_roles/form' %>
+<% elsif can? :destory, @team.leadership_role %>
+  <%= link_to 'Resign', leadership_role_path(@team.leadership_role), method: :delete, data: {confirm: 'Are you sure?'} %>
+<% end %>
+
 <div id='new-job'>
   <h4>Add a job to this team</h4>
   <%= render 'jobs/form' %>

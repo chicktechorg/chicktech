@@ -107,3 +107,27 @@ feature 'Destroying a team' do
     it { should have_content 'Team deleted.'}
   end
 end
+
+feature "Signing up to be an Team Leader" do
+  let(:volunteer) { FactoryGirl.create(:volunteer) }
+
+  context "when there is no leader" do
+    it "should have a button to become the leader" do
+      sign_in(volunteer)
+      @team = FactoryGirl.create(:team)
+      visit team_path(@team)
+      find('#new_leadership_role').should have_button('Take the lead!')
+    end
+  end
+
+  context "when there is a leader" do
+    it "should not have a button to become the leader" do
+      sign_in(volunteer)
+      @team = FactoryGirl.create(:team)
+      @leadership_role = FactoryGirl.create(:leadership_role, leadable: @team)
+      visit team_path(@team)
+      page.should_not have_button('Take the lead!')
+    end
+  end
+end
+

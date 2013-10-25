@@ -45,6 +45,7 @@ describe "Event leader" do
     it { should be_able_to(:update, @event) }
     it { should be_able_to(:manage, Team.new(event: @event)) }
     it { should be_able_to(:manage, Job.new(workable: @event)) }
+    it { should be_able_to(:destroy, @event.leadership_role) }
   end
 end
 
@@ -59,6 +60,7 @@ describe "Team leader" do
 
     it { should be_able_to(:update, @team) }
     it { should be_able_to(:manage, Job.new(workable: @team)) }
+    it { should be_able_to(:destroy, @team.leadership_role) }
   end
 end
 
@@ -71,6 +73,7 @@ describe "Admin" do
     it { should be_able_to(:manage, Event.new) }
     it { should be_able_to(:manage, Job.new) }
     it { should be_able_to(:manage, City.new) }
+    it { should be_able_to(:manage, LeadershipRole.new) }
     it { should_not be_able_to(:manage, User.new) }
   end
 end
@@ -97,6 +100,7 @@ describe "unauthorized user" do
       it { should_not be_able_to(action, User.new) }
       it { should_not be_able_to(action, Task.new) }
       it { should_not be_able_to(action, City.new) }
+      it { should_not be_able_to(action, LeadershipRole.new) }
     end
   end
 end
