@@ -43,6 +43,19 @@ feature 'User signs up for a job' do
   end
 end
 
+feature 'Admin can remove a user from a job' do
+  let(:volunteer) { FactoryGirl.create(:volunteer) }
+  let(:admin) { FactoryGirl.create(:admin) }
+  let(:job) { FactoryGirl.create(:job, :user_id => volunteer.id)}
+  before { sign_in(admin) }
+
+  scenario 'admin can unassign user from job' do
+    visit edit_job_path(job)
+    click_on 'Unassign Volunteer'
+    page.should have_content 'removed'
+  end
+end
+
 feature 'Admin deletes a job' do
   let(:superadmin) { FactoryGirl.create(:superadmin) }
   let(:job) { FactoryGirl.create(:job) }

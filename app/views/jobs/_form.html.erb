@@ -1,3 +1,4 @@
+<div>Taken by: <%= @job.user.first_name %> <%= @job.user.last_name %></div>
 <%= form_for @job do |f| %>
   <div class="form-group">
     <%= f.label :name %>
@@ -17,4 +18,11 @@
     </div>
   <% end %>
   <%= f.submit :class => "create-button" %>
+<% end %>
+
+<% if @job.taken? %>
+  <%= form_for @job do |f| %>
+    <%= f.hidden_field :unassigning, :value => true %>
+    <%= f.submit "Unassign volunteer from job", :method => :patch, :class => "submit-no-button" %>
+  <% end %>
 <% end %>
