@@ -8,16 +8,17 @@ class CommentsController < ApplicationController
   end
 
   def create
-    @comment = Comment.new(comment_params)
+    @comment = current_user.comments.new(comment_params)
     if @comment.save
       flash[:notice] = "Your comment has been created."
-      redirect_to @comment.commentable
+      redirect_to job_path(@comment.commentable_id)
     else
-      render :new
+      flash[:notice] = "Something went wrong."
+      #fixme redirect/render
     end
   end
 
-  def show
+  def show         
     @comment = Comment.find(params[:id])
   end
 
@@ -43,6 +44,7 @@ class CommentsController < ApplicationController
   end
 
 private
+
   def comment_params
     params.require(:comment).permit(:content, :commentable_id, :commentable_type)
   end

@@ -12,34 +12,52 @@
 <%= render @job %>
 
 <div class="form-group">
-<%= form_for @task do |f| %>
-  <%= f.label :description %>
-  <%= f.text_field :description, :size => "25" %>
-  <%= f.hidden_field :job_id, :value => @job.id %>
-  <%= f.hidden_field :done, :value => false %>
-  <%= f.submit %>
-<% end %>
+  <%= form_for @task do |f| %>
+    <%= f.label :description %>
+    <%= f.text_field :description, :size => "25" %>
+    <%= f.hidden_field :job_id, :value => @job.id %>
+    <%= f.hidden_field :done, :value => false %>
+    <%= f.submit %>
+  <% end %>
 </div>
 
-<h2 class="header-center"><%= @job.name %> Task List</h2>
+<div class="task-section">
+  <h2 class="header-center"><%= @job.name %> Task List</h2>
 
-<div class="task-group">
-  <div class="not-done">
-    <h4>Not Done</h4>
-    <ul id="not-done-task-list">
-      <% @job.incompleted_tasks.each do |task| %>
-        <li><%= render 'jobs/task_form', :task => task %></li>
-      <% end %>
-    </ul> 
-  </div>
+  <div class="task-group">
+    <div class="not-done">
+      <h4>Not Done</h4>
+      <ul id="not-done-task-list">
+        <% @job.incompleted_tasks.each do |task| %>
+          <li><%= render 'jobs/task_form', :task => task %></li>
+        <% end %>
+      </ul> 
+    </div>
 
-  <div class="done">
-    <h4>Done</h4>
-    <ul id="done-task-list">
-      <% @job.completed_tasks.each do |task| %>
-        <li><%= render 'jobs/task_form', :task => task %></li>
-      <% end %>
-    </ul>
+    <div class="done">
+      <h4>Done</h4>
+      <ul id="done-task-list">
+        <% @job.completed_tasks.each do |task| %>
+          <li><%= render 'jobs/task_form', :task => task %></li>
+        <% end %>
+      </ul>
+    </div>
   </div>
 </div>
 
+<div class="comment-section">
+  <% @job.comments.each do |comment| %>
+    <% if comment %>
+      <ul>
+        <li><%= comment.content %></li>
+        <div class="comment-details">
+          <li><%= comment.created_at %></li>
+          <li><%= comment.user.first_name %> <%= comment.user.last_name %></li>
+        </div>
+      </ul>
+    <% else %>
+      <p><%= No comments yet. Add some notes! %></p>
+    <% end %>
+  <% end %>
+  <%= render 'comments/form' %>
+</div>

@@ -10,6 +10,7 @@ describe User do
 
   it { should have_many(:jobs).dependent(:nullify) }
   it { should have_many(:events).through(:jobs) }
+  it { should have_many(:comments)}
 
   it "tells you each unique event it is signed up for" do
     user = FactoryGirl.create(:volunteer)

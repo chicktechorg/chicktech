@@ -8,6 +8,7 @@ class User < ActiveRecord::Base
 
   has_many :jobs, :dependent => :nullify
   has_many :events, through: :jobs
+  has_many :comments
 
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable, 
