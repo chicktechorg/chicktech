@@ -38,7 +38,7 @@ FactoryGirl.define do
   end
 
   factory :job do
-    sequence(:name) { |n| "The Chose One #{n}" }
+    sequence(:name) { |n| "The Chosen One #{n}" }
     description 'Save Hogwarts'
     association :workable, factory: :event
   
