@@ -7,9 +7,14 @@ describe Team do
   it { should have_one :leadership_role }
 
   it "should tell you its leader" do
+    team = FactoryGirl.create(:team)
     volunteer = FactoryGirl.create(:volunteer)
-    leadership_role = FactoryGirl.create(:leadership_role, :user => volunteer)
-    team = FactoryGirl.create(:team, :leadership_role => leadership_role)
+    team.leadership_role.update(:user => volunteer)
     team.leader.should eq volunteer
+  end
+
+  it "should create a leadership role after it saves" do
+    team = FactoryGirl.create(:team)
+    team.leadership_role.should be_an_instance_of LeadershipRole
   end
 end
