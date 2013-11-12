@@ -65,8 +65,11 @@ subject { Ability.new(user) }
   describe "Team leader" do
     describe "abilities" do
       let(:user) { FactoryGirl.create(:volunteer) }
-      before { @team = FactoryGirl.create(:team, leadership_role: FactoryGirl.create(:leadership_role, user: user)) }
-      
+      before do
+        @team = FactoryGirl.create(:team)
+        user.leadership_roles << @team.leadership_role
+      end
+
       it { should be_able_to(:update, @team) }
       it { should be_able_to(:manage, Job.new(workable: @team)) }
       it { should be_able_to(:update, @team.leadership_role) }
