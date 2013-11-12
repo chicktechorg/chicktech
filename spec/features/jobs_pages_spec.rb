@@ -5,18 +5,20 @@ feature 'Creating jobs' do
   let(:event) { FactoryGirl.create(:event) }
 
   scenario 'with valid inputs' do
-    event = FactoryGirl.create(:event)
     sign_in(admin)
-    visit new_job_path
+    event = FactoryGirl.create(:event)
+    visit event_path(event)
+    click_on 'Add jobs'
     fill_in 'Name', with: 'Example name'
-    select event.name, from: 'job_event_id'
     click_on 'Create Job'
     page.should have_content 'successfully'
   end
 
   scenario 'with no inputs' do
     sign_in(admin)
-    visit new_job_path
+    event = FactoryGirl.create(:event)
+    visit event_path(event)
+    click_on 'Add jobs'
     click_on 'Create Job' 
     page.should have_content 'blank'
   end
@@ -28,14 +30,14 @@ feature 'User signs up for a job' do
   before { sign_in(volunteer) }
 
   scenario 'successfully' do
-    visit event_path(job.event)
+    visit event_path(job.workable)
     click_on 'Sign Up!'
     page.should have_content 'Congratulations!'
   end
 
   scenario 'resigns from a job' do
     volunteer.jobs << job
-    visit event_path(job.event)
+    visit event_path(job.workable)
     click_on 'Resign!'
     page.should have_content 'resigned'
   end

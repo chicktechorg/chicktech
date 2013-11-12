@@ -55,10 +55,9 @@ end
 feature "Adding a job" do
   scenario "signed in as admin" do
     admin = FactoryGirl.create(:admin)
-    event_1 = FactoryGirl.create(:event)
-    event_2 = FactoryGirl.create(:event)
+    event = FactoryGirl.create(:event)
     sign_in(admin)
-    click_on(event_1.name)
+    click_on(event.name)
     page.should have_content "Add jobs"
   end
   
@@ -72,13 +71,67 @@ feature "Adding a job" do
   end
 end
 
+feature "Adding a team" do
+  context "as an admin" do
+    let(:admin) { FactoryGirl.create(:admin) }
+
+    it "page should have content 'Add a team'" do
+      event = FactoryGirl.create(:event)
+      sign_in(admin)
+      click_link(event.name)
+      page.should have_content "Add a team"
+    end
+  end
+
+  context "as an event leader" do
+    it "page should have content 'Add a team'" do
+      event = FactoryGirl.create(:event)
+      sign_in(event.leader)
+      click_on(event.name)
+      page.should have_content "Add a team"
+    end
+  end
+end
+
+feature "Signing up to be an Event Leader" do
+  let(:volunteer) { FactoryGirl.create(:volunteer) }
+
+  context "when there is no leader" do
+    it "should have a button to become the leader" do
+      sign_in(volunteer)
+      @event = FactoryGirl.create(:event)
+      @event.leadership_role.user_id = nil
+      @event.leadership_role.save
+      visit event_path(@event)
+      page.should have_button('Take the lead!')
+    end
+  end
+
+  context "when there is a leader" do
+    before do
+      sign_in(volunteer)
+      @event = FactoryGirl.create(:event)
+      @leadership_role = FactoryGirl.create(:leadership_role, leadable: @event)
+      visit event_path(@event)
+    end
+
+    it "should not have a button to become the leader" do
+      page.should_not have_button('Take the lead!')
+    end
+
+    it "should show the leader's name" do
+      page.should have_content @event.leader.first_name
+    end
+  end
+end
+
 feature "Signing up for jobs" do
   let(:volunteer) { FactoryGirl.create(:volunteer) }
   let(:admin) { FactoryGirl.create(:admin) }
   
   scenario "signed in" do
     event = FactoryGirl.create(:event)
-    job = FactoryGirl.create(:job, :event_id => event.id) 
+    event.jobs << FactoryGirl.create(:job) 
     sign_in(volunteer)
     click_on(event.name)
     page.should have_button "Sign Up!"
@@ -86,7 +139,7 @@ feature "Signing up for jobs" do
 
   scenario "signing up for a job" do
     event = FactoryGirl.create(:event)
-    job = FactoryGirl.create(:job, :event_id => event.id) 
+    event.jobs << FactoryGirl.create(:job) 
     sign_in(volunteer)
     click_on(event.name)
     click_on "Sign Up!"
@@ -94,10 +147,10 @@ feature "Signing up for jobs" do
   end
 
   scenario "job is already taken" do
-    event = FactoryGirl.create(:event)
-    job = FactoryGirl.create(:job, :event_id => event.id) 
+    @event = FactoryGirl.create(:event)
+    @event.jobs << FactoryGirl.create(:job) 
     sign_in(volunteer)
-    click_on(event.name)
+    click_on(@event.name)
     click_on "Sign Up!"
     page.should_not have_button "Sign Up!"
     page.should have_button "Resign!"
@@ -105,7 +158,7 @@ feature "Signing up for jobs" do
 
   scenario "jobs are taken by other users" do
     event = FactoryGirl.create(:event)
-    job = FactoryGirl.create(:job, :event_id => event.id) 
+    event.jobs << FactoryGirl.create(:job) 
     sign_in(volunteer)
     click_on(event.name)
     click_on "Sign Up!"
@@ -113,7 +166,6 @@ feature "Signing up for jobs" do
     sign_in(admin)
     click_on(event.name)
     page.should_not have_button "Sign Up!"
-    page.should_not have_button "Resign!"
     page.should have_content "Taken by"
   end
 end

@@ -3,7 +3,6 @@ class EventsController < ApplicationController
   
   def index
     @events = Event.all
-    # if there is a filter on cities in params, only grab the events from that city
     if params[:city]
       @events = Event.where(:city_id => params[:city][:city_id])
     else
@@ -14,6 +13,7 @@ class EventsController < ApplicationController
   def new
     @event = Event.new
     @events = Event.all
+    @leadership_role = LeadershipRole.new(leadable: @event)
   end
 
   def create
@@ -56,6 +56,6 @@ class EventsController < ApplicationController
 private
 
   def event_params
-    params.require(:event).permit(:name, :description, :start, :finish, :city_id)
+    params.require(:event).permit(:name, :description, :start, :finish, :leadership_role_attributes => [:name, :leadable_id, :leadable_type])
   end
 end
