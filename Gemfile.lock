@@ -197,7 +197,10 @@ PLATFORMS
 DEPENDENCIES
   better_errors
   binding_of_caller
+<<<<<<< HEAD
   bootstrap-datepicker-rails
+=======
+>>>>>>> master
   bootstrap-sass!
   cancan
   capybara

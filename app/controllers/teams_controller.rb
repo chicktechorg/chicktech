@@ -15,7 +15,6 @@ class TeamsController < ApplicationController
   def show
     @team = Team.find(params[:id])
     @job = Job.new(:workable => @team)
-    @leadership_role = LeadershipRole.new(:leadable => @team)
   end
 
   def edit
@@ -29,7 +28,6 @@ class TeamsController < ApplicationController
     else
       render :edit
     end
-
   end
 
   def destroy
