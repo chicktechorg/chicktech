@@ -14,7 +14,6 @@ gem 'devise'
 gem 'cancan'
 gem 'bootstrap-sass', '~> 3.0.0.0.rc'
 gem 'validates_timeliness'
-gem 'bootstrap-datetimepicker-rails'
 gem 'devise_invitable'
 gem 'jquery-turbolinks'
 

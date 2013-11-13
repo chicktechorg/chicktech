@@ -6,14 +6,14 @@ class JobsController < ApplicationController
   end
 
   def new
-    @job = Job.new(:event_id => params[:event_id])
+    @job = Job.new(job_params)
   end
 
   def create
     @job = Job.new(job_params)
     if @job.save
       flash[:notice] = "#{@job.name} has been successfully created."
-      redirect_to @job.event
+      redirect_to @job.workable
     else
       render :new
     end
@@ -43,18 +43,20 @@ class JobsController < ApplicationController
   def show
     @job = Job.find(params[:id])
     @task = Task.new(params[:job_id])
+    @comment = Comment.new(:commentable => @job)
+    @commentable = @job
   end
 
   def destroy
     @job = Job.find(params[:id])
     @job.destroy
     flash[:notice] = "Job '#{@job.name}' deleted."
-    redirect_to new_job_path 
+    redirect_to @job.workable
   end
 
 private
 
   def job_params
-    params.require(:job).permit(:name, :event_id, :description)
+    params.require(:job).permit(:name, :workable_id, :workable_type, :description)
   end
 end

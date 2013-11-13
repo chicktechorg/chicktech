@@ -4,7 +4,10 @@ describe Event do
   it { should validate_presence_of :name }
   it { should validate_presence_of :start }
   it { should validate_presence_of :finish }
+  it { should accept_nested_attributes_for :leadership_role }
   it { should have_many :jobs }
+  it { should have_many :teams }
+  it { should have_one :leadership_role }
   it { should belong_to :city }
 
   describe "#start" do
@@ -30,11 +33,20 @@ describe Event do
 
   describe ".upcoming" do
     it "returns only the upcoming events" do
-      fourty_minutes_from_now = Time.now + 40.minutes
+      forty_minutes_from_now = Time.now + 40.minutes
       event = FactoryGirl.create(:event, :start => Time.now + 1.hour)
       event2 = FactoryGirl.create(:event, :start => Time.now + 30.minutes)
-      Time.stub(:now).and_return(fourty_minutes_from_now)
+      Time.stub(:now).and_return(forty_minutes_from_now)
       Event.upcoming.should eq [event]
+    end
+  end
+
+  describe "#leader" do
+    it "tells you who the leader of the event is" do
+      volunteer = FactoryGirl.create(:volunteer)
+      leadership_role = FactoryGirl.create(:leadership_role, :user => volunteer)
+      event = FactoryGirl.create(:event, :leadership_role => leadership_role)
+      event.leader.should eq volunteer
     end
   end
 end

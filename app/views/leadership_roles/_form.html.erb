@@ -1,0 +1,5 @@
+<%= form_for @leadership_role do |f| %>
+  <%= f.hidden_field :leadable_id %>
+  <%= f.hidden_field :leadable_type %>
+  <%= f.submit 'Take the lead!', :class => 'btn btn-primary', :id => 'create-leadership' %>
+<% end %>

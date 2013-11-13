@@ -1,5 +1,3 @@
-
-
 <div class="container">
   <div class="row">
     <div class="col-lg-3  contact-info ">
@@ -9,9 +7,6 @@
       <p>Role: <%= @user.role %></p>
       <%= link_to "Edit Profile", edit_user_path(@user), :class => 'edit-links' %>  <!-- should be in a <p> tag, perhaps? -->
     </div>
-
-
-  
     <div class="col-lg-7 user-jobs">
       <h2 class='section-header'><%= @user.first_name %>'s Jobs:</h2>
       <div class="job-info">
@@ -31,9 +26,3 @@
     </diV>
   </div>
 </div>
-
-
-
-
-
-
