@@ -162,7 +162,6 @@ feature "Team jobs" do
 
   it "should prevent unauthorized posts to create users" do
     page.driver.submit :post, jobs_path(job: {name: 'This job', description: 'is awesome!', workable: 1, workable_type: 'Team'}), {}
-    save_and_open_page
     page.should have_content 'denied'
   end
 end
