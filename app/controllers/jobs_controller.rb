@@ -44,6 +44,7 @@ class JobsController < ApplicationController
     @job = Job.find(params[:id])
     @task = Task.new(params[:job_id])
     @comment = Comment.new(:commentable => @job)
+    @commentable = @job
   end
 
   def destroy

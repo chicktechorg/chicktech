@@ -1,15 +1,13 @@
-<h1>Edit Job</h1>
-<% if @job.errors.any? %>
+<% if @comment.errors.any? %>
   <div class="alert alert-danger">
     <h4>Please correct these errors:</h4>
     <ul>
-      <% @job.errors.full_messages.each do |message| %>
+      <% @comment.errors.full_messages.each do |message| %>
         <li><%= message %></li>
       <% end %>
     </ul>
   </div>
 <% end %>
-
-<%= render 'jobs/form' %>
-  
-
+<div>
+  <%= render 'comments/form' %>
+</div>

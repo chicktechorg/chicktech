@@ -4,17 +4,17 @@ class CommentsController < ApplicationController
   end
 
   def new
-    @comment = Comment.new
+    @comment = Comment.new(comment_params)
   end
 
   def create
     @comment = current_user.comments.new(comment_params)
+    @commentable = @comment.commentable
     if @comment.save
       flash[:notice] = "Your comment has been created."
-      redirect_to job_path(@comment.commentable_id)
+      redirect_to @comment.commentable
     else
-      flash[:notice] = "Something went wrong."
-      #fixme redirect/render
+      render :new
     end
   end
 
