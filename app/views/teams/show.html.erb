@@ -1,11 +1,10 @@
+<% provide :title, "#{@team.name}" %>
 <h1><%= @team.name %> for <%= @team.event.name %></h1>
 <p><%= link_to 'Edit', edit_team_path(@team) %> |
    <%= link_to 'Delete', team_path(@team), 
                          method: :delete,
                          :data => { :confirm => 'Are you sure? This will delete all
                                                  jobs within this team' } %></p>
-
-<button class="btn btn-primary btn-block" id="add-job-button">Add a job to this team</button>
 
 <% if @team.leadership_role.available? %>
   <%= form_for @team.leadership_role do |f| %>
@@ -25,10 +24,13 @@
 
 <%= link_to "Add a Comment", new_comment_path(:comment => { commentable_id: @team.id, commentable_type: 'Team' }) %>
 
-<div id='new-job'>
-  <h4>Add a job to this team</h4>
-  <%= render 'jobs/form' %>
-</div>
+
+<% if can? :create, @job %>
+  <div id='new-job'>
+    <h4>Add a job to this team</h4>
+    <%= render 'jobs/form' %>
+  </div>
+<% end %>
 
 <hr>
 

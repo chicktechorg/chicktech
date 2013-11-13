@@ -157,3 +157,33 @@ feature "Adding comments to teams" do
     page.should have_content 'blank'
   end
 end
+
+feature "Team jobs" do
+  let(:volunteer) { FactoryGirl.create(:volunteer) }
+
+  it "should allow the team leader to add jobs" do
+    sign_in(volunteer)
+    @team = FactoryGirl.create(:team)
+    volunteer.leadership_roles << @team.leadership_role
+    visit team_path(@team)
+    fill_in 'Name', with: 'Book the venue'
+    fill_in 'Description', with: 'make sure it is done right!'
+    click_on 'Create Job'
+    page.should have_content "successfully"
+  end
+
+  it "should not allow another volunteer to add jobs" do
+    @other_user = FactoryGirl.create(:volunteer)
+    sign_in(@other_user)
+    @team = FactoryGirl.create(:team)
+    volunteer.leadership_roles << @team.leadership_role
+    visit team_path(@team)
+    page.should_not have_content "Add a job"
+  end
+
+  it "should prevent unauthorized posts to create users" do
+    page.driver.submit :post, jobs_path(job: {name: 'This job', description: 'is awesome!', workable: 1, workable_type: 'Team'}), {}
+    page.should have_content 'denied'
+  end
+end
+

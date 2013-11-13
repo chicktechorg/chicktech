@@ -1,3 +1,4 @@
+<% provide :title, "#{@event.name}" %>
 <%= render @event %>
 <% if can? :update, @event %>
   <%= link_to "Add jobs", new_job_path(:job => { workable_id: @event.id, workable_type: 'Event' }) %>
