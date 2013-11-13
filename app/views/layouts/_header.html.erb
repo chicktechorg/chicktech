@@ -1,12 +1,10 @@
 <div class="navbar navbar-default navbar-fixed-top">
-  <div class="container">
     <div class="navbar-header">
       <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
         <span class="icon-bar"></span>
       </button>
-      <%= link_to image_tag("ChickTech_logo_2_02.jpg", :class => 'logo-image'), root_path, :class => 'navbar-brand' %>
 
     </div>
      <div class="navbar-collapse collapse">
@@ -38,13 +36,68 @@
        </ul>
 
         <ul class="nav navbar-nav navbar-right">
-          <% if user_signed_in? %>
-            <li><%= link_to "Sign out", destroy_user_session_path, :method => :delete, :class => 'nav-font' %></li>
-          <% end %>
+        
         </ul>
      </div><!--/.nav-collapse -->
    </div>
  </div>
 
 
+    <div id="wrapper">
+      
+      <!-- Sidebar -->
+      <div id="sidebar-wrapper">
+        <ul class="sidebar-nav">
+          <li class="sidebar-brand"><a href="#"><%= link_to image_tag("ChickTech_logo_2_02.jpg", :class => 'logo-image'), root_path, :class => 'navbar-brand' %></a></li>
+
+           <% if user_signed_in? %>
+          <% if current_user.role? :superadmin %>
+            <li><%= link_to "Manage Volunteers", users_path, :class => 'nav-font' %></li>
+          <% end %>
+          <% if current_user.role? :admin %>
+            <li><%= link_to "Manage Events", "/events/new", :class => 'nav-font' %></li>
+          <% end %>  
+          <li><%= link_to "My Events", root_path, :class => 'nav-font' %></li>
+        <% end %>
+          <% if user_signed_in? %>
+            <li><%= link_to "Sign out", destroy_user_session_path, :method => :delete, :class => 'nav-font' %></li>
+          <% end %>
+ 
+        </ul>
+      </div>
+          
+      <!-- Page content -->
+      <div id="page-content-wrapper">
+        <div class="content-header">
+          <h1>
+            <a id="menu-toggle" href="#" class="btn btn-default"><i class="icon-reorder"></i></a>
+            Simple Sidebar
+          </h1>
+        </div>
+        <!-- Keep all page content within the page-content inset div! -->
+        <div class="page-content inset">
+          <div class="row">
+            <div class="col-md-12">
+              <p class="lead">This simple sidebar template has a hint of JavaScript to make the template responsive. It also includes Font Awesome icon fonts.</p>
+            </div>
+            <div class="col-md-6">
+              <p class="well">The template still uses the default Bootstrap rows and columns.</p>
+            </div>
+            <div class="col-md-6">
+              <p class="well">But the full-width layout means that you wont be using containers.</p>
+            </div>
+            <div class="col-md-4">
+              <p class="well">Three Column Example</p>
+            </div>
+            <div class="col-md-4">
+              <p class="well">Three Column Example</p>
+            </div>
+            <div class="col-md-4">
+              <p class="well">You get the idea! Do whatever you want in the page content area!</p>
+            </div>
+          </div>
+        </div>
+      </div>
+      
+    </div>
 

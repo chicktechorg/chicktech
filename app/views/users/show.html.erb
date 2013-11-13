@@ -2,8 +2,7 @@
 
 <div class="container">
   <div class="row">
-
-    <div class="col-lg-4  contact-info">
+    <div class="col-lg-3  contact-info ">
       <h1 class='user-name'><%= "#{@user.first_name} #{@user.last_name}" %></h1>
       <p>Phone: <%= @user.phone %></p>
       <p>Email: <%= @user.email %></p>
@@ -11,19 +10,23 @@
       <%= link_to "Edit Profile", edit_user_path(@user), :class => 'edit-links' %>  <!-- should be in a <p> tag, perhaps? -->
     </div>
 
-    <div class="col-lg-4 user-jobs">
+
+  
+    <div class="col-lg-7 user-jobs">
       <h2 class='section-header'><%= @user.first_name %>'s Jobs:</h2>
-      <% @user.unique_events.each do |event| %>
-        <%= render event %>
-        <% event.jobs.each do |job| %>
-          <% if job.owned_by?(@user) %>
-            <%= render job %>
+      <div class="job-info">
+        <% @user.unique_events.each do |event| %>
+          <%= render event %>
+          <% event.jobs.each do |job| %>
+            <% if job.owned_by?(@user) %>
+              <%= render job %>
+            <% end %>
           <% end %>
         <% end %>
-      <% end %>
+      </div>
     </div>
 
-    <div class="col-lg-4">
+    <div class="col-lg-2">
       <%= render 'cities/dropdown', :cities => @cities %>
     </diV>
   </div>
