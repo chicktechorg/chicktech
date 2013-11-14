@@ -7,7 +7,7 @@
       <div class="row">
         <div class="col-md-6">
           <h2 class='section-header well'><%= @user.first_name %>'s Jobs:</h2>
-          <div class="job-info">
+          <div class="job-info well">
             <% @user.unique_events.each do |event| %>
               <%= render event %>
               <% event.jobs.each do |job| %>
