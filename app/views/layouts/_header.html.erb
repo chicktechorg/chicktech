@@ -18,21 +18,6 @@
           <% end %>  
           <li><%= link_to "My Events", root_path, :class => 'nav-font' %></li>
         <% end %>
-<!--          <li class="active"><a href="#"></a></li>
-         <li><a href="#about">About</a></li>
-         <li><a href="#contact">Contact</a></li> -->
-         <!-- <li class="dropdown">
-           <a href="#" class="dropdown-toggle" data-toggle="dropdown">Dropdown <b class="caret"></b></a>
-           <ul class="dropdown-menu">
-             <li><a href="#">Action</a></li>
-             <li><a href="#">Another action</a></li>
-             <li><a href="#">Something else here</a></li>
-             <li class="divider"></li>
-             <li class="dropdown-header">Nav header</li>
-             <li><a href="#">Separated link</a></li>
-             <li><a href="#">One more separated link</a></li>
-           </ul>
-         </li> -->
        </ul>
      </div><!--/.nav-collapse -->
    </div>
@@ -40,12 +25,20 @@
 
 
     <div id="wrapper">
-      
       <!-- Sidebar -->
       <div id="sidebar-wrapper">
-        <ul class="sidebar-nav">
+        <div class="contact-info">
+          <% if user_signed_in? %>
+            <h1 class='user-name'><%= "#{current_user.first_name} #{current_user.last_name}" %></h1>
+            <p>Phone: <%= current_user.phone %></p>
+            <p>Email: <%= current_user.email %></p>
+            <p>Role: <%= current_user.role %></p>
+            <p><%= link_to "Edit Profile", edit_user_path(current_user), :class => 'edit-links' %></p>
+          <% end %>
+        </div>  
+          <ul class="sidebar-nav">
           <li class="sidebar-brand"><a href="#"><%= link_to image_tag("ChickTech_logo_2_02.jpg", :class => 'logo-image'), root_path, :class => 'navbar-brand' %></a></li>
-
+      
            <% if user_signed_in? %>
           <% if current_user.role? :superadmin %>
             <li><%= link_to "Manage Volunteers", users_path, :class => 'nav-font' %></li>
@@ -61,39 +54,7 @@
  
         </ul>
       </div>
-          
-      <!-- Page content -->
-      <div id="page-content-wrapper">
-        <div class="content-header">
-          <h1>
-            <a id="menu-toggle" href="#" class="btn btn-default"><i class="icon-reorder"></i></a>
-       
-          </h1>
-        </div>
-        <!-- Keep all page content within the page-content inset div! -->
-        <div class="page-content inset">
-          <div class="row">
-            <div class="col-md-12">
-              <p class="lead">This simple sidebar template has a hint of JavaScript to make the template responsive. It also includes Font Awesome icon fonts.</p>
-            </div>
-            <div class="col-md-6">
-              <p class="well">The template still uses the default Bootstrap rows and columns.</p>
-            </div>
-            <div class="col-md-6">
-              <p class="well">But the full-width layout means that you wont be using containers.</p>
-            </div>
-            <div class="col-md-4">
-              <p class="well">Three Column Example</p>
-            </div>
-            <div class="col-md-4">
-              <p class="well">Three Column Example</p>
-            </div>
-            <div class="col-md-4">
-              <p class="well">You get the idea! Do whatever you want in the page content area!</p>
-            </div>
-          </div>
-        </div>
-      </div>
+ 
       
     </div>
 

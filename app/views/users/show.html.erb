@@ -1,28 +1,39 @@
-<div class="container">
-  <div class="row">
-    <div class="col-lg-3  contact-info ">
-      <h1 class='user-name'><%= "#{@user.first_name} #{@user.last_name}" %></h1>
-      <p>Phone: <%= @user.phone %></p>
-      <p>Email: <%= @user.email %></p>
-      <p>Role: <%= @user.role %></p>
-      <%= link_to "Edit Profile", edit_user_path(@user), :class => 'edit-links' %>  <!-- should be in a <p> tag, perhaps? -->
-    </div>
-    <div class="col-lg-7 user-jobs">
-      <h2 class='section-header'><%= @user.first_name %>'s Jobs:</h2>
-      <div class="job-info">
-        <% @user.unique_events.each do |event| %>
-          <%= render event %>
-          <% event.jobs.each do |job| %>
-            <% if job.owned_by?(@user) %>
-              <%= render job %>
-            <% end %>
-          <% end %>
-        <% end %>
+
+<div class="column-container">   
+<!-- Page content -->
+  <div id="page-content-wrapper">
+<!-- Keep all page content within the page-content inset div! -->
+    <div class="page-content inset">
+      <div class="row">
+        <div class="col-md-6">
+          <h2 class='section-header well'><%= @user.first_name %>'s Jobs:</h2>
+          <div class="job-info">
+            <% @user.unique_events.each do |event| %>
+              <%= render event %>
+              <% event.jobs.each do |job| %>
+                <% if job.owned_by?(@user) %>
+                <%= render job %>
+                <% end %>
+              <% end %>
+            <% end %> 
+          </div> 
+        </div>
+        <div class="col-md-6">
+          <%= render 'cities/dropdown', :cities => @cities %>   
+        </div>
+            <!-- <div class="col-md-4">
+              <p class="well">Three Column Example</p>
+            </div>
+            <div class="col-md-4">
+              <p class="well">Three Column Example</p>
+            </div>
+            <div class="col-md-4">
+              <p class="well">You get the idea! Do whatever you want in the page content area!</p> -->
       </div>
     </div>
-
-    <div class="col-lg-2">
-      <%= render 'cities/dropdown', :cities => @cities %>
-    </diV>
   </div>
 </div>
+
+
+
+

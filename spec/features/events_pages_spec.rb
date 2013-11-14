@@ -57,18 +57,9 @@ feature "Adding a job" do
   before { @city = FactoryGirl.create(:city) }
   scenario "signed in as admin" do
     admin = FactoryGirl.create(:admin)
-<<<<<<< HEAD
-    event_1 = FactoryGirl.create(:event, :city_id => @city.id)
-    event_2 = FactoryGirl.create(:event, :city_id => @city.id)
-    sign_in(admin)
-    select  'Portland, OR', from: 'city[city_id]'
-    click_on 'Search'
-    click_on(event_1.name)
-=======
     event = FactoryGirl.create(:event)
     sign_in(admin)
     click_on(event.name)
->>>>>>> 44951d842686a741fc07053485b4d0335d92cbfa
     page.should have_content "Add jobs"
   end
   

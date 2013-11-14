@@ -3,7 +3,8 @@
 body{
 
   min-height: 100%;
-  color: #736759;
+/*  color: #736759;*/
+color:black;
   background-image: asset-url("sos.png");
 }
 
@@ -34,7 +35,16 @@ body{
   margin-left: 0 auto;
 
 }
+.col-md-6 {
+  padding-right: 15px;
+padding-left: 15px;
+}
+.column-container{
 
+  width:1600px;
+
+
+}
 .sign-in-button:hover {
   background: #e32976;
   text-decoration: none;
@@ -186,12 +196,12 @@ label {
 }
 
 .contact-info {
-  color: #736759;
   text-align: center ;
   float:left;
-  border-style:solid;
-  border-width:2px; 
-  border-radius: 14px;
+  margin-top: 300px;
+}
+
+.sidebar-nav {  
 }
 
 .container {
@@ -345,10 +355,6 @@ hr.style-four {
   padding-left: 50px;
 }
 
-
-.section-header {
-  text-align: center;
-}
 
 
 .left-column {
@@ -508,5 +514,5 @@ bootstrap theme
 
 .comment-details {
   font-size: 11px;
-
+}
 }
