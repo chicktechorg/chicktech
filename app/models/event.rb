@@ -14,6 +14,10 @@ class Event < ActiveRecord::Base
     Event.where("finish > ?", Time.now)
   end
 
+  def self.sort_by_time
+    Event.all.sort_by {|event| event.start} 
+  end
+
   def leader
     leadership_role.user
   end

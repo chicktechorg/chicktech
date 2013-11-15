@@ -23,7 +23,7 @@ class UsersController < ApplicationController
 
   def show
    @user = User.find(params[:id])
-   @events = Event.all
+   @events = Event.sort_by_time
    @jobs = Job.all
    @cities = City.all
    redirect_to edit_user_path(@user) if @user.first_name.nil? # push down to model

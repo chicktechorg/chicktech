@@ -41,6 +41,15 @@ describe Event do
     end
   end
 
+  describe ".sort_by_time" do
+    it "sorts upcoming events by chronological order" do
+      event1 = FactoryGirl.create(:event, :start => Time.now + 1.hour)
+      event2 = FactoryGirl.create(:event, :start => Time.now + 12.hours, :finish => Time.now + 14.hours)
+      event3 = FactoryGirl.create(:event, :start => Time.now + 10.hours, :finish => Time.now + 12.hours)
+      Event.sort_by_time.should eq [event1, event3, event2]
+    end
+  end
+
   describe "#leader" do
     it "tells you who the leader of the event is" do
       volunteer = FactoryGirl.create(:volunteer)

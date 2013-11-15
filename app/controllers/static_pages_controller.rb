@@ -6,4 +6,3 @@ class StaticPagesController < ApplicationController
   end
 end
 
-#fixme add integration test
