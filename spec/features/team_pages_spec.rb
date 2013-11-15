@@ -88,7 +88,9 @@ feature 'Destroying a team' do
   context 'when visiting event page' do
     before do
       visit event_path(@team.event)
-      click_on '(delete)'
+      within('p.team') do
+        click_on 'Delete'
+      end
     end
     subject { page }
 
