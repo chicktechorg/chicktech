@@ -11,7 +11,7 @@ class Event < ActiveRecord::Base
   accepts_nested_attributes_for :leadership_role
 
   def self.upcoming
-    Event.where("start > ?", Time.now)
+    Event.where("finish > ?", Time.now)
   end
 
   def leader

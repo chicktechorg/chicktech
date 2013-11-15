@@ -10,9 +10,7 @@ feature "Creating events" do
     fill_in 'Name', with: 'Example event'
     fill_in 'Description', with: 'Example event description'
     fill_in 'event_start', with: 'December 25'
-    # select '27', from: 'datetimepicker-days'
     fill_in 'event_finish', with: 'December 26'
-    # select '28', from: 'datetimepicker-days'
     select  'Portland, OR', from: 'event[city_id]'
     click_on "Create Event"
     expect(page).to have_content "successfully"
