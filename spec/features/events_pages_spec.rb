@@ -9,11 +9,10 @@ feature "Creating events" do
     visit new_event_path
     fill_in 'Name', with: 'Example event'
     fill_in 'Description', with: 'Example event description'
-    select 'December', from: 'event_start_2i'
-    select '15', from: 'event_start_3i'
-    select 'December', from: 'event_finish_2i'
-    select '15', from: 'event_finish_3i'
-    select '30', from: 'event_finish_5i'
+    fill_in 'event_start', with: 'December 25'
+    # select '27', from: 'datetimepicker-days'
+    fill_in 'event_finish', with: 'December 26'
+    # select '28', from: 'datetimepicker-days'
     select  'Portland, OR', from: 'event[city_id]'
     click_on "Create Event"
     expect(page).to have_content "successfully"
