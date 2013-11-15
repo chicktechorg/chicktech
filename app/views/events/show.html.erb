@@ -26,20 +26,14 @@
   <% @event.jobs.each do |job| %>
     <%= render job %>
   <% end %>
-<% else %>
-    <h3>No jobs have been created for this event.</h3>    
 <% end %>
 
 <% if @event.teams.any? %>
   <h3>Teams</h3>
   <% @event.teams.each do |team| %>
-    <h4><%= link_to team.name, team %>
-      <small>
-        <%= link_to '(delete)', team_path(team),
-                      method: :delete,
-                      :data => { :confirm => 'Are you sure? This will delete all
-                                              jobs within this team' } %>
-      </small>
-    </h4>
+    <%= render team %>
   <% end %>
 <% end %>
+
+
+

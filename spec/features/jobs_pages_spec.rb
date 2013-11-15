@@ -54,3 +54,22 @@ feature 'Admin deletes a job' do
     page.should have_content "'#{job.name}' deleted."
   end
 end
+
+feature 'Comment on a job' do
+  let(:volunteer) { FactoryGirl.create(:volunteer) }
+  let(:job) { FactoryGirl.create(:job)}
+  before { sign_in(volunteer) }
+
+  scenario 'successfully' do
+    visit job_path(job)
+    fill_in 'Add a comment', with: 'Stuff'
+    click_on 'Comment'
+    page.should have_content 'created'
+  end
+
+  scenario 'unsuccessfully' do
+    visit job_path(job)
+    click_on 'Comment'
+    page.should have_content 'blank'
+  end
+end

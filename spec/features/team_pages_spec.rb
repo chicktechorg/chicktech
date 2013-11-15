@@ -88,7 +88,9 @@ feature 'Destroying a team' do
   context 'when visiting event page' do
     before do
       visit event_path(@team.event)
-      click_on '(delete)'
+      within('p.team') do
+        click_on 'Delete'
+      end
     end
     subject { page }
 
@@ -137,6 +139,27 @@ feature "Signing up to be an Team Leader" do
   end
 end
 
+feature "Adding comments to teams" do
+  let(:volunteer) { FactoryGirl.create(:volunteer) }
+  let(:team) { FactoryGirl.create(:team) }
+  before { sign_in(volunteer) }
+
+  scenario "successfully" do
+    visit team_path(team)
+    click_on 'Comment'
+    fill_in 'Add a comment', with: 'Stuff'
+    click_on 'Create Comment'
+    page.should have_content 'created'
+  end
+
+  scenario "unsuccessfully" do
+    visit team_path(team)
+    click_on 'Comment'
+    click_on 'Create Comment'
+    page.should have_content 'blank'
+  end
+end
+
 feature "Team jobs" do
   let(:volunteer) { FactoryGirl.create(:volunteer) }
 
@@ -165,3 +188,4 @@ feature "Team jobs" do
     page.should have_content 'denied'
   end
 end
+

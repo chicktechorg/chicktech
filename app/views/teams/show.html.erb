@@ -22,6 +22,9 @@
   <h4>Team lead: <%= "#{@team.leader.first_name} #{@team.leader.last_name}" %></h4> 
 <% end %>
 
+<%= link_to "Add a Comment", new_comment_path(:comment => { commentable_id: @team.id, commentable_type: 'Team' }) %>
+
+
 <% if can? :create, @job %>
   <div id='new-job'>
     <h4>Add a job to this team</h4>

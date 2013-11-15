@@ -1,0 +1,9 @@
+<%= form_for @comment do |f| %>
+  <%= f.hidden_field :commentable_id %>
+  <%= f.hidden_field :commentable_type %>
+  <div class="form-group">
+    <%= f.label :content, 'Add a comment:' %>
+    <%= f.text_area :content, :class => 'form-control' %>
+  </div>
+  <%= f.submit :class => 'create-button' %>
+<% end %>
