@@ -13,11 +13,11 @@
   </div>
   <div class="form-group">
     <%= f.label :start %>
-    <%= f.text_field :start, :class => 'form_datetime' %>
+    <%= f.text_field :start, :class => 'form_datetime form-control-short' %>
   </div>
   <div class="form-group">
     <%= f.label :finish %>
-    <%= f.text_field :finish, :class => 'form_datetime' %>
+    <%= f.text_field :finish, :class => 'form_datetime form-control-short' %>
   </div>
   <%= f.fields_for :leadership_role, @leadership_role do |ff| %>
     <%= ff.hidden_field :name %>
