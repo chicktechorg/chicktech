@@ -4,6 +4,7 @@ describe Event do
   it { should validate_presence_of :name }
   it { should validate_presence_of :start }
   it { should validate_presence_of :finish }
+  it { should validate_presence_of :city_id }
   it { should accept_nested_attributes_for :leadership_role }
   it { should have_many :jobs }
   it { should have_many :teams }

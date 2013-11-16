@@ -8,6 +8,7 @@ FactoryGirl.define do
     start Time.now + 1.hour
     finish Time.now + 4.hours
     leadership_role
+    association :city
   end
 
   factory :event_without_leader, class: Event do
@@ -16,13 +17,13 @@ FactoryGirl.define do
     start Time.now + 1.hour
     finish Time.now + 4.hours
     association :leadership_role, factory: :open_leadership_role
+    association :city
   end
 
   factory :team do
     name 'Logistics'
     event
     association :leadership_role, factory: :open_leadership_role
-
     factory :team_with_leader do
       leadership_role
     end
