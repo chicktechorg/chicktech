@@ -25,12 +25,12 @@ class User < ActiveRecord::Base
     ROLES.index(base_role.to_s) <= ROLES.index(role)
   end
 
-  def unique_events
-    events.uniq
+  def all_events
+    (event_leads + events).uniq
   end
 
-  def unique_teams
-    teams.uniq
+  def all_teams
+    (team_leads + teams).uniq
   end
 
   def send_information
