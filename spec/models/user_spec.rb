@@ -13,21 +13,27 @@ describe User do
   it { should have_many(:comments)}
   it { should have_many(:teams).through(:jobs) }
   it { should have_many(:leadership_roles) }
+  it { should have_many(:event_leads) }
+  it { should have_many(:team_leads) }
 
-  it "tells you each unique event it is signed up for" do
-    user = FactoryGirl.create(:volunteer)
-    event = FactoryGirl.create(:event)
-    job1 = FactoryGirl.create(:job, :user_id => user.id, workable_id: event.id, workable_type: 'Event')
-    job2 = FactoryGirl.create(:job, :user_id => user.id, workable_id: event.id, workable_type: 'Event')
-    user.unique_events.should eq [event]
+  describe '#events' do
+    it "should only return unique events" do
+      user = FactoryGirl.create(:volunteer)
+      event = FactoryGirl.create(:event)
+      job1 = FactoryGirl.create(:job, :user_id => user.id, workable_id: event.id, workable_type: 'Event')
+      job2 = FactoryGirl.create(:job, :user_id => user.id, workable_id: event.id, workable_type: 'Event')
+      user.events.should eq [event]
+    end
   end
 
-  it "tells you each unique team it is signed up for" do
-    user = FactoryGirl.create(:volunteer)
-    team = FactoryGirl.create(:team)
-    job1 = FactoryGirl.create(:job, :user_id => user.id, workable_id: team.id, workable_type: 'Team')
-    job2 = FactoryGirl.create(:job, :user_id => user.id, workable_id: team.id, workable_type: 'Team')
-    user.unique_teams.should eq [team]
+  describe '#teams' do
+    it "tells you each unique team it is signed up for" do
+      user = FactoryGirl.create(:volunteer)
+      team = FactoryGirl.create(:team)
+      job1 = FactoryGirl.create(:job, :user_id => user.id, workable_id: team.id, workable_type: 'Team')
+      job2 = FactoryGirl.create(:job, :user_id => user.id, workable_id: team.id, workable_type: 'Team')
+      user.teams.should eq [team]
+    end
   end
 
   it "sends an e-mail" do

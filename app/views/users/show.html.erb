@@ -8,7 +8,7 @@
 
 <div class='user-jobs'>
   <h2 class='section-header'><%= @user.first_name %>'s Jobs:</h2>
-  <% @user.unique_events.each do |event| %>
+  <% @user.events.each do |event| %>
     <%= render event %>
     <% event.jobs.each do |job| %>
       <% if job.owned_by?(@user) %>
