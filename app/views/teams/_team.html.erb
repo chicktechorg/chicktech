@@ -1,0 +1,34 @@
+<div>
+  <% provide :title, "#{team.name}" %>
+  <h1><%= link_to team.name, team %> for <%= team.event.name %></h1>
+  <p class="team"><%= link_to 'Edit', edit_team_path(team) %> |
+     <%= link_to 'Delete', team_path(team), 
+                           method: :delete,
+                           :data => { :confirm => 'Are you sure? This will delete all
+                                                   jobs within this team' } %></p>
+
+  <% if team.leadership_role.available? %>
+    <%= form_for team.leadership_role do |f| %>
+      <%= f.hidden_field :signing_up, :value => true %>
+      <%= f.submit "Take the lead!", :class => "submit-no-button" %>
+    <% end %>
+  <% elsif can? :update, team.leadership_role %>
+    <%= form_for team.leadership_role do |f| %>
+      <%= f.hidden_field :resigning, :value => false %>
+      <%= f.submit "Resign!", :class => "submit-no-button" %>
+    <% end %>
+  <% end %>
+
+  <% if team.leader %>
+    <h4>Team lead: <%= "#{team.leader.first_name} #{team.leader.last_name}" %></h4> 
+  <% end %>
+
+  <%= link_to "Add a Comment", new_comment_path(:comment => { commentable_id: team.id, commentable_type: 'Team' }) %>
+  <hr>
+</div>
+<div id='jobs-list'>
+  <% team.jobs.each do |job| %>
+    <%= render job %>
+  <% end %>
+</div>
+

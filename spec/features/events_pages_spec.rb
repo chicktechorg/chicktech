@@ -182,3 +182,16 @@ feature "Signing up for jobs" do
     page.should have_content "Taken by"
   end
 end
+
+feature "Showing all jobs on the page" do
+  let(:volunteer) { FactoryGirl.create(:volunteer) }
+
+  scenario "job is part of a team" do
+    event = FactoryGirl.create(:event)
+    team = FactoryGirl.create(:team, :event_id => event.id)
+    job = FactoryGirl.create(:job, :workable => team)
+    sign_in(volunteer)
+    click_on(event.name)
+    page.should_not have_content "No jobs have been created for this event"
+  end
+end
