@@ -2,17 +2,17 @@ class EventsController < ApplicationController
   authorize_resource
   
   def index
-    @events = Event.sort_by_time
+    @events = Event.all
     if params[:city]
       @events = Event.where(:city_id => params[:city][:city_id])
     else
-      @events = Event.sort_by_time
+      @events = Event.all
     end
   end
 
   def new
     @event = Event.new
-    @events = Event.sort_by_time
+    @events = Event.all
     @leadership_role = LeadershipRole.new(leadable: @event)
   end
 

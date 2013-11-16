@@ -1,4 +1,6 @@
 class Event < ActiveRecord::Base
+  default_scope { order(:start) }
+
   validates :name, :presence => true
   validates :start, :presence => true, :timeliness => { :on_or_after => Time.now }
   validates :finish, :presence => true, :timeliness => { :on_or_after => :start }
@@ -12,10 +14,6 @@ class Event < ActiveRecord::Base
 
   def self.upcoming
     Event.where("finish > ?", Time.now)
-  end
-
-  def self.sort_by_time
-    Event.all.sort_by {|event| event.start} 
   end
 
   def leader
