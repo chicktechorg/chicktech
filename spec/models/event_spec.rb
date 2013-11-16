@@ -35,10 +35,19 @@ describe Event do
   describe ".upcoming" do
     it "returns only the upcoming events" do
       forty_minutes_from_now = Time.now + 40.minutes
-      event = FactoryGirl.create(:event, :start => Time.now + 1.hour)
-      event2 = FactoryGirl.create(:event, :start => Time.now + 30.minutes)
+      event = FactoryGirl.create(:event, :start => Time.now, :finish => Time.now + 3.hours)
+      event2 = FactoryGirl.create(:event, :start => Time.now, :finish => Time.now + 30.minutes)
       Time.stub(:now).and_return(forty_minutes_from_now)
       Event.upcoming.should eq [event]
+    end
+  end
+
+  describe "default_scope" do
+    it "sorts upcoming events by chronological order" do
+      event1 = FactoryGirl.create(:event, :start => Time.now + 1.hour)
+      event2 = FactoryGirl.create(:event, :start => Time.now + 12.hours, :finish => Time.now + 14.hours)
+      event3 = FactoryGirl.create(:event, :start => Time.now + 10.hours, :finish => Time.now + 12.hours)
+      Event.all.should eq [event1, event3, event2]
     end
   end
 
