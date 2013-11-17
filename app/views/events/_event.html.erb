@@ -1,4 +1,4 @@
-<div>
+<div class="well">
   <h1><%= link_to event.name, event_path(event.id), :class => 'event-name' %></h1><small><%= event.start.to_time.strftime("%b %-d, %Y @ %-I:%M%P") %></small> - <small><%= event.finish.to_time.strftime("%b %-d, %Y @ %-I:%M%P") %></small>
   <p><%= event.city.name %></p>
   <p><%= event.description %></p>

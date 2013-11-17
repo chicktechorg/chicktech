@@ -5,6 +5,10 @@ class EventsController < ApplicationController
     @events = Event.all
     if params[:city]
       @events = Event.where(:city_id => params[:city][:city_id])
+      respond_to do |format|
+        format.html { redirect_to user_path(current_user) }
+        format.js
+      end
     else
       @events = Event.all
     end

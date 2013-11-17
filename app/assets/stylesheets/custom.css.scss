@@ -1,21 +1,19 @@
 @import 'bootstrap';
 
-
 body{
-
   min-height: 100%;
-/*  color: #736759;*/
-color:black;
+  color:black;
   background-image: asset-url("sos.png");
+}
 
 .form-group label { 
   margin: 5px;
-
 }
 
 .field_with_errors {
   @extend .has-error;
 }
+
 
 .welcome {
   color: #736759;
@@ -38,19 +36,16 @@ color:black;
   position: relative;
   margin-right: 0 auto;
   margin-left: 0 auto;
-
 }
+
 .col-md-6 {
   padding-right: 15px;
-padding-left: 15px;
+  padding-left: 15px;
 }
-.column-container{
 
+.column-container{
   width:1600px;
   margin-left:-9%;
-
-
-
 }
 .sign-in-button:hover {
   background: #e32976;
@@ -66,7 +61,6 @@ padding-left: 15px;
   color: #FFF;
   font-size: 18px;
   background: #ef669e;
-/*  padding: 9px 10px 9px 10px;*/
   text-decoration: none;
   border: none;
   margin-bottom: 25px;
@@ -124,11 +118,6 @@ ul {
   text-align:center;
 }
 
-/*.navbar-default .navbar-nav > li > a {
-  color: #C7C4BF;
-
-}
-*/
 .alert-info {
   background-color: #4bbbbd; /* chicktech blue */
   color: white;
@@ -141,12 +130,17 @@ ul {
 
 a {
   color: #4bbbbd;
+  padding-left: 10px;
 }
 
 .headers {
   color: #736759;
   font-size: 40px;
+}
 
+.remove {
+  color:red;
+  padding-right: 30px;
 }
 
 .form-control-sign-in {
@@ -184,6 +178,10 @@ a {
   box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075);
   -webkit-transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
   transition: border-color ease-in-out 0.15s, box-shadow ease-in-out 0.15s;
+}
+
+.cities {
+  padding-top: 19px;
 }
 
 hr {
@@ -226,21 +224,8 @@ label {
   margin-top: 300px;
 }
 
-.sidebar-nav {  
-}
-
 .container {
   width: 100%;
-
-}
-
-.container-left {
-  float:left;
-  width: 30%;
-}
-
-.container-mid {
-
 }
 
 hr.style-four {
@@ -258,12 +243,8 @@ hr.style-four {
   font-size: 20px;
 }
 
-/*.navbar-header {
-  width: 100%;
-}*/
-
 .create-button {
- -webkit-border-radius: 10;
+  -webkit-border-radius: 10;
   -moz-border-radius: 10;
   border-radius: 10px;
   font-family: Arial;
@@ -306,10 +287,6 @@ hr.style-four {
   color: white;
 }
 
-/*.header-center {
-  text-align: center;
-}*/
-
 .col-xs-2 {
   width: 25%;
   margin-right: 4%;
@@ -322,18 +299,6 @@ hr.style-four {
   margin-left: 2%;
 }
 
-@media (max-width: 1200px){
-/*  .navbar-nav {
-    display: none;
-  }
-  .navbar-toggle { 
-    display: block;
-    float: right;
-  }*/
-/*  .container {
-    width:100%;
-  }*/
-}
 @media (max-width: 800px){
   .container-fluid{ width: 100%
   }
@@ -345,76 +310,56 @@ hr.style-four {
   }
 }
 
-/*@media (min-width: 960px) {
-  .navbar .brand {
-  }
-  .navbar-head {
-    padding-top:0px;
-    margin-top: 0px;
-  }
-
-}*/
-
 .container-footer {
-   position:fixed;
-   bottom:0px;
-   width:100%;
-   height:60px;  
+  position:fixed;
+  bottom:0px;
+  width:100%;
+  height:60px;  
   background:rgba(0, 153, 153, 1)
-
 }
-/*
-.navbar-default .navbar-toggle {
-  width: 8%;
-}*/
 
 .navbar-default{
-    background-color: #736759;
-    border-color: transparent;
-    -webkit-box-shadow: 0 8px 6px -6px rgb(167, 162, 162);
-    -moz-box-shadow: 0 8px 6px -6px black;
-    box-shadow: 0 8px 6px -6px rgb(155, 149, 149);
+  background-color: #736759;
+  border-color: transparent;
+  -webkit-box-shadow: 0 8px 6px -6px rgb(167, 162, 162);
+  -moz-box-shadow: 0 8px 6px -6px black;
+  box-shadow: 0 8px 6px -6px rgb(155, 149, 149);
 }
 
 .job-info {
   padding-left: 50px;
 }
 
-
-
 .left-column {
-
-    position: absolute;
-    left: 0px;
-    top: 80px;
-    width: 18%;
-    bottom: 0px;
-    background-color: white;
+  position: absolute;
+  left: 0px;
+  top: 80px;
+  width: 18%;
+  bottom: 0px;
+  background-color: white;
 }
 
 .navbar-collapse.collapse {
-display: none !important;
+  display: none !important;
 }
 
 
 .navbar-default {
-background-color: none;
-border-color: transparent;
+  background-color: none;
+  border-color: transparent;
 }
 
 .navbar {
-position: relative;
-z-index: 1000;
-min-height: 0px;
-margin-bottom: 0px;
-
+  position: relative;
+  z-index: 1000;
+  min-height: 0px;
+  margin-bottom: 0px;
 }
 /*
 
 bootstrap theme
 
 */
-
 
 #wrapper {
   padding-left: 250px;
@@ -484,7 +429,7 @@ bootstrap theme
 }
 
 .content-header {
-  height: 65px;
+  height: 10px;
   line-height: 65px;
 }
 
@@ -532,12 +477,4 @@ bootstrap theme
   padding: 15px;
 }
 
-.comment-section {
-  margin-top: 100px;
-  padding-top: 100px;
-}
-
-.comment-details {
-  font-size: 11px;
-}
 }

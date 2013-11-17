@@ -1,4 +1,6 @@
 class CitiesController < ApplicationController
+
+  skip_before_filter  :verify_authenticity_token
   
   authorize_resource
   def index
@@ -8,24 +10,26 @@ class CitiesController < ApplicationController
 
   def create
     @city = City.new(city_params)
-    if @city.save
+     @city.save
       flash[:notice] = "#{@city.name} has been added."
-      redirect_to cities_path
-    else
-      @cities = City.all
-      render :index
-    end
+      respond_to do |format|
+        format.html { redirect_to user_path(current_user) }
+        format.js
+      end
   end
 
   def show
-    @city = City.find(params[:id])
+    @city = City.find(params[:id]) 
   end
 
   def destroy
     @city = City.find(params[:id])
     @city.destroy
     flash[:notice] = "#{@city.name} has been deleted."
-    redirect_to cities_path
+      respond_to do |format|
+        format.html { redirect_to user_path(current_user) }
+        format.js
+      end
   end
 
 private
