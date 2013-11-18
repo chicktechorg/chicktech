@@ -23,16 +23,20 @@ describe Event do
     end
   end
 
-  describe "#finish" do
-    it "should validate that the finish time is after the start time" do
+  describe "validates finish time" do
+    it "valid if after start time" do
       event_valid = FactoryGirl.build(:event)
-      event_invalid = FactoryGirl.build(:event, :start => Time.now + 2.hours, :finish => Time.now + 1.hour)
       event_valid.should be_valid
+    end
+
+    it "invalid if before start time" do
+      event_invalid = FactoryGirl.build(:event, :start => Time.now + 2.hours, :finish => Time.now + 1.hour)
       event_invalid.should_not be_valid
     end
   end
 
   describe ".upcoming" do
+
     it "returns only the upcoming events" do
       forty_minutes_from_now = Time.now + 40.minutes
       event = FactoryGirl.create(:event, :start => Time.now, :finish => Time.now + 3.hours)
@@ -43,6 +47,7 @@ describe Event do
   end
 
   describe "default_scope" do
+
     it "sorts upcoming events by chronological order" do
       event1 = FactoryGirl.create(:event, :start => Time.now + 1.hour)
       event2 = FactoryGirl.create(:event, :start => Time.now + 12.hours, :finish => Time.now + 14.hours)

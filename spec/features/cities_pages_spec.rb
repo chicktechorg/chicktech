@@ -13,15 +13,6 @@ feature "City pages" do
       page.should have_no_field('Name')
     end
 
-    context "navigating to cities page" do
-      before do
-        visit root_path
-        click_link 'Cities'
-      end
-
-      it { should have_content 'Host Cities'}
-    end
-
     context "viewing all cities" do
       before do
         @city = FactoryGirl.create(:city)
@@ -58,8 +49,10 @@ feature "City pages" do
       page.should have_field('Name')
     end
 
-    context "adding cities" do
-      before { visit cities_path }
+    context "adding cities", js: true do
+      before do
+        click_on 'Add or Remove a city'
+      end
 
       scenario "with valid input" do
         fill_in 'Name', with: 'San Francisco, CA'
@@ -77,15 +70,13 @@ feature "City pages" do
       before do
         @city = FactoryGirl.create(:city)
         visit cities_path
-        click_on '(remove)'
+        click_on 'X'
       end
 
       it "should not show deleted city" do
         visit cities_path
         page.should_not have_content @city.name
       end
-
-      it { should have_content 'Cities' }
     end
   end
 end

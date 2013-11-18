@@ -10,12 +10,16 @@ class CitiesController < ApplicationController
 
   def create
     @city = City.new(city_params)
-     @city.save
+    if @city.save
       flash[:notice] = "#{@city.name} has been added."
       respond_to do |format|
         format.html { redirect_to user_path(current_user) }
         format.js
       end
+    else
+      flash[:alert] = "City name can't be blank"
+      redirect_to user_path(current_user)
+    end
   end
 
   def show
