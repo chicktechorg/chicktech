@@ -10,11 +10,11 @@ class Job < ActiveRecord::Base
   end
 
   def completed_tasks
-    tasks.complete
+    tasks.where(done: true)
   end
 
   def incompleted_tasks
-    tasks.incomplete
+    tasks.where(done: false)
   end
 
   def taken?
