@@ -9,6 +9,8 @@ subject { Ability.new(user) }
     describe "abilities" do
       let(:user) { FactoryGirl.create(:volunteer) }
 
+      it { should be_able_to(:update, user) }
+
       [:create, :destroy].each do |action|
         it { should_not be_able_to(action, Event.new) }
         it { should_not be_able_to(action, User.new) }
