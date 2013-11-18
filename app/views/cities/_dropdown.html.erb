@@ -1,6 +1,10 @@
-<h4> Choose a city to view upcoming events </h4>
 
-<%= form_tag '/events', :method => 'get' do %>
-  <%= collection_select(:city, :city_id, @cities, :id, :name) %>
-  <%= submit_tag 'Search', :class => 'sign-in-button-small' %>
-<% end %>
+<div class="well">
+  <h4> Choose a city to view upcoming events </h4>
+  <%= form_tag '/events', :method => 'get', remote: true do %>
+    <%= collection_select(:city, :city_id, @cities, :id, :name) %>
+    <%= submit_tag 'Search', :class => 'sign-in-button-small' %><%= link_to "Add or Remove a city",  cities_path, id: 'add_city', remote: true  %>
+  <% end %>
+  <% if can? :update, @city %>
+  <% end %>
+</div>

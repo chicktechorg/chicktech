@@ -1,35 +1,25 @@
-<div class='contact-info'>
-  <h1 class='user-name'><%= "#{@user.first_name} #{@user.last_name}" %></h1>
-  <p>Phone: <%= @user.phone %></p>
-  <p>Email: <%= @user.email %></p>
-  <p>Role: <%= @user.role %></p>
-  <%= link_to "Edit Profile", edit_user_path(@user), :class => 'edit-links' %>
+<div id="page-content-wrapper">
+  <div class="page-content inset">
+    <div class="row">
+      <div class="col-md-6">
+        <h2 class='section-header well'><%= @user.first_name %>'s Commitments:</h2>
+        <div class="job-info well">
+          <% @user.events.each do |event| %>
+            <%= render event %>
+            <% event.jobs.each do |job| %>
+              <% if job.owned_by?(@user) %>
+                <%= render job %>
+              <% end %>
+            <% end %>
+          <% end %> 
+        </div> 
+      </div>   
+      <div class="col-md-6 cities "> 
+        <%= render 'cities/dropdown', :cities => @cities %> 
+        <div id="found-events">
+        </div> 
+      </div>  
+    </div>
+  </div>
 </div>
-
-<div class='user-jobs'>
-  <h2 class='section-header'><%= @user.first_name %>'s Jobs:</h2>
-  <% @user.events.each do |event| %>
-    <%= render event %>
-    <% event.jobs.each do |job| %>
-      <% if job.owned_by?(@user) %>
-        <%= render job %>
-      <% end %>
-    <% end %>
-  <% end %>
-</div>
-
-<hr class='style-four'>
-
-<div class='all-jobs'>
-  <% if current_user == @user %>
-    <h2 class='section-header'>All Upcoming Chicktech Events:</h2>
-    <% if @events && %>
-      <% @events.each do |event| %>
-        <%= render event %> 
-        <hr class='style-four'>
-      <% end %>  
-    <% end %>
-  <% end %>
-</div>
-
-<%= render 'cities/dropdown', :cities => @cities %>
+     

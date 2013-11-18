@@ -1,29 +1,31 @@
-<h1>Host Cities</h1>
-<p class="lead">Click a city to view upcoming events in your area.</p>
+<div id="city-form">
+  <h1>Host Cities</h1>
+  <p class="lead">Click a city to view upcoming events in your area.</p>
 
-<% if can? :create, City %>
-  <div class="form-group">
-    <%= form_for @city do |f| %>
-      <% if @city.errors.any? %>
-        <div class="alert alert-danger">
-          <h4>Please correct these errors:</h4>
-          <ul>
-            <% @city.errors.full_messages.each do |message| %>
-              <li><%= message %></li>
-            <% end %>
-          </ul>
-        </div>
+  <% if can? :create, City %>
+    <div class="form-group">
+      <%= form_for @city do |f| %>
+        <% if @city.errors.any? %>
+          <div class="alert alert-danger">
+            <h4>Please correct these errors:</h4>
+            <ul>
+              <% @city.errors.full_messages.each do |message| %>
+                <li><%= message %></li>
+              <% end %>
+            </ul>
+          </div>
+        <% end %>
+        
+        <%= f.label :name %>
+        <%= f.text_field :name, :size => "25", placeholder: 'Portland, OR' %>
+        <%= f.submit 'Add', :class => "sign-in-button-small" %>
       <% end %>
-      
-      <%= f.label :name %>
-      <%= f.text_field :name, :size => "25", placeholder: 'Portland, OR' %>
-      <%= f.submit 'Add' %>
-    <% end %>
-  </div>
-<% end %>
-
-<ul>
-  <% @cities.each do |city| %>
-    <li><%= link_to city.name, city %> <%= link_to '(remove)', city_path(city), method: :delete %></li>
+    </div>
   <% end %>
-</ul>
+
+  <ul>
+    <% @cities.each do |city| %>
+      <li><%= link_to 'X', city_path(city), method: :delete,  :class => "remove" %><%= link_to city.name, city %> </li>
+    <% end %>
+  </ul>
+</div>

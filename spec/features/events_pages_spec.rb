@@ -2,7 +2,7 @@ require 'spec_helper'
 
 feature "Creating events" do
   let(:admin) { FactoryGirl.create(:admin) }
-  before { FactoryGirl.create(:city) }
+  before { @city = FactoryGirl.create(:city) }
 
   scenario "with valid input" do
     sign_in(admin)
@@ -11,7 +11,7 @@ feature "Creating events" do
     fill_in 'Description', with: 'Example event description'
     fill_in 'event_start', with: 'December 25'
     fill_in 'event_finish', with: 'December 26'
-    select  'Portland, OR', from: 'event[city_id]'
+    select  @city.name, from: 'event[city_id]'
     click_on "Create Event"
     expect(page).to have_content "successfully"
   end
@@ -31,19 +31,20 @@ end
 
 feature "Listing events" do
   let(:volunteer) { FactoryGirl.create(:volunteer) }
+  before { @city = FactoryGirl.create(:city) }
 
   scenario "with several events" do
     sign_in(volunteer)
-    event_1 = FactoryGirl.create(:event)
-    event_2 = FactoryGirl.create(:event)
+    event_1 = FactoryGirl.create(:event, :city_id => @city.id)
+    event_2 = FactoryGirl.create(:event, :city_id => @city.id)
     visit events_path
     page.should have_content event_1.name
     page.should have_content event_2.name
   end
 
   scenario "not signed in" do
-    event_1 = FactoryGirl.create(:event)
-    event_2 = FactoryGirl.create(:event)
+    event_1 = FactoryGirl.create(:event, :city_id => @city.id)
+    event_2 = FactoryGirl.create(:event, :city_id => @city.id)
     visit events_path
     page.should have_content "Access denied"
   end
@@ -54,15 +55,17 @@ feature "Adding a job" do
     admin = FactoryGirl.create(:admin)
     event = FactoryGirl.create(:event)
     sign_in(admin)
-    click_on(event.name)
+    visit event_path(event)
     page.should have_content "Add jobs"
   end
   
-  scenario "signed in as volunteer" do
+  scenario "signed in as volunteer", js: true do
     volunteer = FactoryGirl.create(:volunteer)
     event_1 = FactoryGirl.create(:event)
-    event_2 = FactoryGirl.create(:event)
+    event_2 = FactoryGirl.create(:event, city: event_1.city)
     sign_in(volunteer)
+    select  event_1.city.name, from: 'city[city_id]'
+    click_on 'Search'
     click_on(event_1.name)
     page.should_not have_content "Add jobs"
   end
@@ -75,7 +78,7 @@ feature "Adding a team" do
     it "page should have content 'Add a team'" do
       event = FactoryGirl.create(:event)
       sign_in(admin)
-      click_link(event.name)
+      visit event_path(event)
       page.should have_content "Add a team"
     end
   end
@@ -84,7 +87,7 @@ feature "Adding a team" do
     it "page should have content 'Add a team'" do
       event = FactoryGirl.create(:event)
       sign_in(event.leader)
-      click_on(event.name)
+      visit event_path(event)
       page.should have_content "Add a team"
     end
   end
@@ -126,42 +129,46 @@ feature "Signing up for jobs" do
   let(:volunteer) { FactoryGirl.create(:volunteer) }
   let(:admin) { FactoryGirl.create(:admin) }
   
-  scenario "signed in" do
-    event = FactoryGirl.create(:event)
-    event.jobs << FactoryGirl.create(:job) 
+  scenario "signed in", js: true do
+    job = FactoryGirl.create(:job) 
     sign_in(volunteer)
-    click_on(event.name)
+    select job.workable.city.name, from: 'city[city_id]'
+    click_on 'Search'
+    click_on(job.workable.name)
     page.should have_button "Sign Up!"
   end
 
-  scenario "signing up for a job" do
-    event = FactoryGirl.create(:event)
-    event.jobs << FactoryGirl.create(:job) 
+  scenario "signing up for a job", js: true do
+    job = FactoryGirl.create(:job) 
     sign_in(volunteer)
-    click_on(event.name)
+    select  job.workable.city.name, from: 'city[city_id]'
+    click_on 'Search'
+    click_on(job.workable.name)
     click_on "Sign Up!"
     page.should have_content "Congratulations"
   end
 
-  scenario "job is already taken" do
-    @event = FactoryGirl.create(:event)
-    @event.jobs << FactoryGirl.create(:job) 
+  scenario "job is already taken", js: true do
+    job = FactoryGirl.create(:job) 
     sign_in(volunteer)
-    click_on(@event.name)
+    visit event_path(job.workable)
     click_on "Sign Up!"
     page.should_not have_button "Sign Up!"
     page.should have_button "Resign!"
   end
 
-  scenario "jobs are taken by other users" do
-    event = FactoryGirl.create(:event)
-    event.jobs << FactoryGirl.create(:job) 
+  scenario "jobs are taken by other users", js: true do
+    job = FactoryGirl.create(:job)
     sign_in(volunteer)
-    click_on(event.name)
+    select  job.workable.city.name, from: 'city[city_id]'
+    click_on 'Search'
+    click_on(job.workable.name)
     click_on "Sign Up!"
     click_on "Sign out"
     sign_in(admin)
-    click_on(event.name)
+    select  job.workable.city.name, from: 'city[city_id]'
+    click_on 'Search'
+    click_on(job.workable.name)
     page.should_not have_button "Sign Up!"
     page.should have_content "Taken by"
   end
@@ -171,11 +178,9 @@ feature "Showing all jobs on the page" do
   let(:volunteer) { FactoryGirl.create(:volunteer) }
 
   scenario "job is part of a team" do
-    event = FactoryGirl.create(:event)
-    team = FactoryGirl.create(:team, :event_id => event.id)
-    job = FactoryGirl.create(:job, :workable => team)
+    job = FactoryGirl.create(:team_job)
     sign_in(volunteer)
-    click_on(event.name)
+    visit team_path(job.workable)
     page.should_not have_content "No jobs have been created for this event"
   end
 end

@@ -54,7 +54,7 @@ FactoryGirl.define do
   end
   
   factory :city do
-    name 'Portland, OR'
+    sequence(:name) { |n| "Portland#{n}, OR" }
   end
 
   factory :volunteer, class: User do
