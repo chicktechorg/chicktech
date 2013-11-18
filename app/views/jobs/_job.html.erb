@@ -16,6 +16,12 @@
   <% end %>
 
   <p> Description: <%= job.description %></p>
+
+  <% if job.try(:due_date) %>
+    <p>Due Date: <%= job.due_date.to_time.strftime("%b %-d, %Y @ %-I:%M%P") %></p>
+  <% end %>
+
+
   <% if can? :manage, job %>
     <%= link_to "Delete", job_path(job), :method => :delete, :data => { :confirm => 'Are you sure?' } %>
     <%= link_to "Edit", edit_job_path(job) %> 

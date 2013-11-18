@@ -33,7 +33,7 @@ class JobsController < ApplicationController
       @job.update(user_id: nil)
       flash[:notice] = "You have resigned from the job #{@job.name}."
       redirect_to @job
-    else 
+    else
       @job.update(job_params)
       flash[:notice] = "#{@job.name} got updated."
       redirect_to @job
@@ -57,6 +57,6 @@ class JobsController < ApplicationController
 private
 
   def job_params
-    params.require(:job).permit(:name, :workable_id, :workable_type, :description)
+    params.require(:job).permit(:name, :workable_id, :workable_type, :description, :due_date, :done)
   end
 end
