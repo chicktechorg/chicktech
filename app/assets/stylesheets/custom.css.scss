@@ -93,11 +93,13 @@ ul {
 }
 
 .done {
-
+  float: right;
+  margin-left: 25%;
 }
 
 .not-done {
-  
+  float: left;
+  margin-right: 25%;
 }
 
 .logo-image {
