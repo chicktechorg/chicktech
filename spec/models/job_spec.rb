@@ -20,17 +20,21 @@ describe Job do
     job.taken?.should eq true
   end
 
-  it "should return all the complete tasks for a job" do
-    job = FactoryGirl.create(:job)
-    task1 = FactoryGirl.create(:task, :job_id => job.id)
-    task2 = FactoryGirl.create(:task, :job_id => job.id, :done => true) 
-    job.completed_tasks.should eq [task2]
+  describe '#completed_tasks' do
+    it "should return all the complete tasks for a job" do
+      job = FactoryGirl.create(:job)
+      task1 = FactoryGirl.create(:task, job: job)
+      task2 = FactoryGirl.create(:task, job: job, done: true) 
+      job.completed_tasks.should eq [task2]
+    end
   end
 
-  it "should return all incomplete tasks for a job" do
-    job = FactoryGirl.create(:job)
-    task1 = FactoryGirl.create(:task, :job_id => job.id)
-    task2 = FactoryGirl.create(:task, :job_id => job.id, :done => true) 
-    job.incompleted_tasks.should eq [task1]
+  describe '#incompleted_tasks' do
+    it "should return all incomplete tasks for a job" do
+      job = FactoryGirl.create(:job)
+      task1 = FactoryGirl.create(:task, :job_id => job.id)
+      task2 = FactoryGirl.create(:task, :job_id => job.id, :done => true) 
+      job.incompleted_tasks.should eq [task1]
+    end
   end
 end
