@@ -7,27 +7,42 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
+  <div id="wrapper">
 
-<%= render 'layouts/header' %>
+    <%= render 'layouts/header' %>
 
-<div class="container">  
+    <% if flash[:alert] %>
+      <div class="alert alert-danger">
+        <%= flash[:alert] %>
+      </div>
+    <% end %>
+    <% if flash[:notice] %>
+      <div class="alert alert-info">
+        <%= flash[:notice] %>
+      </div>
+    <% end %>
 
+    <%= yield %>
 
-  <% if flash[:alert] %>
-    <div class="alert alert-danger">
-      <%= flash[:alert] %>
+  </div>
+
+<!-- <footer>
+  <div class="container-footer">
+    <div class="row">
+      <div class="col-md-4">&copy; 2013</div>
+      <div class="col-md-4">
+        <ul class="nav nav-pills">
+          <li class="active"><a href="#">About Us</a></li>
+          <li><a href="#"></a></li>
+          <li><a href="#"></a></li>
+        </ul>
+      </div>
+      <div class="col-md-4">
+        <h3 class="text-right">Project by Epicodus*</h3>
+      </div>
     </div>
-  <% end %>
-  <% if flash[:notice] %>
-    <div class="alert alert-info">
-      <%= flash[:notice] %>
-    </div>
-  <% end %>
+  </div>
+</footer> -->
 
-
-  <%= yield %>
-
-
-</div>
 </body>
 </html>
