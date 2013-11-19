@@ -25,7 +25,7 @@ class EventsController < ApplicationController
     @cities = City.all
     if @event.save
       flash[:notice] = "Event created successfully!"
-      redirect_to @event
+      redirect_to new_event_path
     else
       render :new
     end
@@ -44,7 +44,7 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
     if @event.update(event_params)
       flash[:notice] = "Your event has been updated."
-      redirect_to event_path
+      redirect_to new_event_path
     else
       render :edit
     end
@@ -55,7 +55,7 @@ class EventsController < ApplicationController
     name = @event.name
     @event.destroy
     flash[:notice] = "Your event #{@name} has been destroyed."
-    redirect_to events_path
+    redirect_to new_event_path
   end
 
 private

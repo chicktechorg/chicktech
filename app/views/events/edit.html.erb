@@ -1,13 +1,21 @@
-<h1>Edit Event</h1>
-<% if @event.errors.any? %>
-  <div class="alert alert-danger">
-    <h4>Please correct these errors:</h4>
-    <ul>
-      <% @event.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    </ul>
+<div id="page-content-wrapper">
+  <div class="page-content inset">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="create-event well">
+          <h2 class='section-header'> Edit Event</h2>
+            <% if @event.errors.any? %>
+              <div class="alert alert-danger">
+                <h4>Please correct these errors:</h4>
+                <ul>
+                  <% @event.errors.full_messages.each do |message| %>
+                    <li><%= message %></li>
+                  <% end %>
+                </ul>
+              </div>
+            <% end %>
+            <%= render '/events/form' %>
+          </div>  
+    </div>
   </div>
-<% end %>
-
-<%= render '/events/form' %>
+</div>
