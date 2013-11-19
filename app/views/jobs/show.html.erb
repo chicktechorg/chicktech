@@ -26,7 +26,7 @@
   <h2 class="header-center"><%= @job.name %> Task List</h2>
 
   <div class="task-group">
-    <div class="not-done">
+    <div>
       <h4>Not Done</h4>
       <ul id="not-done-task-list">
         <% @job.incompleted_tasks.each do |task| %>
@@ -35,7 +35,7 @@
       </ul> 
     </div>
 
-    <div class="done">
+    <div>
       <h4>Done</h4>
       <ul id="done-task-list">
         <% @job.completed_tasks.each do |task| %>
