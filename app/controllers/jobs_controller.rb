@@ -33,6 +33,11 @@ class JobsController < ApplicationController
       @job.update(user_id: nil)
       flash[:notice] = "You have resigned from the job #{@job.name}."
       redirect_to @job
+    elsif params[:job][:job_done]
+      @job.change_status
+      @job.save
+      flash[:notice] = "You have changed the job completion status."
+      redirect_to @job
     else
       @job.update(job_params)
       flash[:notice] = "#{@job.name} got updated."

@@ -21,15 +21,11 @@ class Job < ActiveRecord::Base
   def taken?
     self.user_id != nil
   end
-
-  def self.complete
-    Job.where(:done => true)
-  end
-
-  def self.incomplete
-    Job.where(:done => false)
-  end
   
+  def change_status
+    self.done = !self.done
+  end
+
 private
 
   def set_not_done
