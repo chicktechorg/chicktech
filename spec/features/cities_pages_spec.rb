@@ -50,12 +50,11 @@ feature "City pages" do
     end
 
     context "adding cities", js: true do
-      before do
-        click_on 'Add or Remove a city'
-      end
+      before { click_on 'Add or Remove a city' }
 
       scenario "with valid input" do
         fill_in 'Name', with: 'San Francisco, CA'
+        page.save_screenshot('screenshot.png')
         click_on 'Add'
         page.should have_content 'San Francisco, CA'
       end

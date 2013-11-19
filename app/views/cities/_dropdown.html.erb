@@ -4,8 +4,8 @@
   <%= form_tag '/events', :method => 'get', remote: true do %>
     <%= collection_select(:city, :city_id, @cities, :id, :name) %>
     <%= submit_tag 'Search', :class => 'sign-in-button-small' %>
-  <% end %>
-  <% if can? :update, @city %>
-    <%= link_to "Add or Remove a city",  cities_path, id: 'add_city', remote: true  %>
+    <% if can? :manage, City %>
+      <%= link_to "Add or Remove a city",  cities_path, id: 'add_city', remote: true  %>
+    <% end %>
   <% end %>
 </div>
