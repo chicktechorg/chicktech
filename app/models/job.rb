@@ -4,6 +4,7 @@ class Job < ActiveRecord::Base
   has_many :tasks
   has_many :comments, :as => :commentable
   validates_presence_of :name
+  after_initialize :set_not_done
 
   def owned_by?(user)
     self.user_id == user.id
@@ -19,5 +20,15 @@ class Job < ActiveRecord::Base
 
   def taken?
     self.user_id != nil
+  end
+  
+  def change_status
+    self.done = !self.done
+  end
+
+private
+
+  def set_not_done
+    self.done ||= false
   end
 end
