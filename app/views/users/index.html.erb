@@ -1,31 +1,44 @@
-<h1>Manage Users</h1>
-<h3><%= link_to "Invite a new user", new_user_invitation_path %></h3>
 
-<ul>
-  <% @users.confirmed.each do |user| %>
-    <li><%= link_to "#{user.first_name} #{user.last_name}", user %></li>
-    <li><%= user.email %></li>
-    <li><%= link_to "remove",
-                    user_path(user),
-                    :method => :delete,
-                    :class => "btn btn-danger",
-                    :id => "remove#{user.id}" %></li>
-  <% end %>
-<ul>
-
-<h2> Pending Users </h2>
-  <ul>
-    <% @users.pending.each do |user| %>
-      <% if user %>
-        <li><%= user.email %></li>
-        <li><%= link_to "remove",
-                    user_path(user),
-                    :method => :delete,
-                    :class => "btn btn-danger",
-                    :id => "remove#{user.id}" %></li>
-      <% else %>
-        <%= There are no pending users %>
-      <% end %>
-    <% end %>
-  </ul>
-
+<div id="page-content-wrapper">
+  <div class="page-content inset">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="manage-users well">
+          <h2 class='section-header'>Manage Users</h2>
+          <h3><%= link_to "Invite a new user", new_user_invitation_path %></h3>
+          <ul>
+            <% @users.confirmed.each do |user| %>
+            <li><%= link_to "#{user.first_name} #{user.last_name}", user %></li>
+            <li><%= user.email %></li>
+            <li><%= user.phone %></li>
+            <li><%= link_to "remove volunteer",
+                      user_path(user),
+                      :method => :delete,
+                      :class => "btn btn-danger",
+                      :id => "remove#{user.id}" %></li>
+            <% end %>
+          <ul> 
+        </div>
+      </div>   
+      <div class="col-md-6 pending"> 
+        <h2 class="section-header well"> Pending Users </h2>
+        <div class="pending-user well">
+          <ul>
+            <% @users.pending.each do |user| %>
+            <% if user %>
+              <li><%= user.email %></li>
+              <li><%= link_to "remove",
+                  user_path(user),
+                  :method => :delete,
+                  :class => "btn btn-danger",
+                  :id => "remove#{user.id}" %></li>
+              <% else %>
+                <%= There are no pending users %>
+            <% end %>
+          <% end %>
+        </div>
+      </div>  
+    </div>
+  </div>
+</div>
+     

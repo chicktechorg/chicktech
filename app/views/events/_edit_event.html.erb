@@ -1,0 +1,13 @@
+<h1>Edit Event</h1>
+<% if @event.errors.any? %>
+  <div class="alert alert-danger">
+    <h4>Please correct these errors:</h4>
+    <ul>
+      <% @event.errors.full_messages.each do |message| %>
+        <li><%= message %></li>
+      <% end %>
+    </ul>
+  </div>
+<% end %>
+
+<%= render '/events/form' %>

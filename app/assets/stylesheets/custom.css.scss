@@ -15,6 +15,10 @@ body{
   @extend .has-error;
 }
 
+.pending {
+margin-top: -20px;
+}
+
 .well-event {
 min-height: 20px;
 padding: 19px;
@@ -28,6 +32,26 @@ border-radius: 4px;
 box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
 }
 
+.navbar-default .navbar-nav > li > a {
+color: #4bbbbd;
+}
+
+.navbar-default .navbar-nav > li > a:hover, .navbar-default .navbar-nav > li > a:focus {
+color: #ef669e;
+background-color: transparent;
+}
+
+.navbar-default .navbar-toggle {
+border-color: #ef669e;
+}
+
+.navbar-default .navbar-toggle .icon-bar {
+background-color: #ef669e;
+}
+
+.navbar-default .navbar-toggle:hover, .navbar-default .navbar-toggle:focus {
+background-color: #4bbbbd;
+}
 .welcome {
   color: #736759;
   text-align: center;
