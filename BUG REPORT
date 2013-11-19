@@ -1,8 +1,8 @@
 Sunday - Brittany
 
 -[X] A volunteer is unable to edit their information.
--[ ] When a location is deleted, throws an error for all events in that location.
+-[X] When a location is deleted, throws an error for all events in that location.
 -[ ] events still stretch over multiple days.
 -[ ] datepicker needs arrows to switch between months.
--[ ] time in database is different from current time. Prevents us from saving events
+-[X] time in database is different from current time. Prevents us from saving events
 		 that is less than 7 hours in the future.

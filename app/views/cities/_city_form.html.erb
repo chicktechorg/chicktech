@@ -24,6 +24,6 @@
 
 <ul>
   <% @cities.each do |city| %>
-    <li><%= link_to 'X', city_path(city), method: :delete,  :class => "remove"%><%= link_to city.name, city , remote: true  %> </li>
+    <li><%= link_to 'X', city_path(city), method: :delete,  :class => "remove", data: { confirm: 'WARNING! This will remove all events within this city. Are you sure you want to continue?' } %><%= link_to city.name, city , remote: true  %></li>
   <% end %>
 </ul>
