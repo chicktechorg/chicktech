@@ -7,8 +7,8 @@ class User < ActiveRecord::Base
   validates_presence_of :role
 
   has_many :jobs, :dependent => :nullify
-  has_many :events, through: :jobs, source: :workable, source_type: 'Event', uniq: true
-  has_many :teams, through: :jobs, source: :workable, source_type: 'Team', uniq: true
+  has_many :events, -> { uniq }, through: :jobs, source: :workable, source_type: 'Event'
+  has_many :teams, -> { uniq }, through: :jobs, source: :workable, source_type: 'Team'
   has_many :event_leads, through: :leadership_roles, source: :leadable, source_type: 'Event'
   has_many :team_leads, through: :leadership_roles, source: :leadable, source_type: 'Team'
   has_many :leadership_roles
