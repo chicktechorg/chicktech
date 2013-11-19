@@ -37,4 +37,18 @@ describe Job do
       job.incompleted_tasks.should eq [task1]
     end
   end
+
+  describe '#change_status' do
+    it "should change the status between done and not done" do
+      job = FactoryGirl.create(:job)
+      job.change_status
+      job.done.should eq true
+    end
+    it "should change status back" do 
+      job = FactoryGirl.create(:job)
+      job.change_status 
+      job.change_status
+      job.done.should eq false
+    end
+  end
 end

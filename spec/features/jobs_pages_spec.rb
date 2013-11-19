@@ -73,3 +73,16 @@ feature 'Comment on a job' do
     page.should have_content 'blank'
   end
 end
+
+feature 'Add a due date to jobs' do
+  let(:volunteer) { FactoryGirl.create(:volunteer) }
+  let(:job) { FactoryGirl.create(:job)}
+  before { sign_in(volunteer) }
+
+  scenario 'edit job' do
+    visit edit_job_path(job)
+    fill_in 'Due date', with: '28 November 2013 - 10:50 AM'
+    click_on 'Update Job'
+    page.should have_content 'updated'
+  end
+end
