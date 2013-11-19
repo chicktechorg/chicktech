@@ -1,5 +1,6 @@
-<p><%= comment.content %></p>
+<p class='comment-content'><%= comment.content %></p>
 <div class="comment-details">
-  <p><%= comment.created_at %></p>
-  <p><%= comment.user.first_name %> <%= comment.user.last_name %></p>
+  <p><%= comment.user.first_name %>
+    <%= comment.user.last_name %></p>
+    <p><%= comment.created_at  %></p>
 </div>

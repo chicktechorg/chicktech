@@ -28,9 +28,10 @@
     <%= form_for job do |f| %>
       <%= f.hidden_field :job_done, :value => true %>
       <% if job.done %>
-        <%= f.submit "Job Not Done", :method => :patch, :class => "submit-button" %>
+      <p> This job is: <%= f.submit "Not Done", :method => :patch, :class => "sign-in-button-small" %></p>
+        
       <% else %>
-        <%= f.submit "Job Done", :method => :patch, :class => "submit-button" %>
+        <p> This job is: <%= f.submit "Done", :method => :patch, :class => "sign-in-button-small" %><p>
       <% end %>
     <% end %>
   <% end %>  

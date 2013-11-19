@@ -22,6 +22,13 @@
   <h4>Event lead: <%= "#{@event.leader.first_name} #{@event.leader.last_name}" %></h4> 
   <% end %>
 
+  <% if @event.teams.any? %>
+    <h3>Teams</h3>
+    <% @event.teams.each do |team| %>
+      <%= render team %>
+    <% end %>
+  <% end %>
+
   <% if @event.jobs.any? %>
     <h3>Jobs for this event</h3>
     <% @event.jobs.each do |job| %>
@@ -29,12 +36,7 @@
     <% end %>
   <% end %>
 
-  <% if @event.teams.any? %>
-    <h3>Teams</h3>
-    <% @event.teams.each do |team| %>
-      <%= render team %>
-    <% end %>
-  <% end %>
+  
 
 
 

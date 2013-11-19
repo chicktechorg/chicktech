@@ -1,58 +1,79 @@
-<% provide :title, "#{@job.name}" %>
-<% if @task.errors.any? %>
-  <div class="alert alert-danger">
-    <h4>Please correct these errors:</h4>
-    <ul>
-      <% @task.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
 
-<%= render @job %>
+<div id="page-content-wrapper">
+  <div class="page-content inset">
+    <div class="row">
+      <div class="col-md-6">
+        <div class="event-info well">
+          <h2 class='section-header'><% provide :title, "#{@job.name}" %></h2>
+          
+          <% if @task.errors.any? %>
+            <div class="alert alert-danger">
+              <h4>Please correct these errors:</h4>
+              <ul>
+                <% @task.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
 
-<div class="form-group">
-  <%= form_for @task do |f| %>
-    <%= f.label :description %>
-    <%= f.text_field :description, :size => "25" %>
-    <%= f.hidden_field :job_id, :value => @job.id %>
-    <%= f.hidden_field :done, :value => false %>
-    <%= f.submit %>
-  <% end %>
-</div>
+          <%= render @job %> 
 
-<div class="task-section">
-  <h2 class="header-center"><%= @job.name %> Task List</h2>
+        </div> 
+        <div class="comment-section well-event">
+          <p> Comments about this job: </p>
+            <% if @job.comments.any? %>
+              <% @job.comments.each do |comment| %>
+                <%= render comment %>
+              <% end %>
+            <% else %>
+              <p>No comments yet. Add some notes!</p>
+            <% end %>
+            <%= render 'comments/form' %>
+          </div>
+      </div>   
+      <div class="col-md-6 cities well"> 
+        <div class="form-group">
+          <%= form_for @task do |f| %>
+            <%= f.label :description %>
+            <%= f.text_field :description, :size => "25" %>
+            <%= f.hidden_field :job_id, :value => @job.id %>
+            <%= f.hidden_field :done, :value => false %>
+            <%= f.submit :class => 'sign-in-button-small' %>
+          <% end %>
+        </div>
 
-  <div class="task-group">
-    <div>
-      <h4>Not Done</h4>
-      <ul id="not-done-task-list">
-        <% @job.incompleted_tasks.each do |task| %>
-          <li><%= render 'jobs/task_form', :task => task %></li>
-        <% end %>
-      </ul> 
+        <div class="task-section">
+          <h2 class="header-center"><%= @job.name %> Task List</h2>
+
+          <div class="task-group">
+            <div>
+              <h4>Not Done</h4>
+              <ul id="not-done-task-list">
+                <% @job.incompleted_tasks.each do |task| %>
+                  <li><%= render 'jobs/task_form', :task => task %></li>
+                <% end %>
+              </ul> 
+            </div>
+            <div>
+              <h4>Done</h4>
+              <ul id="done-task-list">
+                <% @job.completed_tasks.each do |task| %>
+                  <li><%= render 'jobs/task_form', :task => task %></li>
+                <% end %>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>  
     </div>
-
-    <div>
-      <h4>Done</h4>
-      <ul id="done-task-list">
-        <% @job.completed_tasks.each do |task| %>
-          <li><%= render 'jobs/task_form', :task => task %></li>
-        <% end %>
-      </ul>
-    </div>
   </div>
 </div>
+     
 
-<div class="comment-section">
-  <% if @job.comments.any? %>
-    <% @job.comments.each do |comment| %>
-      <%= render comment %>
-    <% end %>
-  <% else %>
-    <p>No comments yet. Add some notes!</p>
-  <% end %>
-  <%= render 'comments/form' %>
-</div>
+
+
+
+
+
+
