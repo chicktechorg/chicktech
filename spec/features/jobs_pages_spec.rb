@@ -86,3 +86,19 @@ feature 'Add a due date to jobs' do
     page.should have_content 'updated'
   end
 end
+
+feature 'marking a job as done' do
+  let(:volunteer) { FactoryGirl.create(:volunteer) }
+  let(:job) { FactoryGirl.create(:job, user: volunteer, due_date: (Time.now + 2.days)) }
+  before { sign_in(volunteer) }
+
+  scenario 'visiting the job page' do
+    visit job_path(job)
+    page.should have_button 'Done'
+  end
+end
+
+
+
+
+
