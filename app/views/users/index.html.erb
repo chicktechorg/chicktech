@@ -14,7 +14,7 @@
             <li><%= link_to "remove volunteer",
                       user_path(user),
                       :method => :delete,
-                      :class => "btn btn-danger",
+                      :class => "remove",
                       :id => "remove#{user.id}" %></li>
             <% end %>
           <ul> 
@@ -30,7 +30,7 @@
               <li><%= link_to "remove",
                   user_path(user),
                   :method => :delete,
-                  :class => "btn btn-danger",
+                  :class => "remove",
                   :id => "remove#{user.id}" %></li>
               <% else %>
                 <%= There are no pending users %>

@@ -189,3 +189,15 @@ feature "Team jobs" do
   end
 end
 
+feature "Admin can remove a leader" do
+  let(:admin) { FactoryGirl.create(:admin) }
+  let(:team) { FactoryGirl.create(:team_with_leader) }
+  before { sign_in(admin) }
+
+  context "when there is a leader" do
+    it "should have a button to unassign the leader" do
+      visit team_path(team)
+      page.should have_button('Unassign')
+    end
+  end
+end
