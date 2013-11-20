@@ -12,7 +12,7 @@ describe User do
   it { should have_many(:events).through(:jobs) }
   it { should have_many(:comments)}
   it { should have_many(:teams).through(:jobs) }
-  it { should have_many(:leadership_roles) }
+  it { should have_many(:leadership_roles).dependent(:nullify) }
   it { should have_many(:event_leads) }
   it { should have_many(:team_leads) }
 

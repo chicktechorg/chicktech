@@ -3,7 +3,7 @@ class Team < ActiveRecord::Base
 
   has_many :jobs, :as => :workable
   belongs_to :event
-  has_one :leadership_role, :as => :leadable
+  has_one :leadership_role, :as => :leadable, :dependent => :destroy
 
   after_create :create_leadership_role
 
