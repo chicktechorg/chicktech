@@ -98,6 +98,22 @@ feature 'marking a job as done' do
   end
 end
 
+feature 'open up jobs for other from deleted user' do
+  before do
+    @volunteer = FactoryGirl.create(:volunteer)
+    @other_user = FactoryGirl.create(:volunteer)
+    @job = FactoryGirl.create(:job, user: @volunteer)
+    sign_in(@other_user)
+  end
+
+  scenario 'visiting the job page' do
+    @volunteer.destroy
+    @job.reload
+    visit job_path(@job)
+    page.should have_button 'Sign Up!'
+  end
+end
+
 
 
 
