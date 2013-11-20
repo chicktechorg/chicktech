@@ -21,7 +21,7 @@
         <div class="all-tasks well">
         <h2>All Upcoming Chicktech Events</h2>
           <% if @events %>
-            <% @events.each do |event| %>
+            <% @events.upcoming.each do |event| %>
               <%= render event %> 
             <% end %>  
           <% end %>

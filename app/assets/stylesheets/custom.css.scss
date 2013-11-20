@@ -7,6 +7,14 @@ body{
   color:#736759;
 }
 
+.icon-arrow-right {
+  background-image: asset-url("arrow-right.png");
+}
+
+.icon-arrow-left {
+  background-image: asset-url("arrow-left.png");
+}
+
 .form-group label { 
   margin: 5px;
 }
