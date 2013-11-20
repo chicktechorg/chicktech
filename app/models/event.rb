@@ -20,4 +20,8 @@ class Event < ActiveRecord::Base
   def leader
     leadership_role.user
   end
+
+  def self.past
+    Event.where("finish < ?", Time.now)
+  end
 end
