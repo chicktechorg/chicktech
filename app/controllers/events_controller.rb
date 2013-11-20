@@ -16,7 +16,7 @@ class EventsController < ApplicationController
 
   def new
     @event = Event.new
-    @events = Event.all
+    @events = Event.upcoming
     @leadership_role = LeadershipRole.new(leadable: @event)
   end
 

@@ -6,5 +6,8 @@
     <% if can? :manage, City %>
       <%= link_to "Add or Remove a city",  cities_path, id: 'add_city', remote: true  %>
     <% end %>
+  	<div>
+  		<%= link_to "View All Past Events", events_path %>
+  	</div>
   <% end %>
 </div>
