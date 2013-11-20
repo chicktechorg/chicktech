@@ -11,7 +11,7 @@ feature "Creating events" do
     fill_in 'Description', with: 'Example event description'
     fill_in 'event_start', with: 'December 25'
     fill_in 'event_finish', with: 'December 26'
-    select  @city.name, from: 'event[city_id]'
+    select @city.name, from: 'event[city_id]'
     click_on "Create Event"
     expect(page).to have_content "successfully"
   end
@@ -33,10 +33,23 @@ feature "Listing events" do
   let(:volunteer) { FactoryGirl.create(:volunteer) }
   before { @city = FactoryGirl.create(:city) }
 
-  scenario "with several events" do
+  scenario "with several events", :js => true do
     sign_in(volunteer)
     event_1 = FactoryGirl.create(:event, :city_id => @city.id)
     event_2 = FactoryGirl.create(:event, :city_id => @city.id)
+    visit user_path(volunteer)
+    select @city.name, from: 'city_city_id'
+    click_on "Search"
+    page.should have_content event_1.name
+    page.should have_content event_2.name
+  end
+
+  scenario "which have passed" do
+    sign_in(volunteer)
+    six_hours_from_now = Time.now + 6.hours
+    event_1 = FactoryGirl.create(:event, :city_id => @city.id)
+    event_2 = FactoryGirl.create(:event, :city_id => @city.id)
+    Time.stub(:now).and_return(six_hours_from_now)
     visit events_path
     page.should have_content event_1.name
     page.should have_content event_2.name

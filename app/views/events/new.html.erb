@@ -21,10 +21,11 @@
         <div class="all-tasks well">
         <h2>All Upcoming Chicktech Events</h2>
           <% if @events %>
-            <% @events.upcoming.each do |event| %>
+            <% @events.each do |event| %>
               <%= render event %> 
             <% end %>  
           <% end %>
+          <%= link_to "View Past Events", events_path %>
         </div>
       </div>  
     </div>
