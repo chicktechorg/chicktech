@@ -11,7 +11,7 @@ class User < ActiveRecord::Base
   has_many :teams, -> { uniq }, through: :jobs, source: :workable, source_type: 'Team'
   has_many :event_leads, through: :leadership_roles, source: :leadable, source_type: 'Event'
   has_many :team_leads, through: :leadership_roles, source: :leadable, source_type: 'Team'
-  has_many :leadership_roles
+  has_many :leadership_roles, :dependent => :nullify
   has_many :comments
 
   # Include default devise modules. Others available are:

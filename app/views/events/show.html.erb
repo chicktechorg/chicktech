@@ -17,7 +17,7 @@
           <% elsif can? :update, @event.leadership_role %>
             <%= form_for @event.leadership_role do |f| %>
               <%= f.hidden_field :resigning, :value => false %>
-              <%= f.submit "Resign!", :class => "submit-no-button" %>
+              <%= f.submit (@event.leadership_role.owned_by?(current_user) ? "Resign!" : "Unassign"), :class => "submit-no-button" %>
             <% end %>
           <% end %>
           <% if @event.leader %>

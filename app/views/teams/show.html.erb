@@ -14,7 +14,7 @@
 <% elsif can? :update, @team.leadership_role %>
   <%= form_for @team.leadership_role do |f| %>
     <%= f.hidden_field :resigning, :value => false %>
-    <%= f.submit "Resign!", :class => "submit-no-button" %>
+    <%= f.submit ((@team.leader == current_user) ? "Resign!" : "Unassign"), :class => "submit-no-button" %>
   <% end %>
 <% end %>
 
