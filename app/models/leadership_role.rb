@@ -13,4 +13,8 @@ class LeadershipRole < ActiveRecord::Base
   def set_default_name
     self.name = 'Leader'
   end
+
+  def owned_by?(user)
+    self.user_id == user.id
+  end
 end

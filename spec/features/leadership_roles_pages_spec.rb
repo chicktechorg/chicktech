@@ -13,7 +13,7 @@ feature 'Resigning from leadership role' do
     scenario 'available if you are an admin' do
       sign_in(FactoryGirl.create(:admin))
       visit event_path(@event)
-      page.should have_button 'Resign'
+      page.should have_button 'Unassign'
     end
 
     scenario "not available if you don't have permission" do

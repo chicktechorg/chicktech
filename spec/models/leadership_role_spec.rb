@@ -23,4 +23,12 @@ describe LeadershipRole do
       leadership_role.name.should eq 'Leader'
     end
   end
+
+  describe '#owned_by?' do
+    it "can tell you if the job has been taken by the user" do
+      volunteer = FactoryGirl.create(:volunteer)
+      leadership_role = FactoryGirl.create(:leadership_role, user: volunteer)
+      leadership_role.owned_by?(volunteer).should eq true
+    end
+  end
 end
