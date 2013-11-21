@@ -3,21 +3,30 @@
   <div class='form-group'>
     <h1 class='headers'>Sign in</h1>
     <%= form_for(resource, :as => resource_name, :url => session_path(resource_name), :class => 'sign-in-width') do |f| %>
-      <div><%= f.label :email %><br />
-      <%= f.email_field :email, :class => 'form-control-sign-in', :autofocus => true %></div>
+      <div>
+        <%= f.label :email, :class => 'label-align' %><br />
+        <%= f.email_field :email, :class => 'form-control-sign-in', :autofocus => true %>
+      </div>
 
-      <div><%= f.label :password %><br />
-      <%= f.password_field :password, :class => 'form-control-sign-in' %></div>
+      <div>
+        <%= f.label :password, :class => 'label-align' %><br />
+        <%= f.password_field :password, :class => 'form-control-sign-in' %></div>
 
-      <% if devise_mapping.rememberable? -%>
-        <div><%= f.check_box :remember_me, :class => "check-box" %><%= f.label :remember_me %></div>
-      <% end -%>
+        <% if devise_mapping.rememberable? -%>
+          <div>
+            <%= f.check_box :remember_me, :class => "check-box" %>
+            <%= f.label :remember_me, :class => 'label-align' %>
+          </div>
+        <% end -%>
 
-      <div class="drop-below">
-        <div><%= f.submit "Sign in", :class => 'sign-in-button-small' %></div>
-      <% end %>
-      <%= render "devise/shared/links" %>
-    </div>
+        <div class="drop-below">
+          <div>
+            <%= f.submit "Sign in", :class => 'sign-in-button-small' %>
+          </div>
+        <%= render "devise/shared/links" %>
+        </div>
+      </div>
+    <% end %>
   </div>
 </div>
 

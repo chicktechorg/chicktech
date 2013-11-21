@@ -7,14 +7,6 @@ body{
   color:#736759;
 }
 
-.icon-arrow-right {
-  background-image: asset-url("arrow-right.png");
-}
-
-.icon-arrow-left {
-  background-image: asset-url("arrow-left.png");
-}
-
 .form-group label { 
   margin: 5px;
 }
@@ -243,7 +235,7 @@ hr {
 .new_user {
   width: 300px;
   margin: 0 auto;
-
+  text-align: left;
 }
 
 .well {
@@ -262,7 +254,6 @@ position: relative;
 
 label {
   color: #736759; /* light brown */
-
 }
 
 .edit-links {
@@ -274,7 +265,11 @@ label {
  }
 
 .drop-below {
-  margin-top: 55px;
+  margin-top: 35px;
+}
+
+.drop-below a{
+  padding-left: 0px;
 }
 
 .contact-info {
