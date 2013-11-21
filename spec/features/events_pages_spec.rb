@@ -106,6 +106,19 @@ feature "Adding a team" do
   end
 end
 
+feature "Unassigning an event leader" do
+  let(:admin) { FactoryGirl.create(:admin) }
+  let(:volunteer) { FactoryGirl.create(:volunteer) }
+  
+  scenario "as an admin" do
+    event = FactoryGirl.create(:event)
+    leadership_role = FactoryGirl.create(:leadership_role, leadable: event, user: volunteer)
+    sign_in(admin)
+    visit event_path(event)
+    page.should have_button "Unassign"
+  end
+end
+
 feature "Signing up to be an Event Leader" do
   let(:volunteer) { FactoryGirl.create(:volunteer) }
 

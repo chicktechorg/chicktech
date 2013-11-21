@@ -43,6 +43,18 @@ feature 'User signs up for a job' do
   end
 end
 
+feature 'Admin or leader can remove a user from a job' do
+  let(:admin) { FactoryGirl.create(:admin) }
+  let(:volunteer) { FactoryGirl.create(:volunteer) }
+  let(:job) { FactoryGirl.create(:job, :user => volunteer)}
+  before { sign_in(admin) }
+
+  scenario 'successfully' do
+    visit job_path(job)
+    page.should have_button "Unassign"
+  end
+end
+
 feature 'Admin deletes a job' do
   let(:superadmin) { FactoryGirl.create(:superadmin) }
   let(:job) { FactoryGirl.create(:job) }
@@ -86,3 +98,35 @@ feature 'Add a due date to jobs' do
     page.should have_content 'updated'
   end
 end
+
+feature 'marking a job as done' do
+  let(:volunteer) { FactoryGirl.create(:volunteer) }
+  let(:job) { FactoryGirl.create(:job, user: volunteer, due_date: (Time.now + 2.days)) }
+  before { sign_in(volunteer) }
+
+  scenario 'visiting the job page' do
+    visit job_path(job)
+    page.should have_button 'Done'
+  end
+end
+
+feature 'open up jobs for other from deleted user' do
+  before do
+    @volunteer = FactoryGirl.create(:volunteer)
+    @other_user = FactoryGirl.create(:volunteer)
+    @job = FactoryGirl.create(:job, user: @volunteer)
+    sign_in(@other_user)
+  end
+
+  scenario 'visiting the job page' do
+    @volunteer.destroy
+    @job.reload
+    visit job_path(@job)
+    page.should have_button 'Sign Up!'
+  end
+end
+
+
+
+
+

@@ -19,7 +19,7 @@ feature 'Removing tasks' do
     task = FactoryGirl.create(:task, :job_id => job.id)
     sign_in(volunteer)
     visit job_path(job)
-    click_link '(remove)'
+    click_link 'X'
     page.should_not have_content task.description
   end
 end

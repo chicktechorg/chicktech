@@ -5,7 +5,6 @@
       <span class="icon-bar"></span>
       <span class="icon-bar"></span>
     </button>
-
   </div>
   <div class="navbar-collapse collapse">
     <ul class="nav navbar-nav">
@@ -17,16 +16,16 @@
           <li><%= link_to "Manage Events", "/events/new", :class => 'nav-font' %></li>
         <% end %>  
         <li><%= link_to "My Events", root_path, :class => 'nav-font' %></li>
+        <li><%= link_to "All Volunteers", users_path, :class => 'nav-font' %></li>
       <% end %>
     </ul>
   </div>
 </div>
-
 <div id="sidebar-wrapper">
   <div class="contact-info">
     <% if user_signed_in? %>
       <h1 class='user-name'><%= "#{current_user.first_name} #{current_user.last_name}" %></h1>
-      <p>Phone: <%= current_user.phone %></p>
+      <p>Phone: <%= number_to_phone(current_user.phone) %></p>
       <p>Email: <%= current_user.email %></p>
       <p>Role: <%= current_user.role %></p>
       <p><%= link_to "Edit Profile", edit_user_path(current_user), :class => 'edit-links' %></p>
@@ -39,15 +38,17 @@
         <li><%= link_to "Manage Volunteers", users_path, :class => 'nav-font' %></li>
       <% end %>
       <% if current_user.role? :admin %>
-        <li><%= link_to "Manage Events", "/events/new", :class => 'nav-font' %></li>
-      <% end %>  
+        <li><%= link_to "Manage Events", "/events/new", :class => 'nav-font' %></li> 
       <li><%= link_to "My Events", root_path, :class => 'nav-font' %></li>
+      <% elsif current_user.role? :volunteer %>
+      <li><%= link_to "All Volunteers", users_path, :class => 'nav-font' %></li>
+      <li><%= link_to "My Events", root_path, :class => 'nav-font' %></li>
+      <% end %>
     <% end %>
     <% if user_signed_in? %>
       <li><%= link_to "Sign out", destroy_user_session_path, :method => :delete, :class => 'nav-font' %></li>
+
     <% end %>
   </ul>
 </div>
  
-      
-

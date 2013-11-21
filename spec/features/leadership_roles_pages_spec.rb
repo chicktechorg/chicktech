@@ -13,7 +13,7 @@ feature 'Resigning from leadership role' do
     scenario 'available if you are an admin' do
       sign_in(FactoryGirl.create(:admin))
       visit event_path(@event)
-      page.should have_button 'Resign'
+      page.should have_button 'Unassign'
     end
 
     scenario "not available if you don't have permission" do
@@ -48,5 +48,22 @@ feature 'Volunteer signs up to be a leader' do
     visit event_path(event)
     click_on 'Resign!'
     page.should have_content 'resigned'
+  end
+end
+
+feature 'open leadership role for others when a leader is deleted' do
+  before do
+    @volunteer = FactoryGirl.create(:volunteer)
+    @other_user = FactoryGirl.create(:volunteer)
+    @event = FactoryGirl.create(:event)
+    @volunteer.leadership_roles << @event.leadership_role
+    sign_in(@other_user)
+  end
+
+  scenario 'visiting the event page' do
+    @volunteer.destroy
+    @event.reload
+    visit event_path(@event)
+    page.should have_button 'Take the lead!'
   end
 end

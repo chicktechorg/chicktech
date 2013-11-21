@@ -9,7 +9,7 @@ class Event < ActiveRecord::Base
   has_many :jobs, as: :workable
   has_many :teams
   belongs_to :city
-  has_one :leadership_role, :as => :leadable
+  has_one :leadership_role, :as => :leadable, :dependent => :destroy
 
   accepts_nested_attributes_for :leadership_role
 
