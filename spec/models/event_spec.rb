@@ -8,7 +8,7 @@ describe Event do
   it { should accept_nested_attributes_for :leadership_role }
   it { should have_many :jobs }
   it { should have_many :teams }
-  it { should have_one :leadership_role }
+  it { should have_one(:leadership_role).dependent(:destroy) }
   it { should belong_to :city }
 
   describe "#start" do

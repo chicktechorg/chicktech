@@ -163,7 +163,7 @@ feature "deleting a user" do
     job = FactoryGirl.create(:job, :user_id => volunteer.id)
     volunteer.destroy
     visit job_path(job)
-    find('.submit-no-button').value.should eq 'Sign Up!'
+    page.should have_button 'Sign Up!'
   end
 end
 

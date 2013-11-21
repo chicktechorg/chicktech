@@ -8,10 +8,10 @@
       <%= f.submit "Sign Up!", :method => :patch, :class => "submit-no-button" %>
     <% end %>
   <% end %>
-  <% if job.owned_by?(current_user) %>
+  <% if can?(:update, job) %>
     <%= form_for job do |f| %>
       <%= f.hidden_field :resigning, :value => true %>
-      <%= f.submit "Resign!", :method => :patch, :class => "submit-no-button" %>
+      <%= f.submit (job.owned_by?(current_user) ? "Resign!" : "Unassign"), :method => :patch, :class => "submit-no-button" %>
     <% end %>
   <% end %>
 
@@ -22,13 +22,13 @@
   <% end %>
 
 
-  <% if can? :manage, job %>
+  <% if can? :update, job %>
     <%= link_to "Delete", job_path(job), :method => :delete, :data => { :confirm => 'Are you sure?' } %>
     <%= link_to "Edit", edit_job_path(job) %>
     <%= form_for job do |f| %>
       <%= f.hidden_field :job_done, :value => true %>
       <% if job.done %>
-      <p> This job is: <%= f.submit "Not Done", :method => :patch, :class => "sign-in-button-small" %></p>
+        <p>This job is: <%= f.submit "Not Done", :method => :patch, :class => "sign-in-button-small" %></p>
         
       <% else %>
         <p> This job is: <%= f.submit "Done", :method => :patch, :class => "sign-in-button-small" %><p>
