@@ -11,7 +11,15 @@
                 <%= render job %>
               <% end %>
             <% end %>
-          <% end %> 
+            <% @user.teams.each do |team| %>
+              <%= render "teams/team_info_for_dash", :team => team %>
+              <% team.jobs.each do |job| %>
+                <% if job.owned_by?(@user) %>
+                  <%= render job %>
+                <% end %>
+              <% end %>
+            <% end %>
+          <% end %>
         </div> 
       </div>   
       <div class="col-md-6 cities "> 

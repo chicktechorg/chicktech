@@ -17,6 +17,7 @@
           <li><%= link_to "Manage Events", "/events/new", :class => 'nav-font' %></li>
         <% end %>  
         <li><%= link_to "My Events", root_path, :class => 'nav-font' %></li>
+        <li><%= link_to "All Volunteers", users_path, :class => 'nav-font' %></li>
       <% end %>
     </ul>
   </div>
@@ -39,12 +40,16 @@
         <li><%= link_to "Manage Volunteers", users_path, :class => 'nav-font' %></li>
       <% end %>
       <% if current_user.role? :admin %>
-        <li><%= link_to "Manage Events", "/events/new", :class => 'nav-font' %></li>
-      <% end %>  
+        <li><%= link_to "Manage Events", "/events/new", :class => 'nav-font' %></li> 
       <li><%= link_to "My Events", root_path, :class => 'nav-font' %></li>
+      <% elsif current_user.role? :volunteer %>
+      <li><%= link_to "All Volunteers", users_path, :class => 'nav-font' %></li>
+      <li><%= link_to "My Events", root_path, :class => 'nav-font' %></li>
+      <% end %>
     <% end %>
     <% if user_signed_in? %>
       <li><%= link_to "Sign out", destroy_user_session_path, :method => :delete, :class => 'nav-font' %></li>
+
     <% end %>
   </ul>
 </div>

@@ -1,39 +1,42 @@
-
 <div id="page-content-wrapper">
   <div class="page-content inset">
     <div class="row">
       <div class="col-md-6">
-        <div class="manage-users well">
-          <h2 class='section-header'>Manage Users</h2>
-          <h3><%= link_to "Invite a new user", new_user_invitation_path %></h3>
-          <ul>
+        <% if current_user.role? :superadmin %>
+          <div class="manage-users well">
+            <h2 class='section-header'>Manage Users</h2>
+            <h3><%= link_to "Invite a new user", new_user_invitation_path %></h3>
             <% @users.confirmed.each do |user| %>
-            <li><%= link_to "#{user.first_name} #{user.last_name}", user %></li>
-            <li><%= user.email %></li>
-            <li><%= user.phone %></li>
-            <li><%= link_to "remove volunteer",
-                      user_path(user),
-                      :method => :delete,
-                      :class => "btn btn-danger",
-                      :id => "remove#{user.id}" %></li>
+              <ul>
+                <li><%= link_to "#{user.first_name} #{user.last_name}", user %></li>
+                <li><%= user.email %></li>
+                <li><%= user.phone %></li>
+                <li><%= link_to "remove volunteer",
+                        user_path(user),
+                        :method => :delete,
+                        :class => "btn btn-danger",
+                        :id => "remove#{user.id}" %></li>
+              </ul> 
             <% end %>
-          <ul> 
+          <% end %>
         </div>
       </div>   
-      <div class="col-md-6 pending"> 
-        <h2 class="section-header well"> Pending Users </h2>
-        <div class="pending-user well">
-          <ul>
+      <div class="col-md-6 pending">
+        <% if current_user.role? :superadmin %> 
+          <h2 class="section-header well"> Pending Users </h2>
+          <div class="pending-user well">
             <% @users.pending.each do |user| %>
-            <% if user %>
-              <li><%= user.email %></li>
-              <li><%= link_to "remove",
-                  user_path(user),
-                  :method => :delete,
-                  :class => "btn btn-danger",
-                  :id => "remove#{user.id}" %></li>
+              <% if user %>
+              <ul>
+                <li><%= user.email %></li>
+                <li><%= link_to "remove",
+                    user_path(user),
+                    :method => :delete,
+                    :class => "btn btn-danger",
+                    :id => "remove#{user.id}" %></li>
+              </ul>
               <% else %>
-                <%= There are no pending users %>
+              <p> There are no pending users </p>
             <% end %>
           <% end %>
         </div>
@@ -41,4 +44,28 @@
     </div>
   </div>
 </div>
-     
+<div id="page-content-wrapper">
+  <div class="page-content inset">
+    <div class="row">
+      <div class="col-md-6">
+          <% elsif current_user.role? :volunteer %>
+            <h2 class='section-header well'>Volunteer Contact List</h2>
+            <div class="job-info well">
+            <% @users.confirmed.each do |user| %>
+              <ul>
+                <li><%= link_to "#{user.first_name} #{user.last_name}", user %></li> 
+                <li>EMAIL: <%= user.email %></li>
+                <li>PHONE: <%= user.phone %></li>
+              </ul>
+            <% end %>
+          <% end %>
+        </div> 
+      </div>     
+    </div>
+  </div>
+</div>
+
+
+
+
+

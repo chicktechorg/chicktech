@@ -26,6 +26,7 @@ class UsersController < ApplicationController
    @events = Event.all
    @jobs = Job.all
    @cities = City.all
+   @teams = Team.all
    redirect_to edit_user_path(@user) if @user.first_name.nil? # push down to model
   end
 
@@ -37,7 +38,7 @@ class UsersController < ApplicationController
     @user = User.find(params[:id])
     if @user.update(user_params)
       flash[:notice] = "User has been updated."
-      redirect_to users_path
+      redirect_to user_path
     else
       render :edit
     end
