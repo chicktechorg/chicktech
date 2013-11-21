@@ -8,4 +8,4 @@
 		 that is less than 7 hours in the future.
 -[ ] somehow need to be able to distinguish between upcoming and past events 
 -[ ] taking the lead does not add the event to your commitment list
--[ ] job done and not done button not showing up for regular volunteers
+-[ x] job done and not done button not showing up for regular volunteers
