@@ -1,40 +1,50 @@
-<h2>Please enter your information</h2>
-<% if @user.errors.any? %>
-    <div class="alert alert-danger">
-      <h3>Please correct these problems</h3>
-      <ul>
-        <% @user.errors.full_messages.each do |message| %>
-          <li><%= message %></li>
+<div id="page-content-wrapper">
+  <div class="page-content inset">
+    <div class="row">
+      <div class="col-md-6">
+        <h2 class='section-header well'>Edit Profile</h2>
+        <div class="job-info well">
+        <h2>Please enter your information</h2>
+        <% if @user.errors.any? %>
+            <div class="alert alert-danger">
+              <h3>Please correct these problems</h3>
+              <ul>
+                <% @user.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+
+        <%= form_for(@user) do |f| %>
+
+          <div>
+            <%= f.label :first_name %>
+            <%= f.text_field :first_name, :autofocus => true, :class =>'form-control-sign-in' %>
+          </div>
+
+          <div>
+            <%= f.label :last_name %>
+            <%= f.text_field :last_name, :class =>'form-control-sign-in' %>
+          </div>
+
+          <div>
+            <%= f.label :phone %>
+            <%= f.text_field :phone, :class =>'form-control-sign-in' %>
+          </div>
+
+          <div>
+            <%= f.label :email %>
+            <%= f.email_field :email, :class =>'form-control-sign-in' %>
+          </div>
+
+          <div>
+            <%= f.submit "Update", :class => "sign-in-button-small" %>
+          </div>
         <% end %>
-      </ul>
+        <%= link_to "Back", :back %>
+      </div>   
+      </div>  
     </div>
-  <% end %>
-
-<%= form_for(@user) do |f| %>
-
-  <div>
-    <%= f.label :first_name %>
-    <%= f.text_field :first_name, :autofocus => true %>
   </div>
-
-  <div>
-    <%= f.label :last_name %>
-    <%= f.text_field :last_name %>
-  </div>
-
-  <div>
-    <%= f.label :phone %>
-    <%= f.text_field :phone %>
-  </div>
-
-  <div>
-    <%= f.label :email %>
-    <%= f.email_field :email %>
-  </div>
-
-  <div>
-    <%= f.submit "Update" %>
-  </div>
-<% end %>
-
-<%= link_to "Back", :back %>
+</div>
