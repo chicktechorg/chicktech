@@ -26,7 +26,7 @@
   <div class="contact-info">
     <% if user_signed_in? %>
       <h1 class='user-name'><%= "#{current_user.first_name} #{current_user.last_name}" %></h1>
-      <p>Phone: <%= current_user.phone %></p>
+      <p>Phone: <%= number_to_phone(current_user.phone) %></p>
       <p>Email: <%= current_user.email %></p>
       <p>Role: <%= current_user.role %></p>
       <p><%= link_to "Edit Profile", edit_user_path(current_user), :class => 'edit-links' %></p>
