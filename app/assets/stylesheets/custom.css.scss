@@ -1,5 +1,4 @@
 @import 'bootstrap';
-@import 'bootstrap/glyphicons';
 
 body{
   min-height: 100%;
@@ -39,6 +38,10 @@ border-color: #ef669e;
 border-radius: 4px;
 -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
 box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+.well-event h4 {
+  margin-left: 2%;
 }
 
 .navbar-default .navbar-nav > li > a {
@@ -117,8 +120,13 @@ background-color: #4bbbbd;
   text-decoration: none;
 }
 
-.job-descriptions {
+.job-descriptions, .team-descriptions {
   text-indent: 30px;
+}
+
+.label {
+  font-weight: bold;
+  color: #736759;
 }
 
 ul {
@@ -407,8 +415,6 @@ hr.style-four {
   display: none !important;
 }
 
-
-
 .navbar-default {
   background-color: none;
   border-color: transparent;
@@ -419,6 +425,10 @@ hr.style-four {
   z-index: 1000;
   min-height: 0px;
   margin-bottom: 0px;
+}
+
+.input-append {
+  border-radius: 5px;
 }
 /*
 
