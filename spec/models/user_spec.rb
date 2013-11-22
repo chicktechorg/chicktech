@@ -12,6 +12,7 @@ describe User do
   it { should have_many(:events).through(:jobs) }
   it { should have_many(:comments)}
   it { should have_many(:teams).through(:jobs) }
+  it { should have_many(:events_through_teams).through(:teams) }
   it { should have_many(:leadership_roles).dependent(:nullify) }
   it { should have_many(:event_leads) }
   it { should have_many(:team_leads) }
@@ -95,6 +96,34 @@ describe User do
       pending_user = FactoryGirl.build(:volunteer, :invitation_token => 'sample token')
       pending_user.save(:validate => false)
       User.confirmed.should eq [confirmed_user]
+    end
+  end
+
+  describe "#commitment_events" do
+    let(:volunteer) { FactoryGirl.create(:volunteer) }
+
+    it 'should return events you are leading' do
+      event = FactoryGirl.create(:event)
+      volunteer.leadership_roles << event.leadership_role
+      volunteer.commitment_events.should eq [event]
+    end
+
+    it 'should return events you have a job in' do
+      job = FactoryGirl.create(:job)
+      volunteer.jobs << job
+      volunteer.commitment_events.should eq [job.workable]
+    end
+
+    it 'should return events in which you are leading a team' do
+      team = FactoryGirl.create(:team)
+      volunteer.leadership_roles << team.leadership_role
+      volunteer.commitment_events.should eq [team.event]
+    end
+
+    it 'should return events with a team you have a job in' do
+      job = FactoryGirl.create(:team_job)
+      volunteer.jobs << job
+      volunteer.commitment_events.should eq [job.workable.event]
     end
   end
 end

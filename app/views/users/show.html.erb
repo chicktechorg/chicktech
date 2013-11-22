@@ -3,24 +3,9 @@
     <div class="row">
       <div class="col-md-6">
         <h2 class='section-header well'><%= @user.first_name %>'s Commitments:</h2>
-        <div class="job-info well">
-          <% @user.events.each do |event| %>
-            <%= render event %>
-            <% event.jobs.each do |job| %>
-              <% if job.owned_by?(@user) %>
-                <%= render job %>
-              <% end %>
-            <% end %>
-            <% @user.teams.each do |team| %>
-              <%= render "teams/team_info_for_dash", :team => team %>
-              <% team.jobs.each do |job| %>
-                <% if job.owned_by?(@user) %>
-                  <%= render job %>
-                <% end %>
-              <% end %>
-            <% end %>
-          <% end %>
-        </div> 
+          
+          <%= render 'commitments', events: @user.commitment_events, user: @user %>
+
       </div>   
       <div class="col-md-6 cities"> 
         <%= render 'cities/dropdown', :cities => @cities %> 
