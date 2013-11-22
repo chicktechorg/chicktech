@@ -4,15 +4,15 @@ http://www.chicktech.org/
 
 This project was built by:
 
-Geneva Skeen     @geneeves
+Geneva Skeen     <a href="https://twitter.com/geneeves">@geneeves</a>
 
-Dustin Brown     @dustinbrownman
+Dustin Brown     <a href="https://twitter.com/dustinbrownman">@dustinbrownman</a>
 
-Ana Tighe        @anatighe
+Ana Tighe        <a href="https://twitter.com/anatighe">@anatighe</a>
 
-Brittany Winston @tallgirltaadaa
+Brittany Winston <a href="https://twitter.com/tallgirltaadaa">@tallgirltaadaa</a>
 
-Eleanor Mark     @eleanormark
+Eleanor Mark     <a href="https://twitter.com/eleanormark">@eleanormark</a>
 
 The project is being built as an internship project in the Epicodus Web Development bootcamp (Fall 2013).
 
