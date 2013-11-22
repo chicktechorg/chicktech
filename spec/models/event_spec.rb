@@ -72,4 +72,28 @@ describe Event do
       event.leader.should eq volunteer
     end
   end
+
+  describe '#jobs_of_user' do
+    it "returns all the jobs of an event that belong to the passed in user" do
+      @user = FactoryGirl.create(:volunteer)
+      @event = FactoryGirl.create(:event)
+      @job_1 = FactoryGirl.create(:job, workable: @event, user: @user)
+      @job_2 = FactoryGirl.create(:job, workable: @event)
+      @event.jobs_of_user(@user).should eq [@job_1]
+    end
+  end
+
+  describe '#teams_of_user' do
+    it "returns all the teams of an event for which the user is the leader or has a job" do
+      @user = FactoryGirl.create(:volunteer)
+      @event = FactoryGirl.create(:event)
+      @team_1 = FactoryGirl.create(:team, event: @event)
+      @team_2 = FactoryGirl.create(:team, event: @event)
+      @team_3 = FactoryGirl.create(:team, event: @event)
+      @job = FactoryGirl.create(:job, workable: @team_2)
+      @user.leadership_roles << @team_1.leadership_role
+      @user.jobs << @job
+      @event.teams_of_user(@user).should eq [@team_1, @team_2]
+    end
+  end
 end

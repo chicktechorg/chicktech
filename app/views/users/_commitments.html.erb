@@ -1,0 +1,8 @@
+<% events.each do |event| %>
+	<% event.jobs_of_user(user).each do |job| %>
+		<%= render job %>
+	<% end %>
+	<% event.teams_of_user(user).each do |team| %>
+
+	<% end %>
+<% end %>

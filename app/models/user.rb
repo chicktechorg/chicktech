@@ -9,6 +9,7 @@ class User < ActiveRecord::Base
   has_many :jobs, :dependent => :nullify
   has_many :events, -> { uniq }, through: :jobs, source: :workable, source_type: 'Event'
   has_many :teams, -> { uniq }, through: :jobs, source: :workable, source_type: 'Team'
+  has_many :events_through_teams, -> { uniq }, through: :teams, source: :event
   has_many :event_leads, through: :leadership_roles, source: :leadable, source_type: 'Event'
   has_many :team_leads, through: :leadership_roles, source: :leadable, source_type: 'Team'
   has_many :leadership_roles, :dependent => :nullify
@@ -25,8 +26,12 @@ class User < ActiveRecord::Base
     ROLES.index(base_role.to_s) <= ROLES.index(role)
   end
 
+  def commitment_events
+    all_events.sort
+  end
+
   def all_events
-    (event_leads + events).uniq
+    (events_through_teams.upcoming + event_leads.upcoming + events.upcoming).uniq
   end
 
   def all_teams

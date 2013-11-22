@@ -21,6 +21,14 @@ class Event < ActiveRecord::Base
     leadership_role.user
   end
 
+  def jobs_of_user(user)
+    jobs.where(user: user)
+  end
+
+  def teams_of_user(user)
+    teams.where(leadership_role: { user: user }) + teams.where() 
+  end
+
   def self.past
     Event.where("finish < ?", Time.now)
   end

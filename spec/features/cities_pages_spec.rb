@@ -54,7 +54,6 @@ feature "City pages" do
 
       scenario "with valid input" do
         fill_in 'Name', with: 'San Francisco, CA'
-        page.save_screenshot('screenshot.png')
         click_on 'Add'
         page.should have_content 'San Francisco, CA'
       end
