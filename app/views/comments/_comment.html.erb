@@ -2,5 +2,5 @@
 <div class="comment-details">
   <p><%= comment.user.first_name %>
     <%= comment.user.last_name %></p>
-    <p><%= comment.created_at  %></p>
+    <p><%= comment.created_at.strftime("%A, %B %d, %Y at %I:%M")  %></p>
 </div>
