@@ -11,6 +11,10 @@ class Team < ActiveRecord::Base
     leadership_role.user
   end
 
+  def jobs_of_user(user)
+    jobs.where(user: user)
+  end
+
 private
 
   def create_leadership_role

@@ -17,4 +17,15 @@ describe Team do
     team = FactoryGirl.create(:team)
     team.leadership_role.should be_an_instance_of LeadershipRole
   end
+
+  describe '#jobs_of_user' do
+    let(:volunteer) { FactoryGirl.create(:volunteer) }
+    
+    it "returns all the jobs of an team that belong to the passed in user" do
+      job = FactoryGirl.create(:team_job)
+      team = job.workable
+      volunteer.jobs << job
+      team.jobs_of_user(volunteer).should eq [job]
+    end
+  end
 end

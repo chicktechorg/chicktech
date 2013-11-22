@@ -1,0 +1,6 @@
+<h4><%= team.name %></h4>
+<ul>
+  <% team.jobs_of_user(user).each do |job| %>
+    <li><%= link_to job.name, job %></li>
+  <% end %>
+</ul>

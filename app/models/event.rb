@@ -26,7 +26,9 @@ class Event < ActiveRecord::Base
   end
 
   def teams_of_user(user)
-    teams.where(leadership_role: { user: user }) + teams.where() 
+    teams.select do |team|
+      team.leadership_role.user == user || team.jobs.any? { |job| job.user == user }
+    end
   end
 
   def self.past

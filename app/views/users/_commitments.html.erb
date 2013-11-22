@@ -1,8 +1,10 @@
 <% events.each do |event| %>
+  <h2><%= event.name %></h2>
 	<% event.jobs_of_user(user).each do |job| %>
-		<%= render job %>
+		<%= link_to job.name, job %>
 	<% end %>
-	<% event.teams_of_user(user).each do |team| %>
 
+	<% event.teams_of_user(user).each do |team| %>
+    <%= render 'teams/team_short', team: team, user: user %>
 	<% end %>
 <% end %>

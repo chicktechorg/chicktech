@@ -99,16 +99,31 @@ describe User do
     end
   end
 
-  describe "commitment_events" do
-    it "returns all the events in which the user has a commitment" do
-      user = FactoryGirl.create(:volunteer)
-      team_job = FactoryGirl.create(:team_job)
-      team_leadership_role = team_job.workable.leadership_role
-      event_job = FactoryGirl.create(:job)
-      event_leadership_role = FactoryGirl.create(:event).leadership_role
-      user.jobs << [team_job, event_job]
-      user.leadership_roles << [team_leadership_role, event_leadership_role]
-      user.commitment_events.should eq [team_job.workable.event, event_job.workable, event_leadership_role.leadable]
+  describe "#commitment_events" do
+    let(:volunteer) { FactoryGirl.create(:volunteer) }
+
+    it 'should return events you are leading' do
+      event = FactoryGirl.create(:event)
+      volunteer.leadership_roles << event.leadership_role
+      volunteer.commitment_events.should eq [event]
+    end
+
+    it 'should return events you have a job in' do
+      job = FactoryGirl.create(:job)
+      volunteer.jobs << job
+      volunteer.commitment_events.should eq [job.workable]
+    end
+
+    it 'should return events in which you are leading a team' do
+      team = FactoryGirl.create(:team)
+      volunteer.leadership_roles << team.leadership_role
+      volunteer.commitment_events.should eq [team.event]
+    end
+
+    it 'should return events with a team you have a job in' do
+      job = FactoryGirl.create(:team_job)
+      volunteer.jobs << job
+      volunteer.commitment_events.should eq [job.workable.event]
     end
   end
 end

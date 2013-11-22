@@ -11,6 +11,7 @@ class User < ActiveRecord::Base
   has_many :teams, -> { uniq }, through: :jobs, source: :workable, source_type: 'Team'
   has_many :events_through_teams, -> { uniq }, through: :teams, source: :event
   has_many :event_leads, through: :leadership_roles, source: :leadable, source_type: 'Event'
+  has_many :events_through_team_leads, through: :team_leads, source: :event
   has_many :team_leads, through: :leadership_roles, source: :leadable, source_type: 'Team'
   has_many :leadership_roles, :dependent => :nullify
   has_many :comments
@@ -31,7 +32,7 @@ class User < ActiveRecord::Base
   end
 
   def all_events
-    (events_through_teams.upcoming + event_leads.upcoming + events.upcoming).uniq
+    (events_through_teams.upcoming + events_through_team_leads.upcoming + event_leads.upcoming + events.upcoming).uniq
   end
 
   def all_teams
