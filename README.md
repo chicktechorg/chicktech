@@ -4,7 +4,7 @@ http://www.chicktech.org/
 
 This project was built by:
 
-Geneva Skeen     @geneeves
+Geneva Skeen     <a href="https://twitter.com/geneeves">@geneeves</a>
 
 Dustin Brown     @dustinbrownman
 
