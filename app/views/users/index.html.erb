@@ -11,7 +11,7 @@
                 <li><%= link_to "#{user.first_name} #{user.last_name}", user %></li>
                 <li><%= user.email %></li>
                 <li><%= user.phone %></li>
-                <li><%= link_to "remove volunteer",
+                <li><%= link_to "Remove volunteer",
                         user_path(user),
                         :method => :delete,
                         :class => "remove",
