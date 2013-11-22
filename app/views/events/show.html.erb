@@ -15,10 +15,7 @@
               <%= f.submit "Take the lead!", :class => "submit-no-button" %>
             <% end %>
           <% elsif can? :update, @event.leadership_role %>
-            <%= form_for @event.leadership_role do |f| %>
-              <%= f.hidden_field :resigning, :value => false %>
-              <%= f.submit (@event.leadership_role.owned_by?(current_user) ? "Resign!" : "Unassign"), :class => "submit-no-button" %>
-            <% end %>
+            <%= link_to (@event.leadership_role.owned_by?(current_user) ? "Resign" : "Unassign"), leadership_role_path(@event.leadership_role, :leadership_role => {:resigning => false}), :method => :patch, :class => "remove" %>
           <% end %>
           <% if @event.leader %>
             <h4>Event lead: <%= "#{@event.leader.first_name} #{@event.leader.last_name}" %></h4> 

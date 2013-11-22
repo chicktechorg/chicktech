@@ -15,17 +15,12 @@
         <%= f.submit "Take the Lead!", :class => "submit-no-button" %>
       <% end %>
     <% elsif can? :update, team.leadership_role %>
-      <%= form_for team.leadership_role do |f| %>
-        <%= f.hidden_field :resigning, :value => false %>
-        <%= f.submit "Resign!", :class => "submit-no-button" %>
-      <% end %>
+      <%= link_to "Resign", leadership_role_path(team.leadership_role, :leadership_role => { :resigning => false }), :method => :patch, :class => "remove" %>
     <% end %>
 
     <% if team.leader %>
       <h4>Team lead: <%= "#{team.leader.first_name} #{team.leader.last_name}" %></h4> 
     <% end %>
-
-    <%= link_to "Add a Comment", new_comment_path(:comment => { commentable_id: team.id, commentable_type: 'Team' }) %>
   </div>
 </div>
 <div id='jobs-list'>

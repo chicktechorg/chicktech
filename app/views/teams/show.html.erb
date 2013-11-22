@@ -12,10 +12,7 @@
     <%= f.submit "Take the lead!", :class => "submit-no-button" %>
   <% end %>
 <% elsif can? :update, @team.leadership_role %>
-  <%= form_for @team.leadership_role do |f| %>
-    <%= f.hidden_field :resigning, :value => false %>
-    <%= f.submit ((@team.leader == current_user) ? "Resign!" : "Unassign"), :class => "submit-no-button" %>
-  <% end %>
+  <%= link_to ((@team.leader == current_user) ? "Resign" : "Unassign"), leadership_role_path(@team.leadership_role, :leader => { :resigning => false }), :method => :patch, :class => "remove" %>
 <% end %>
 
 <% if @team.leader %>

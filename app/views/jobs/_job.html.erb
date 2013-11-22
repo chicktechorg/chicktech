@@ -3,10 +3,7 @@
   <% if job.taken? %>
     <p><span class='label'>Taken by:</span> <%= job.user.first_name %> <%= job.user.last_name %></p>
     <% if can?(:update, job) %>
-      <%= form_for job do |f| %>
-        <%= f.hidden_field :resigning, :value => true %>
-        <%= f.submit (job.owned_by?(current_user) ? "Resign!" : "Unassign"), :method => :patch, :class => "submit-no-button" %>
-      <% end %>
+      <%= link_to (job.owned_by?(current_user) ? "Resign" : "Unassign"), job_path(job, :job => { :resigning => true }), :method => :patch, :class => "remove" %>
     <% end %>
   <% else %>
     <%= form_for job do |f| %>
@@ -20,7 +17,6 @@
   <% if job.try(:due_date) %>
     <p><span class='label'>Due Date:</span> <%= job.due_date.to_time.strftime("%b %-d, %Y") %></p>
   <% end %>
-
 
   <% if can? :update, job %>
     <%= link_to "Edit", edit_job_path(job) %>
