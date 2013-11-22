@@ -1,30 +1,28 @@
-<div>
-  <% provide :title, "#{team.name}" %>
-  <h1><%= link_to team.name, team %> for <%= team.event.name %></h1>
-  <p class="team"><%= link_to 'Edit', edit_team_path(team) %> |
-     <%= link_to 'Delete', team_path(team), 
-                           method: :delete,
-                           :data => { :confirm => 'Are you sure? This will delete all
-                                                   jobs within this team' } %></p>
-
-  <% if team.leadership_role.available? %>
-    <%= form_for team.leadership_role do |f| %>
-      <%= f.hidden_field :signing_up, :value => true %>
-      <%= f.submit "Take the lead!", :class => "submit-no-button" %>
+<div class="col-md-12 well-event">
+  <div class="team-descriptions">
+    <% provide :title, "#{team.name}" %>
+    <h2><%= link_to team.name, team %></h2> 
+    <h4>for <%= team.event.name %></h4>
+    <% if team.leader %>
+      <h4>Team lead: <%= "#{team.leader.first_name} #{team.leader.last_name}" %></h4> 
     <% end %>
-  <% elsif can? :update, team.leadership_role %>
-    <%= form_for team.leadership_role do |f| %>
-      <%= f.hidden_field :resigning, :value => false %>
-      <%= f.submit "Resign!", :class => "submit-no-button" %>
+    <% if team.leadership_role.available? %>
+      <%= form_for team.leadership_role do |f| %>
+        <%= f.hidden_field :signing_up, :value => true %>
+        <%= f.submit "Take the Lead!", :class => "submit-no-button" %>
+      <% end %>
+    <% elsif can? :update, team.leadership_role %>
+      <div class="edit-delete-indent">
+        <%= link_to "Resign", leadership_role_path(team.leadership_role, :leadership_role => { :resigning => false }), :method => :patch, :class => "remove" %>
+      </div>
     <% end %>
-  <% end %>
 
-  <% if team.leader %>
-    <h4>Team lead: <%= "#{team.leader.first_name} #{team.leader.last_name}" %></h4> 
-  <% end %>
-
-  <%= link_to "Add a Comment", new_comment_path(:comment => { commentable_id: team.id, commentable_type: 'Team' }) %>
-  <hr>
+    <p class="team"><%= link_to 'Edit', edit_team_path(team) %> 
+        <%= link_to 'Delete', team_path(team), 
+                             method: :delete,
+                             :data => { :confirm => 'Are you sure? This will delete all
+                                                     jobs within this team' } %></p>
+  </div>
 </div>
 <div id='jobs-list'>
   <% team.jobs.each do |job| %>

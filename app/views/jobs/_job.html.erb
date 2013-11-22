@@ -1,31 +1,27 @@
 <div class="job-descriptions">
-  <h4>Job Title: <%= link_to job.name, job_path(job) %></h4>
+  <h3>Job Title: <%= link_to job.name, job_path(job) %></h3>
   <% if job.taken? %>
-    <div>Taken by: <%= job.user.first_name %> <%= job.user.last_name %></div>
+    <p><span class='label'>Taken by:</span> <%= job.user.first_name %> <%= job.user.last_name %></p>
   <% else %>
     <%= form_for job do |f| %>
       <%= f.hidden_field :signing_up, :value => true %>
       <%= f.submit "Sign Up!", :method => :patch, :class => "submit-no-button" %>
     <% end %>
   <% end %>
-  <% if can?(:update, job) %>
-    <%= form_for job do |f| %>
-      <%= f.hidden_field :resigning, :value => true %>
-      <%= f.submit (job.owned_by?(current_user) ? "Resign!" : "Unassign"), :method => :patch, :class => "submit-no-button" %>
-    <% end %>
-  <% end %>
 
-  <p> Description: <%= job.description %></p>
+  <p><span class='label'>Description:</span> <%= job.description %></p>
 
   <% if job.try(:due_date) %>
-    <p>Due Date: <%= job.due_date.to_time.strftime("%b %-d, %Y @ %-I:%M%P") %></p>
+    <p><span class='label'>Due Date:</span> <%= job.due_date.to_time.strftime("%b %-d, %Y") %></p>
   <% end %>
 
   <% if can? :update, job %>
-    <%= link_to "Delete", job_path(job), :method => :delete, :data => { :confirm => 'Are you sure?' } %>
-    <%= link_to "Edit", edit_job_path(job) %>
-    <p> This job is <%= job.done ? "complete." : "not complete." %></p>
-    <p> <%= link_to "Change status", job_path(job, :job => {:job_done => true}), :method=> :patch, :class => "remove" %></p>
-  <% end %>  
+    <div class="edit-delete-indent">
+      <p>This job is <%= job.done ? "complete." : "not complete." %> <%= link_to "Change status", job_path(job, :job => {:job_done => true}), :method=> :patch, :class => "remove" %></p>
+      <p><%= link_to "Delete", job_path(job), :method => :delete, :data => { :confirm => 'Are you sure?' } %>
+      <%= link_to "Edit", edit_job_path(job) %>
+      <%= link_to (job.owned_by?(current_user) ? "Resign" : "Unassign"), job_path(job, :job => { :resigning => true }), :method => :patch, :class => "remove" %></p>
+    </div>
+  <% end %>      
 </div>
 

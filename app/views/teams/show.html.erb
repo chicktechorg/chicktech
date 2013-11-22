@@ -10,24 +10,18 @@
                                    method: :delete,
                                    :data => { :confirm => 'Are you sure? This will delete all
                                                            jobs within this team' } %></p>
-
           <% if @team.leadership_role.available? %>
             <%= form_for @team.leadership_role do |f| %>
               <%= f.hidden_field :signing_up, :value => true %>
               <%= f.submit "Take the lead!", :class => "submit-no-button" %>
             <% end %>
           <% elsif can? :update, @team.leadership_role %>
-            <%= form_for @team.leadership_role do |f| %>
-              <%= f.hidden_field :resigning, :value => false %>
-              <%= f.submit ((@team.leader == current_user) ? "Resign!" : "Unassign"), :class => "submit-no-button" %>
-            <% end %>
+            <%= link_to ((@team.leader == current_user) ? "Resign" : "Unassign"), leadership_role_path(@team.leadership_role, :leader => { :resigning => false }), :method => :patch, :class => "remove" %>
           <% end %>
 
           <% if @team.leader %>
             <h4>Team lead: <%= "#{@team.leader.first_name} #{@team.leader.last_name}" %></h4> 
           <% end %>
-
-          
 
           <% if can? :create, @job %>
             <div id='new-job'>

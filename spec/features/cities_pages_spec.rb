@@ -44,11 +44,6 @@ feature "City pages" do
   context "when signed in as admin" do
     before { sign_in(admin) }
 
-    it "should show the add city form" do
-      visit cities_path
-      page.should have_field('Name')
-    end
-
     context "adding cities", js: true do
       before { click_on 'Add or Remove a city' }
 
@@ -65,16 +60,16 @@ feature "City pages" do
       end
     end
 
-    context "removing cities" do
+    context "removing cities", js: true do
       before do
         @city = FactoryGirl.create(:city)
-        visit cities_path
+        visit user_path(admin)
+        click_on 'Add or Remove a city'
         click_on 'X'
       end
 
       it "should not show deleted city" do
-        visit cities_path
-        page.should_not have_content @city.name
+        page.should have_content "#{@city.name} has been deleted."
       end
     end
   end

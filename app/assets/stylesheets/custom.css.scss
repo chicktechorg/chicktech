@@ -1,5 +1,4 @@
 @import 'bootstrap';
-@import 'bootstrap/glyphicons';
 
 body{
   min-height: 100%;
@@ -231,10 +230,19 @@ border-radius: 4px;
 box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
 }
 
+
 .welcome {
   color: #736759;
   text-align: center;
   font-size: 50px;
+}
+.well-event h4 {
+  margin-left: 2%;
+}
+
+.navbar-default .navbar-nav > li > a {
+color: #4bbbbd;
+>>>>>>> fd4dfa1596187bbc486acf8ba57fa1216c3f88ce
 }
 
 
@@ -328,8 +336,23 @@ box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
   text-decoration: none;
 }
 
+<<<<<<< HEAD
 
 /*tasks */
+=======
+.job-descriptions, .team-descriptions {
+  text-indent: 30px;
+}
+
+.label {
+  font-weight: bold;
+  color: #736759;
+}
+
+ul {
+  list-style-type: none;
+}
+>>>>>>> fd4dfa1596187bbc486acf8ba57fa1216c3f88ce
 
 .done {
   float: right;
@@ -493,9 +516,9 @@ position: relative;
   box-shadow: 0 8px 6px -6px rgb(155, 149, 149);
 }
 
-.job-info {
+/*.job-info {
   padding-left: 50px;
-}
+}*/
 
 .left-column {
   position: absolute;
@@ -510,8 +533,6 @@ position: relative;
   display: none !important;
 }
 
-
-
 .navbar-default {
   background-color: none;
   border-color: transparent;
@@ -522,6 +543,14 @@ position: relative;
   z-index: 1000;
   min-height: 0px;
   margin-bottom: 0px;
+}
+
+.input-append {
+  border-radius: 5px;
+}
+
+.edit-delete-indent {
+  margin-left: 0px;
 }
 /*
 
