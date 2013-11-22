@@ -106,10 +106,6 @@ feature 'marking a job as done' do
 
   scenario 'visiting the job page' do
     visit job_path(job)
-<<<<<<< HEAD
-    save_and_open_page
-=======
->>>>>>> 05d6c1e... changes job done button to red link
     page.should have_content 'This job is not complete.'
   end
 end
