@@ -1,0 +1,26 @@
+<div class="event-card well">
+  <div class="header">
+    <span><%= event.start.strftime("%A, %B %-d, %Y @ %l:%M %P") %></span>
+  </div>
+  <div class="body">
+
+    <h3><%= event.name %> <span><%= link_to 'view', event %></span></h3>
+
+    <% if !event.leader.nil? %>
+      <p>Leader:<%= link_to "#{event.leader.first_name} #{event.leader.last_name}", event.leader %></p>
+    <% else %>
+      <p>No leader</p>
+    <% end %>
+
+    <ul class="list-group">
+      <% event.jobs_of_user(user).each do |job| %>
+        <li class="list-group-item"><%= link_to job.name, job %></li>
+      <% end %>
+    </ul>
+
+    <% event.teams_of_user(user).each do |team| %>
+      <%= render 'teams/team_short', team: team, user: user %>
+    <% end %>
+
+  </div>
+</div>

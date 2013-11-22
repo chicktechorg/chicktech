@@ -625,3 +625,32 @@ bootstrap theme
   }
 
 }
+
+.event-card {
+  padding: 0;
+
+  .header {
+    width: 100%;
+    padding: 10px;
+    background-color: rgba(75, 187, 189, 0.75);
+    overflow: hidden;
+    border-radius: 8px 8px 0 0;
+    color: white;
+
+    span {
+      font-size: 120%
+    }
+  }
+
+  .body {
+    padding: 0 10px 10px 10px;  
+
+    span {
+      font-size: 50%;
+    }
+
+    .team {
+      border-top: 1px solid #cccccc;
+    }
+  }
+}

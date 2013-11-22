@@ -209,3 +209,49 @@ feature "user_signed_in?" do
   end
 end
 
+feature "showing commitments" do
+  let(:volunteer) { FactoryGirl.create(:volunteer) }
+  before { sign_in(volunteer) }
+  subject { page }
+
+  context "when leading a event" do
+    let(:event) { FactoryGirl.create(:event) }
+    before do
+      volunteer.leadership_roles << event.leadership_role
+      visit user_path(volunteer)
+    end
+
+    it { should have_content event.name } 
+  end
+
+  context "when leading a team" do
+    let(:team) { FactoryGirl.create(:team) }
+    before do
+      volunteer.leadership_roles << team.leadership_role
+      visit user_path(volunteer)
+    end
+
+    it { should have_content team.event.name } 
+  end
+
+  context "for jobs of events" do
+    let(:job) { FactoryGirl.create(:job) }
+    before do
+      volunteer.jobs << job
+      visit user_path(volunteer)
+    end
+
+    it { should have_content job.workable.name }
+  end
+
+  context "for jobs of teams" do
+    let(:job) { FactoryGirl.create(:team_job) }
+    before do
+      volunteer.jobs << job
+      visit user_path(volunteer)
+    end
+
+    it { should have_content job.workable.event.name }
+  end
+end
+
