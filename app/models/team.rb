@@ -1,6 +1,9 @@
 class Team < ActiveRecord::Base
-  validates :name, presence: true
 
+
+  
+  validates :name, presence: true
+  has_many :comments, :as => :commentable
   has_many :jobs, through: :users
   has_many :jobs, :as => :workable
   has_many :users

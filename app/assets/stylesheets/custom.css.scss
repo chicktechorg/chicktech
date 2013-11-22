@@ -112,6 +112,19 @@ background-color: #4bbbbd;
   margin-bottom: 25px;
 }
 
+.btn-primary {
+ -webkit-border-radius: 10;
+  -moz-border-radius: 10;
+  border-radius: 10px;
+  font-family: Arial;
+  color: #FFF;
+  font-size: 18px;
+  background: #ef669e;
+  text-decoration: none;
+  border: none;
+  margin-bottom: 25px;
+}
+
 .sign-in-button-small:hover {
   background: #e32976;
   text-decoration: none;
