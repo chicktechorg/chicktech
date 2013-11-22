@@ -15,6 +15,8 @@ class TeamsController < ApplicationController
   def show
     @team = Team.find(params[:id])
     @job = Job.new(:workable => @team)
+    @comment = Comment.new(:commentable => @team)
+    @commentable = @team
   end
 
   def edit

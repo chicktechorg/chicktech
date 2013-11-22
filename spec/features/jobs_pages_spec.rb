@@ -106,7 +106,7 @@ feature 'marking a job as done' do
 
   scenario 'visiting the job page' do
     visit job_path(job)
-    page.should have_button 'Done'
+    page.should have_content 'This job is not complete.'
   end
 end
 
