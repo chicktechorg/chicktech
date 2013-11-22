@@ -21,18 +21,11 @@
     <p>Due Date: <%= job.due_date.to_time.strftime("%b %-d, %Y @ %-I:%M%P") %></p>
   <% end %>
 
-
   <% if can? :update, job %>
     <%= link_to "Delete", job_path(job), :method => :delete, :data => { :confirm => 'Are you sure?' } %>
     <%= link_to "Edit", edit_job_path(job) %>
-    <%= form_for job do |f| %>
-      <%= f.hidden_field :job_done, :value => true %>
-      <% if job.done %>
-        <p>This job is: <%= f.submit "Not Done", :method => :patch, :class => "sign-in-button-small" %></p>
-        
-      <% else %>
-        <p> This job is: <%= f.submit "Done", :method => :patch, :class => "sign-in-button-small" %><p>
-      <% end %>
-    <% end %>
+    <p> This job is <%= job.done ? "complete." : "not complete." %></p>
+    <p> <%= link_to "Change status", job_path(job, :job => {:job_done => true}), :method=> :patch, :class => "remove" %></p>
   <% end %>  
 </div>
+
