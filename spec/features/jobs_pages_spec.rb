@@ -38,7 +38,7 @@ feature 'User signs up for a job' do
   scenario 'resigns from a job' do
     volunteer.jobs << job
     visit event_path(job.workable)
-    click_on 'Resign!'
+    click_on 'Resign'
     page.should have_content 'resigned'
   end
 end
@@ -51,7 +51,7 @@ feature 'Admin or leader can remove a user from a job' do
 
   scenario 'successfully' do
     visit job_path(job)
-    page.should have_button "Unassign"
+    page.should have_content "Unassign"
   end
 end
 
@@ -106,6 +106,7 @@ feature 'marking a job as done' do
 
   scenario 'visiting the job page' do
     visit job_path(job)
+    save_and_open_page
     page.should have_content 'This job is not complete.'
   end
 end
