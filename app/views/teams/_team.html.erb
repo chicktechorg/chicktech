@@ -2,25 +2,26 @@
   <div class="team-descriptions">
     <% provide :title, "#{team.name}" %>
     <h2><%= link_to team.name, team %></h2> 
-      <h4>for <%= team.event.name %></h4>
-      <p class="team"><%= link_to 'Edit', edit_team_path(team) %> 
-        <%= link_to 'Delete', team_path(team), 
-                             method: :delete,
-                             :data => { :confirm => 'Are you sure? This will delete all
-                                                     jobs within this team' } %></p>
-
+    <h4>for <%= team.event.name %></h4>
+    <% if team.leader %>
+      <h4>Team lead: <%= "#{team.leader.first_name} #{team.leader.last_name}" %></h4> 
+    <% end %>
     <% if team.leadership_role.available? %>
       <%= form_for team.leadership_role do |f| %>
         <%= f.hidden_field :signing_up, :value => true %>
         <%= f.submit "Take the Lead!", :class => "submit-no-button" %>
       <% end %>
     <% elsif can? :update, team.leadership_role %>
-      <%= link_to "Resign", leadership_role_path(team.leadership_role, :leadership_role => { :resigning => false }), :method => :patch, :class => "remove" %>
+      <div class="edit-delete-indent">
+        <%= link_to "Resign", leadership_role_path(team.leadership_role, :leadership_role => { :resigning => false }), :method => :patch, :class => "remove" %>
+      </div>
     <% end %>
 
-    <% if team.leader %>
-      <h4>Team lead: <%= "#{team.leader.first_name} #{team.leader.last_name}" %></h4> 
-    <% end %>
+    <p class="team"><%= link_to 'Edit', edit_team_path(team) %> 
+        <%= link_to 'Delete', team_path(team), 
+                             method: :delete,
+                             :data => { :confirm => 'Are you sure? This will delete all
+                                                     jobs within this team' } %></p>
   </div>
 </div>
 <div id='jobs-list'>

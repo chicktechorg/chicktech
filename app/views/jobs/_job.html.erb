@@ -19,16 +19,17 @@
   <% end %>
 
   <% if can? :update, job %>
-    <%= link_to "Edit", edit_job_path(job) %>
-    <%= link_to "Delete", job_path(job), :method => :delete, :data => { :confirm => 'Are you sure?' } %>
     <%= form_for job do |f| %>
       <%= f.hidden_field :job_done, :value => true %>
       <% if job.done %>
         <p><span class='label'>This job is:</span> <%= f.submit "Not Done", :method => :patch, :class => "sign-in-button-small" %></p>
-        
       <% else %>
         <p><span class='label'>This job is:</span> <%= f.submit "Done", :method => :patch, :class => "sign-in-button-small" %><p>
       <% end %>
     <% end %>
+    <div class="edit-delete-indent">
+      <%= link_to "Edit", edit_job_path(job) %>
+      <%= link_to "Delete", job_path(job), :method => :delete, :data => { :confirm => 'Are you sure?' } %>
+    </div>
   <% end %>  
 </div>
