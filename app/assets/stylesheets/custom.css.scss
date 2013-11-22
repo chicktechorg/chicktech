@@ -1,5 +1,4 @@
 @import 'bootstrap';
-@import 'bootstrap/glyphicons';
 
 body{
   min-height: 100%;
@@ -28,6 +27,10 @@ margin-top: -20px;
   font-weight: 600
 }
 
+.user-name {
+  font-size: 20px;
+}
+
 .well-event {
 min-height: 20px;
 padding: 19px;
@@ -39,6 +42,10 @@ border-color: #ef669e;
 border-radius: 4px;
 -webkit-box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
 box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
+}
+
+.well-event h4 {
+  margin-left: 2%;
 }
 
 .navbar-default .navbar-nav > li > a {
@@ -112,13 +119,31 @@ background-color: #4bbbbd;
   margin-bottom: 25px;
 }
 
+.btn-primary {
+ -webkit-border-radius: 10;
+  -moz-border-radius: 10;
+  border-radius: 10px;
+  font-family: Arial;
+  color: #FFF;
+  font-size: 18px;
+  background: #ef669e;
+  text-decoration: none;
+  border: none;
+  margin-bottom: 25px;
+}
+
 .sign-in-button-small:hover {
   background: #e32976;
   text-decoration: none;
 }
 
-.job-descriptions {
+.job-descriptions, .team-descriptions {
   text-indent: 30px;
+}
+
+.label {
+  font-weight: bold;
+  color: #736759;
 }
 
 ul {
@@ -390,9 +415,9 @@ hr.style-four {
   box-shadow: 0 8px 6px -6px rgb(155, 149, 149);
 }
 
-.job-info {
+/*.job-info {
   padding-left: 50px;
-}
+}*/
 
 .left-column {
   position: absolute;
@@ -407,8 +432,6 @@ hr.style-four {
   display: none !important;
 }
 
-
-
 .navbar-default {
   background-color: none;
   border-color: transparent;
@@ -419,6 +442,14 @@ hr.style-four {
   z-index: 1000;
   min-height: 0px;
   margin-bottom: 0px;
+}
+
+.input-append {
+  border-radius: 5px;
+}
+
+.edit-delete-indent {
+  margin-left: 0px;
 }
 /*
 
@@ -551,4 +582,33 @@ a:hover {
   padding: 15px;
 }
 
+}
+
+.event-card {
+  padding: 0;
+
+  .header {
+    width: 100%;
+    padding: 10px;
+    background-color: rgba(75, 187, 189, 0.75);
+    overflow: hidden;
+    border-radius: 8px 8px 0 0;
+    color: white;
+
+    span {
+      font-size: 120%
+    }
+  }
+
+  .body {
+    padding: 0 10px 10px 10px;  
+
+    span {
+      font-size: 50%;
+    }
+
+    .team {
+      border-top: 1px solid #cccccc;
+    }
+  }
 }

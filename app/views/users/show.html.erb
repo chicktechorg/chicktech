@@ -3,11 +3,9 @@
     <div class="row">
       <div class="col-md-6">
         <h2 class='section-header well'><%= @user.first_name %>'s Commitments:</h2>
-        <div class="job-info well">
           
           <%= render 'commitments', events: @user.commitment_events, user: @user %>
 
-        </div> 
       </div>   
       <div class="col-md-6 cities"> 
         <%= render 'cities/dropdown', :cities => @cities %> 

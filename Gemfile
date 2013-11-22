@@ -16,6 +16,7 @@ gem 'bootstrap-sass', '~> 3.0.0.0.rc'
 gem 'validates_timeliness'
 gem 'devise_invitable'
 gem 'jquery-turbolinks'
+gem 'bootstrap-datepicker-rails'
 
 group :development, :test do
   gem 'rspec-rails'

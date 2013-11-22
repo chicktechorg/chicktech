@@ -1,5 +1,9 @@
-// $(function() {
-//   $('#add-job-button').click(function() {
-//     $(this).next('div#new-job').slideToggle();
-//   });
-// });
+$(function() {
+  $('.form-group .input-append.date').datepicker({
+    autoclose: true,
+    format: "D, dd M yyyy",
+    todayBtn: "linked"
+	});
+});
+
+

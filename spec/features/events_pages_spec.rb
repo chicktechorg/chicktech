@@ -115,7 +115,7 @@ feature "Unassigning an event leader" do
     leadership_role = FactoryGirl.create(:leadership_role, leadable: event, user: volunteer)
     sign_in(admin)
     visit event_path(event)
-    page.should have_button "Unassign"
+    page.should have_content "Unassign"
   end
 end
 
@@ -179,8 +179,8 @@ feature "Signing up for jobs" do
     sign_in(volunteer)
     visit event_path(job.workable)
     click_on "Sign Up!"
-    page.should_not have_button "Sign Up!"
-    page.should have_button "Resign!"
+    page.should_not have_content "Sign Up!"
+    page.should have_content "Resign"
   end
 
   scenario "jobs are taken by other users", js: true do

@@ -1,6 +1,14 @@
-<h4><%= team.name %></h4>
-<ul>
-  <% team.jobs_of_user(user).each do |job| %>
-    <li><%= link_to job.name, job %></li>
+<div class="team">
+  <h4><%= team.name %> <span><%= link_to 'view', team %></span></h4>
+  <% if !team.leader.nil? %>
+    <p>Leader:<%= link_to "#{team.leader.first_name} #{team.leader.last_name}", team.leader %></p>
+  <% else %>
+    <p>No leader</p>
   <% end %>
-</ul>
+
+  <ul class="list-group">
+    <% team.jobs_of_user(user).each do |job| %>
+      <li class="list-group-item"><%= link_to job.name, job %></li>
+    <% end %>
+  </ul>
+</div>

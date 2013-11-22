@@ -1,6 +1,7 @@
 class Team < ActiveRecord::Base
-  validates :name, presence: true
 
+  validates :name, presence: true
+  has_many :comments, :as => :commentable
   has_many :jobs, :as => :workable
   belongs_to :event
   has_one :leadership_role, :as => :leadable, :dependent => :destroy

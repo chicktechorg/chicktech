@@ -1,13 +1,23 @@
-<h1>Create a New Job</h1>
-<% if @job.errors.any? %>
-  <div class="alert alert-danger">
-    <h4>Please correct these errors:</h4>
-    <ul>
-      <% @job.errors.full_messages.each do |message| %>
-        <li><%= message %></li>
-      <% end %>
-    </ul>
-  </div>
-<% end %>
 
-<%= render 'jobs/form' %>
+<div id="page-content-wrapper">
+  <div class="page-content inset">
+    <div class="row">
+      <div class="col-md-6">
+        <h2 class='section-header well'>Create a new job</h2>
+        <div class="job-info well">
+          <% if @job.errors.any? %>
+            <div class="alert alert-danger">
+              <h4>Please correct these errors:</h4>
+              <ul>
+                <% @job.errors.full_messages.each do |message| %>
+                  <li><%= message %></li>
+                <% end %>
+              </ul>
+            </div>
+          <% end %>
+          <%= render 'jobs/form' %>
+      </div>   
+      </div>  
+    </div>
+  </div>
+</div>
