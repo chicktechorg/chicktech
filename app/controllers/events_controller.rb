@@ -21,6 +21,7 @@ class EventsController < ApplicationController
   end
 
   def create
+    @events = Event.all
     @event = Event.new(event_params)
     @cities = City.all
     if @event.save
