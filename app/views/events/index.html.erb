@@ -1,29 +1,29 @@
+
+
 <div class="col-md-12">
-  <div class="">
-  	<h2>Events</h2>
-	  <div class="table-responsive">
-	    <table class="table">
-	      <thead>
-	          <tr>
-	            <th>Name</th>
-	            <th>City</th>
-	            <th>Start</th>
-	            <th>Finish</th>
-	          </tr>
-	      </thead>
-	      <tbody>
-	          <% @events.each do |event| %>
-	          <tr>
-	            <td><%= event.name%></td>
-	            <td><%= event.city.name %></td>
-	            <td><%= event.start.strftime("%b %-d, %Y @ %-I:%M%P") %></td>
-	            <td><%= event.finish.strftime("%b %-d, %Y @ %-I:%M%P") %></td>
-	          </tr>
-	         <% end %>
-	      </tbody>
-	    </table>
-	  </div>
-	</div>
+	<h2>Events</h2>
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+          <tr>
+            <th>Name</th>
+            <th>City</th>
+            <th>Start</th>
+            <th>Finish</th>
+          </tr>
+      </thead>
+      <tbody>
+          <% @events.each do |event| %>
+          <tr>
+            <td><%= link_to event.name, event_path(event) %></td>
+            <td><%= event.city.name %></td>
+            <td><%= event.start.strftime("%b %-d, %Y @ %-I:%M%P") %></td>
+            <td><%= event.finish.strftime("%b %-d, %Y @ %-I:%M%P") %></td>
+          </tr>
+         <% end %>
+      </tbody>
+    </table>
+  </div>
 </div>
 
 
