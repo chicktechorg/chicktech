@@ -14,7 +14,7 @@
         <% end %>
         <% if current_user.role? :admin %>
           <li><%= link_to "Manage Events", "/events/new", :class => 'nav-font' %></li>
-        <% end %>  
+        <% end %>
         <li><%= link_to "My Events", root_path, :class => 'nav-font' %></li>
         <li><%= link_to "All Volunteers", users_path, :class => 'nav-font' %></li>
       <% end %>
@@ -22,27 +22,19 @@
   </div>
 </div>
 <div id="sidebar-wrapper">
-  <div class="contact-info">
-    <% if user_signed_in? %>
-      <h1 class='user-name'><%= "#{current_user.first_name} #{current_user.last_name}" %></h1>
-      <p>Phone: <%= number_to_phone(current_user.phone) %></p>
-      <p>Email: <%= current_user.email %></p>
-      <p>Role: <%= current_user.role %></p>
-      <p><%= link_to "Edit Profile", edit_user_path(current_user), :class => 'edit-links' %></p>
-    <% end %>
-  </div>  
+
   <ul class="sidebar-nav">
     <li class="sidebar-brand"><a href="#"><%= link_to image_tag("ChickTech_color_change.jpg", :class => 'logo-image'), root_path, :class => 'navbar-brand' %></a></li>
     <% if user_signed_in? %>
-      <% if current_user.role? :superadmin %>
-        <li><%= link_to "Manage Volunteers", users_path, :class => 'nav-font' %></li>
-      <% end %>
       <% if current_user.role? :admin %>
-        <li><%= link_to "Manage Events", "/events/new", :class => 'nav-font' %></li> 
-      <li><%= link_to "My Events", root_path, :class => 'nav-font' %></li>
+        <li><%= link_to "Events", '/events', :class => 'nav-font' %></li>
+        <li><%= link_to "New Event", "/events/new", :class => 'nav-font' %></li>
       <% elsif current_user.role? :volunteer %>
-      <li><%= link_to "All Volunteers", users_path, :class => 'nav-font' %></li>
-      <li><%= link_to "My Events", root_path, :class => 'nav-font' %></li>
+        <li><%= link_to "All Volunteers", users_path, :class => 'nav-font' %></li>
+        <li><%= link_to "My Events", root_path, :class => 'nav-font' %></li>
+      <% end %>
+      <% if current_user.role? :superadmin %>
+        <li><%= link_to "Volunteers", users_path, :class => 'nav-font' %></li>
       <% end %>
     <% end %>
     <% if user_signed_in? %>
@@ -51,4 +43,4 @@
     <% end %>
   </ul>
 </div>
- 
+

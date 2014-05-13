@@ -1,6 +1,6 @@
-<div class="col-md-12"> 
+<div class="col-md-12">
   <div class="all-tasks well">
-  	<h2>Past Chicktech Events</h2>
+  	<h2>Events</h2>
 	  <% @events.past.each do |event| %>
 	  	<div class="well-event">
 				<h1><%= link_to event.name, event_path(event.id), :class => 'event-name' %></h1><small><%= event.start.to_time.strftime("%b %-d, %Y @ %-I:%M%P") %></small> - <small><%= event.finish.to_time.strftime("%b %-d, %Y @ %-I:%M%P") %></small>
@@ -17,3 +17,23 @@
 		<% end %>
 	</div>
 </div>
+
+<div class="col-md-12">
+  <div class="all-tasks well">
+  	<h2>Events</h2>
+		<ul>
+			<% @events.each do |event| %>
+				<li><%= event.name %></li>
+				<p><%= event.description %></p>
+
+				<% if can? :manage, event %>
+			    <div>
+			      <p><%= link_to "Edit Event Details", edit_event_path(event) %></p>
+			      <p><%= link_to "Delete", event_path(event), :method => :delete, :data => { :confirm => 'Are you sure?' } %></p>
+			    </div>
+			  <% end %>
+			<% end %>
+		</ul>
+	</div>
+</div>
+
