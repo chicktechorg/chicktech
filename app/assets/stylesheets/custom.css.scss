@@ -191,7 +191,7 @@ background-color: #4bbbbd;
 
 .nav-font {
   color: #736759; /* light brown */
-  font-size: 150%
+  font-size: 100%
 }
 
 .nav-font:hover {
@@ -647,6 +647,7 @@ bootstrap theme
   }
 }
 
+
 div.window {
   color: white;
   width: 820px;
@@ -675,5 +676,3 @@ input.toggle ~ div {
 input.toggle:checked ~ div { height: 190px; }
 input.toggle:checked + label { background: #ef669e; }
 input.toggle { display: none; }
-
-
