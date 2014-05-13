@@ -28,7 +28,7 @@
 
       <li>Hello, <%= current_user.first_name %><li>
       <% if current_user.role? :admin %>
-        <li><%= link_to "Events", '/events', :class => 'nav-font' %></li>
+        <li><%= link_to "Events", '/events', :class => 'nav-font' %> (<%= @events.length %>)</li>
         <li><%= link_to "New Event", "/events/new", :class => 'nav-font' %></li>
       <% elsif current_user.role? :volunteer %>
         <li><%= link_to "All Volunteers", users_path, :class => 'nav-font' %></li>
