@@ -71,7 +71,7 @@ feature "Adding a job" do
     visit event_path(event)
     page.should have_content "Add jobs"
   end
-  
+
   scenario "signed in as volunteer", js: true do
     volunteer = FactoryGirl.create(:volunteer)
     event_1 = FactoryGirl.create(:event)
@@ -109,7 +109,7 @@ end
 feature "Unassigning an event leader" do
   let(:admin) { FactoryGirl.create(:admin) }
   let(:volunteer) { FactoryGirl.create(:volunteer) }
-  
+
   scenario "as an admin" do
     event = FactoryGirl.create(:event)
     leadership_role = FactoryGirl.create(:leadership_role, leadable: event, user: volunteer)
@@ -154,9 +154,9 @@ end
 feature "Signing up for jobs" do
   let(:volunteer) { FactoryGirl.create(:volunteer) }
   let(:admin) { FactoryGirl.create(:admin) }
-  
+
   scenario "signed in", js: true do
-    job = FactoryGirl.create(:job) 
+    job = FactoryGirl.create(:job)
     sign_in(volunteer)
     select job.workable.city.name, from: 'city[city_id]'
     click_on 'Search'
@@ -165,7 +165,7 @@ feature "Signing up for jobs" do
   end
 
   scenario "signing up for a job", js: true do
-    job = FactoryGirl.create(:job) 
+    job = FactoryGirl.create(:job)
     sign_in(volunteer)
     select  job.workable.city.name, from: 'city[city_id]'
     click_on 'Search'
@@ -175,9 +175,10 @@ feature "Signing up for jobs" do
   end
 
   scenario "job is already taken", js: true do
-    job = FactoryGirl.create(:job) 
+    event = FactoryGirl.create(:event)
+    job = FactoryGirl.create(:job)
     sign_in(volunteer)
-    visit event_path(job.workable)
+    visit event_path(event)
     click_on "Sign Up!"
     page.should_not have_content "Sign Up!"
     page.should have_content "Resign"
