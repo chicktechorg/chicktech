@@ -2,12 +2,10 @@ class JobsController < ApplicationController
   authorize_resource
 
   def index
-    @events = Event.all
     @jobs = Job.all
   end
 
   def new
-    @events = Event.all
     @job = Job.new(job_params)
   end
 
@@ -22,7 +20,6 @@ class JobsController < ApplicationController
   end
 
   def edit
-    @events = Event.all
     @job = Job.find(params[:id])
   end
 
@@ -49,7 +46,6 @@ class JobsController < ApplicationController
   end
 
   def show
-    @events = Event.all
     @job = Job.find(params[:id])
     @task = Task.new(params[:job_id])
     @comment = Comment.new(:commentable => @job)

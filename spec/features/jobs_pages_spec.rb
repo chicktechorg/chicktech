@@ -19,7 +19,7 @@ feature 'Creating jobs' do
     event = FactoryGirl.create(:event)
     visit event_path(event)
     click_on 'Add jobs'
-    click_on 'Create Job' 
+    click_on 'Create Job'
     page.should have_content 'blank'
   end
 end
@@ -31,7 +31,7 @@ feature 'User signs up for a job' do
 
   scenario 'successfully' do
     visit event_path(job.workable)
-    click_on 'Sign Up!'
+    click_on 'Take the lead!'
     page.should have_content 'Congratulations!'
   end
 
