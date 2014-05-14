@@ -1,5 +1,6 @@
 class TeamsController < ApplicationController
   def new
+    @events = Event.all
     @team = Team.new(team_params)
   end
 
@@ -13,6 +14,7 @@ class TeamsController < ApplicationController
   end
 
   def show
+    @events = Event.all
     @team = Team.find(params[:id])
     @job = Job.new(:workable => @team)
     @comment = Comment.new(:commentable => @team)

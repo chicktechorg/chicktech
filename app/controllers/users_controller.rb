@@ -1,11 +1,13 @@
 class UsersController < ApplicationController
   authorize_resource
-  
+
   def index
+    @events = Event.all
     @users = User.all
   end
 
   def new
+    @events = Event.all
     @user = User.new
     authorize! :create, @user
   end
@@ -31,6 +33,7 @@ class UsersController < ApplicationController
   end
 
   def edit
+    @events = Event.all
     @user = User.find(params[:id])
   end
 
