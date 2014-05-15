@@ -1,19 +1,33 @@
-<div class="col-md-12"> 
-  <div class="all-tasks well">
-  	<h2>Past Chicktech Events</h2>
-	  <% @events.past.each do |event| %>
-	  	<div class="well-event">
-				<h1><%= link_to event.name, event_path(event.id), :class => 'event-name' %></h1><small><%= event.start.to_time.strftime("%b %-d, %Y @ %-I:%M%P") %></small> - <small><%= event.finish.to_time.strftime("%b %-d, %Y @ %-I:%M%P") %></small>
-			  <p><%= event.city.name %></p>
-			  <p><%= event.description %></p>
+<div class="col-md-12">
+	<h2>All Events</h2>
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>City</th>
+          <th>Start</th>
+          <th>Leader</th>
+          <th>Volunteers</th>
 
-			  <% if can? :manage, event %>
-			    <div>
-			      <p><%= link_to "Edit Event Details", edit_event_path(event) %></p>
-			      <p><%= link_to "Delete", event_path(event), :method => :delete, :data => { :confirm => 'Are you sure?' } %></p>
-			    </div>
-			  <% end %>
-			</div>
-		<% end %>
-	</div>
+        </tr>
+      </thead>
+      <tbody>
+        <% @events.each do |event| %>
+        <tr>
+          <td><%= link_to event.name, event_path(event) %></td>
+          <td><%= event.city.name %></td>
+          <td><%= event.start.strftime("%b %-d, %Y @ %-I:%M%P") %></td>
+          <td><%= event.leader ?  link_to(event.leader.first_name, user_path(event.leader)) : "Take the lead" %></td>
+          <td>cell</td>
+        </tr>
+       <% end %>
+      </tbody>
+    </table>
+
+  </div>
 </div>
+
+
+
+

@@ -1,6 +1,6 @@
 class EventsController < ApplicationController
   authorize_resource
-  
+
   def index
     @events = Event.all
     if params[:city]
@@ -16,11 +16,12 @@ class EventsController < ApplicationController
 
   def new
     @event = Event.new
-    @events = Event.upcoming
+    @events = Event.all
     @leadership_role = LeadershipRole.new(leadable: @event)
   end
 
   def create
+    @events = Event.all
     @event = Event.new(event_params)
     @cities = City.all
     if @event.save
@@ -32,10 +33,11 @@ class EventsController < ApplicationController
   end
 
   def show
+    @events = Event.all
     @event = Event.find(params[:id])
   end
 
-  def edit 
+  def edit
     @event = Event.find(params[:id])
   end
 

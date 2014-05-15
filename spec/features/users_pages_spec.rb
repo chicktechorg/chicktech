@@ -12,7 +12,7 @@ feature 'Signing Up' do
     fill_in 'Email', :with => user.email
     fill_in 'Password', :with => user.password
     fill_in 'Password confirmation', :with => user.password_confirmation
-    select user.role.humanize, :from => 'Role' 
+    select user.role.humanize, :from => 'Role'
     click_button "Sign up"
     page.should have_content 'successfully'
   end
@@ -22,7 +22,7 @@ feature 'Signing Up' do
     sign_in(superadmin)
     user = FactoryGirl.build(:volunteer)
     visit new_user_path
-    click_button "Sign up" 
+    click_button "Sign up"
     page.should have_content 'blank'
   end
 
@@ -34,7 +34,7 @@ feature 'Signing Up' do
     fill_in "Email", :with => user.email
     fill_in "Password", :with => user.password
     fill_in "Password confirmation", :with => "foobar"
-    click_button "Sign up" 
+    click_button "Sign up"
     page.should have_content 'match'
   end
 
@@ -66,7 +66,7 @@ feature 'Signing Up' do
       fill_in 'Email', :with => volunteer.email
       fill_in 'Password', :with => volunteer.password
       fill_in 'Password confirmation', :with => volunteer.password_confirmation
-      select volunteer.role.humanize, :from => 'Role' 
+      select volunteer.role.humanize, :from => 'Role'
       click_button "Sign up"
       page.should have_content superadmin.first_name
     end
@@ -79,7 +79,7 @@ feature "Signing in" do
     visit '/users/sign_in'
     fill_in "Email", :with => user.email
     fill_in "Password", :with => user.password
-    click_button "Sign in" 
+    click_button "Sign in"
     page.should have_content 'successfully'
   end
 
@@ -87,7 +87,7 @@ feature "Signing in" do
     user = FactoryGirl.create(:volunteer)
     visit '/users/sign_in'
     fill_in "Email", :with => user.email
-    click_button "Sign in" 
+    click_button "Sign in"
     page.should have_content 'Invalid'
   end
 end
@@ -98,7 +98,7 @@ feature "'Manage Volunteers' link" do
     visit '/users/sign_in'
     fill_in "Email", :with => superuser.email
     fill_in "Password", :with => superuser.password
-    click_button "Sign in" 
+    click_button "Sign in"
     page.should have_content 'Manage Volunteers'
   end
 
@@ -131,7 +131,7 @@ feature "'Manage Events' link" do
     visit '/users/sign_in'
     fill_in "Email", :with => superuser.email
     fill_in "Password", :with => superuser.password
-    click_button "Sign in" 
+    click_button "Sign in"
     page.should have_content 'Manage Events'
   end
 end
@@ -188,7 +188,7 @@ feature "changing password" do
     page.should have_content "Change Password"
   end
 
-  scenario "logged in user is able to change their password" do 
+  scenario "logged in user is able to change their password" do
     volunteer = FactoryGirl.create(:volunteer)
     sign_in(volunteer)
     visit change_password_path
@@ -221,7 +221,7 @@ feature "showing commitments" do
       visit user_path(volunteer)
     end
 
-    it { should have_content event.name } 
+    it { should have_content event.name }
   end
 
   context "when leading a team" do
@@ -231,7 +231,7 @@ feature "showing commitments" do
       visit user_path(volunteer)
     end
 
-    it { should have_content team.event.name } 
+    it { should have_content team.event.name }
   end
 
   context "for jobs of events" do
