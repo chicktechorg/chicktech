@@ -5,7 +5,7 @@
       <div class="col-md-6">
         <div class="event-info well">
           <h2 class='section-header'><% provide :title, "#{@job.name}" %></h2>
-          
+
           <% if @task.errors.any? %>
             <div class="alert alert-danger">
               <h4>Please correct these errors:</h4>
@@ -17,9 +17,9 @@
             </div>
           <% end %>
 
-          <%= render @job %> 
+          <%= render @job %>
 
-        </div> 
+        </div>
         <div class="comment-section well-event">
           <p> Comments about this job: </p>
             <% if @job.comments.any? %>
@@ -32,16 +32,10 @@
             <%= render 'comments/form' %>
           </div>
           <p><%= link_to "Back to event", event_path(@job.workable) %></p>
-      </div>   
-      <div class="col-md-6 cities well"> 
+      </div>
+      <div class="col-md-6 cities well">
         <div class="form-group">
-          <%= form_for @task do |f| %>
-            <%= f.label :description %>
-            <%= f.text_field :description, :size => "25" %>
-            <%= f.hidden_field :job_id, :value => @job.id %>
-            <%= f.hidden_field :done, :value => false %>
-            <%= f.submit :class => 'sign-in-button-small' %>
-          <% end %>
+          <%= render 'jobs/new_task_form' %>
         </div>
 
         <div class="task-section">
@@ -54,7 +48,7 @@
                 <% @job.incompleted_tasks.each do |task| %>
                   <li><%= render 'jobs/task_form', :task => task %></li>
                 <% end %>
-              </ul> 
+              </ul>
             </div>
             <div>
               <h4>Done</h4>
@@ -66,8 +60,8 @@
             </div>
           </div>
         </div>
-      </div>  
+      </div>
     </div>
   </div>
 </div>
-     
+

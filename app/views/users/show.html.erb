@@ -3,16 +3,17 @@
     <div class="row">
       <div class="col-md-6">
         <h2 class='section-header well'><%= @user.first_name %>'s Commitments:</h2>
-          
+
           <%= render 'commitments', events: @user.commitment_events, user: @user %>
 
-      </div>   
-      <div class="col-md-6 cities"> 
-        <%= render 'cities/dropdown', :cities => @cities %> 
+      </div>
+      <div class="col-md-6 cities">
+        <%= render 'cities/dropdown', :cities => @cities %>
         <div id="found-events">
-        </div> 
-      </div>  
+        </div>
+      </div>
     </div>
   </div>
 </div>
-     
+
+<%= link_to "Edit", edit_user_path(current_user) %>
