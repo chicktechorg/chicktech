@@ -6,8 +6,9 @@
           <h2><% provide :title, "#{@event.name}" %></h2>
           <%= render @event %>
           <% if can? :update, @event %>
-            <%= link_to "Add jobs", new_job_path(:job => { workable_id: @event.id, workable_type: 'Event' }), :class => "btn btn-primary btn-sm" %>
-            <%= link_to "Add a team", new_team_path(:team => { event_id: @event.id }), :class => "btn btn-primary btn-sm" %>
+
+            <%= link_to "Add jobs", new_job_path(:job => { workable_id: @event.id, workable_type: 'Event' }), :class => "btn btn-primary btn-sm", id: "new_job_link", remote: true %>
+            <%= link_to "Add a team", new_team_path(:team => { event_id: @event.id }), :class => "btn btn-primary btn-sm", id: "new_team_link", remote: true %>
           <% end %>
 
           <% if @event.leadership_role.available? %>
@@ -23,17 +24,15 @@
             <h4>Event lead: <%= "#{@event.leader.first_name} #{@event.leader.last_name}" %></h4>
           <% end %>
          <% if @event.teams.any? %>
-            <div>
+            <div id="event-teams">
               <% @event.teams.each do |team| %>
                 <%= render team %>
               <% end %>
             </div>
           <% end %>
-          <div>
+          <div id="event-jobs">
             <% if @event.jobs.any? %>
-              <% @event.jobs.each do |job| %>
-                <%= render job %>
-              <% end %>
+              <%= render @event.jobs %>
             <% end %>
           </div>
         </div>

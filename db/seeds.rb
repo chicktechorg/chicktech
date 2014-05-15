@@ -6,4 +6,4 @@ City.create(:name => 'Portland, OR')
 City.create(:name => 'San Francisco, CA')
 City.create(:name => 'Seattle, WA')
 
-Event.create(:name => "Clean the Park", :description => "" :start => "", :finish => "")
+Event.create(:name => "Clean the Park", :description => "", :start => "", :finish => "")
