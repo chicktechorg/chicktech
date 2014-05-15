@@ -1,3 +1,3 @@
 $('#new_job').remove();
 $('#new_job_link').show();
-location.reload();
+$('#event-jobs').prepend('<%= j render(@job) %>');
