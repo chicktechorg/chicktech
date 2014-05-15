@@ -6,7 +6,7 @@
           <h2 class='section-header'><% provide :title, "#{@event.name}" %></h2>
           <%= render @event %>
           <% if can? :update, @event %>
-            <%= link_to "Add jobs", new_job_path(:job => { workable_id: @event.id, workable_type: 'Event' }) %>
+            <%= link_to "Add jobs", new_job_path(:job => { workable_id: @event.id, workable_type: 'Event' }), id: "new_job_link", remote: true %>
             <%= link_to "Add a team", new_team_path(:team => { event_id: @event.id }), id: "new_team_link", remote: true %>
           <% end %>
           <% if @event.leadership_role.available? %>
