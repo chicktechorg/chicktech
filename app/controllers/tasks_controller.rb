@@ -7,14 +7,17 @@ class TasksController < ApplicationController
 
   def new
     @task = Task.new
+    @job = Job.find(params[:job_id])
   end
 
   def create
+    @job = Job.find(params[:job_id])
     @task = Task.new(task_params)
     if @task.save
+      @job.tasks << @task
       respond_to do |format|
         flash[:notice] = "Task has been successfully created."
-        format.html { redirect_to job_path(@task.job) }
+        format.html { redirect_to event_path(@task.job.workable) }
         format.js
       end
     else
