@@ -175,13 +175,14 @@ feature "Signing up for jobs" do
   end
 
   scenario "job is already taken", js: true do
-    event = FactoryGirl.create(:event)
     job = FactoryGirl.create(:job)
     sign_in(volunteer)
-    visit event_path(event)
+    visit event_path(job.workable)
     click_on "Sign Up!"
+    click_on "Sign out"
+    sign_in(admin)
+    visit event_path(job.workable)
     page.should_not have_content "Sign Up!"
-    page.should have_content "Resign"
   end
 
   scenario "jobs are taken by other users", js: true do

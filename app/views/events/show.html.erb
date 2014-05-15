@@ -1,5 +1,3 @@
-
-
 <div id="page-content-wrapper">
   <div class="page-content inset">
     <div class="row">
@@ -23,31 +21,18 @@
             <h4>Event lead: <%= "#{@event.leader.first_name} #{@event.leader.last_name}" %></h4>
           <% end %>
          <% if @event.teams.any? %>
-          <div style="height: 240px; padding-top: 1.2rem">
-          <div class="window">
-          <input type="checkbox" id="punch" class="toggle">
-            <label for="punch">Teams</label>
             <div>
               <% @event.teams.each do |team| %>
                 <%= render team %>
-                <% if @event.jobs.any? %>
-                <% end %>
               <% end %>
             </div>
-          </div>
-          </div>
-
-          <div style="height: 240px; padding-top: 1.2rem">
-            <div class="window">
-              <input type="checkbox" id="punch2" class="toggle">
-                <label for="punch2">Jobs for this event</label>
-                  <div>
-                    <% @event.jobs.each do |job| %>
-                      <%= render job %>
-                      <% end %>
-                    <% end %>
-                  </div>
-            </div>
+          <% end %>
+          <div>
+            <% if @event.jobs.any? %>
+              <% @event.jobs.each do |job| %>
+                <%= render job %>
+              <% end %>
+            <% end %>
           </div>
         </div>
       </div>

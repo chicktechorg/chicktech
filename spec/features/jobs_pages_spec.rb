@@ -31,7 +31,7 @@ feature 'User signs up for a job' do
 
   scenario 'successfully' do
     visit event_path(job.workable)
-    click_on 'Take the lead!'
+    click_on 'Sign Up!'
     page.should have_content 'Congratulations!'
   end
 
