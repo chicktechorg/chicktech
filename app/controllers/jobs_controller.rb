@@ -1,6 +1,6 @@
 class JobsController < ApplicationController
   authorize_resource
-  
+
   def index
     @jobs = Job.all
   end
@@ -12,8 +12,11 @@ class JobsController < ApplicationController
   def create
     @job = Job.new(job_params)
     if @job.save
-      flash[:notice] = "#{@job.name} has been successfully created."
-      redirect_to @job.workable
+      respond_to do |format|
+        flash[:notice] = "#{@job.name} has been successfully created."
+        format.html { redirect_to @job.workable }
+        format.js
+      end
     else
       render :new
     end
