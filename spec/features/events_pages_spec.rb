@@ -63,6 +63,49 @@ feature "Listing events" do
   end
 end
 
+feature 'Calendar view' do
+  let(:volunteer) { FactoryGirl.create(:volunteer) }
+  before(:each) { sign_in(volunteer) }
+
+  scenario 'shows events in current month' do
+    event = FactoryGirl.create(:event)
+    visit events_path
+    within('#events-calendar') do
+      page.should have_content event.name
+    end
+  end
+
+  scenario 'view events in the previous month' do
+    one_month_ago = Time.now - 1.month
+    Time.stub(:now).and_return(one_month_ago)
+    event = FactoryGirl.build(:event, start: Time.now + 1.day, finish: Time.now + 2.days)
+    event.save(validate: false)
+    visit events_path
+    click_on "<"
+    within('#events-calendar') do
+      page.should have_content event.name
+    end
+  end
+
+  scenario 'view events in the next month' do
+    event = FactoryGirl.create(:event, start: Time.now + 1.month, finish: Time.now + 1.month + 1.day)
+    visit events_path
+    click_on '>'
+    within('#events-calendar') do
+      page.should have_content event.name
+    end
+  end
+
+  scenario 'listed events link to their show page' do
+    event = FactoryGirl.create(:event)
+    visit events_path
+    within('#events-calendar') do
+      click_link event.name
+    end
+    page.should have_content event.description
+  end
+end
+
 feature "Adding a job" do
   scenario "signed in as admin" do
     admin = FactoryGirl.create(:admin)
