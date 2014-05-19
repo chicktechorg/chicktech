@@ -9,6 +9,13 @@
   <div id="events-calendar">
     <%= calendar do |date| %>
       <%= date.day %>
+      <% if @events_by_date[date] %>
+        <ul>
+          <% @events_by_date[date].each do |event| %>
+            <li><%= event.name %></li>
+          <% end %>
+        </ul>
+      <% end %>
     <% end %>
   </div>
 

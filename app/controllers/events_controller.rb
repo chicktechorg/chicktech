@@ -3,6 +3,7 @@ class EventsController < ApplicationController
 
   def index
     @events = Event.all
+    @events_by_date = @events.group_by(&:start_date)
     if params[:city]
       @events = Event.where(:city_id => params[:city][:city_id])
       respond_to do |format|
