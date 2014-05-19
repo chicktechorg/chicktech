@@ -6,6 +6,12 @@
     <option value="San Francisco">San Francisco</option>
   </select>
 
+  <div id="events-calendar">
+    <%= calendar do |date| %>
+      <%= date.day %>
+    <% end %>
+  </div>
+
   <div class="table-responsive">
     <table class="table">
       <thead>
