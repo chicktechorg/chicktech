@@ -220,25 +220,15 @@ feature "Signing up for jobs" do
   let(:volunteer) { FactoryGirl.create(:volunteer) }
   let(:admin) { FactoryGirl.create(:admin) }
 
-  scenario "signed in", js: true do
-    # job = FactoryGirl.create(:job)
-    # sign_in(volunteer)
-    # click_link "Profile"
-    # select job.workable.city.name, from: 'city[city_id]'
-    # click_on 'Search'
-    # save_and_open_page
-    # click_on(job.workable.name)
-    # page.should have_button "Sign Up!"
-  end
-
   scenario "signing up for a job", js: true do
-    # job = FactoryGirl.create(:job)
-    # sign_in(volunteer)
-    # select  job.workable.city.name, from: 'city[city_id]'
-    # click_on 'Search'
-    # click_on(job.workable.name)
-    # click_on "Sign Up!"
-    # page.should have_content "Congratulations"
+    job = FactoryGirl.create(:job)
+    sign_in(volunteer)
+    visit events_path
+    within('#events-calendar') do
+      click_on(job.workable.name)
+    end
+    click_on "Sign Up!"
+    page.should have_content "Congratulations"
   end
 
   scenario "job is already taken", js: true do
@@ -253,19 +243,21 @@ feature "Signing up for jobs" do
   end
 
   scenario "jobs are taken by other users", js: true do
-    # job = FactoryGirl.create(:job)
-    # sign_in(volunteer)
-    # select  job.workable.city.name, from: 'city[city_id]'
-    # click_on 'Search'
-    # click_on(job.workable.name)
-    # click_on "Sign Up!"
-    # click_on "Sign out"
-    # sign_in(admin)
-    # select  job.workable.city.name, from: 'city[city_id]'
-    # click_on 'Search'
-    # click_on(job.workable.name)
-    # page.should_not have_button "Sign Up!"
-    # page.should have_content "Taken by"
+    job = FactoryGirl.create(:job)
+    sign_in(volunteer)
+    visit events_path
+    within('#events-calendar') do
+      click_on(job.workable.name)
+    end
+    click_on "Sign Up!"
+    click_on "Sign out"
+    sign_in(admin)
+    visit events_path
+    within('#events-calendar') do
+      click_on(job.workable.name)
+    end
+    page.should_not have_button "Sign Up!"
+    page.should have_content "Taken by"
   end
 end
 

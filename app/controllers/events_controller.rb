@@ -4,13 +4,7 @@ class EventsController < ApplicationController
   def index
     @events = Event.all
     @date = params[:date] ? Date.parse(params[:date]) : Date.today
-    if params[:city]
-      @events = Event.where(:city_id => params[:city][:id])
-      @events_by_date = @events.group_by(&:start_date)
-    else
-      @events = Event.all
-      @events_by_date = @events.group_by(&:start_date)
-    end
+    @events = params[:city] ? Event.where(:city_id => params[:city][:id]) : Event.all
     @events_by_date = @events.group_by(&:start_date)
   end
 
