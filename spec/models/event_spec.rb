@@ -11,6 +11,15 @@ describe Event do
   it { should have_one(:leadership_role).dependent(:destroy) }
   it { should belong_to :city }
 
+  describe '.all' do
+    it "should not return templates" do
+      template = FactoryGirl.create(:template)
+      event = FactoryGirl.create(:event)
+      Event.all.any? { |temp| temp.name == template.name }.should be_false
+      Event.all.any? { |temp| temp.name == event.name }.should be_true
+    end
+  end
+
   describe "#start" do
     it "should be valid if the event starts after the time it's created" do
       event = FactoryGirl.build(:event, :start => Time.now + 1.hour)

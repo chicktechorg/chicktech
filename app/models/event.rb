@@ -1,10 +1,11 @@
 class Event < ActiveRecord::Base
-  default_scope { order(:start) }
+  default_scope { where(template: false).order(:start) }
 
   validates :name, :presence => true
-  validates :city_id, :presence => true
-  validates :start, :presence => true, :timeliness => { :on_or_after => Time.now }
-  validates :finish, :presence => true, :timeliness => { :on_or_after => :start }
+  validates :city_id, :presence => true, :unless => :template
+  validates :start, :presence => true, :timeliness => { :on_or_after => Time.now }, :unless => :template
+  validates :finish, :presence => true, :timeliness => { :on_or_after => :start }, :unless => :template
+
 
   has_many :jobs, as: :workable
   has_many :teams
