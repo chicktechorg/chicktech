@@ -9,4 +9,13 @@ describe Template do
       Template.all.any? { |temp| temp.name == event.name }.should be_false
     end
   end
+
+  describe '.new' do
+    it 'creates a template off an existing event' do
+      event = FactoryGirl.create(:event)
+      template = Template.new({event: event})
+      template.save
+      Template.all.first.should eq template
+    end
+  end
 end

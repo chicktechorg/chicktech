@@ -110,4 +110,36 @@ describe Event do
       event.teams_of_user(volunteer).should eq [team]
     end
   end
+
+  describe '#create_template' do
+    it 'creates a template off an existing event' do
+      event = FactoryGirl.create(:event)
+      template = event.create_template
+      Template.all.count.should eq 1
+    end
+
+    it 'create a template that has all the same team names as the event' do
+      team = FactoryGirl.create(:team)
+      event = team.event
+      template = event.create_template
+      template.teams.first.name.should eq event.teams.first.name
+    end
+
+    it 'creates a template that has all the same jobs as the event' do
+      job = FactoryGirl.create(:job)
+      event = job.workable
+      template = event.create_template
+      template.jobs.first.name.should eq event.jobs.first.name
+    end
+
+    it 'creates a template with all the same teams and their jobs' do
+      job = FactoryGirl.create(:team_job)
+      team = job.workable
+      event = team.event
+      template = event.create_template
+      first_template_job = template.teams.first.jobs.first
+      first_event_job = event.teams.first.jobs.first
+      first_template_job.name.should eq first_event_job.name
+    end
+  end
 end
