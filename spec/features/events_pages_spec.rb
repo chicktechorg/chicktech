@@ -128,19 +128,21 @@ feature 'Table view' do
 
   scenario 'shows the number of teams and how many have leaders for each event' do
     team_with_leader = FactoryGirl.create(:team_with_leader)
-    team_without_leader = Team.create(:name => "Team Without Leader")
-    team_with_leader.event.teams << team_without_leader
+    team_with_leader.event.teams << team_without_leader = Team.create(:name => "Team Without Leader")
     visit events_path
     within('.table-teams') do
       page.should have_content team_with_leader.event.teams.with_leaders.count
+      page.should have_content team_with_leader.event.teams.count
     end
   end
 
   scenario 'the number should be red if no teams have leaders' do
     team_without_leader = FactoryGirl.create(:team)
     visit events_path
-    within('.red') do
-      page.should have_content team_without_leader.event.teams.with_leaders.count
+    within('.table-teams') do
+      within('.red') do
+        page.should have_content team_without_leader.event.teams.with_leaders.count
+      end
     end
   end
 
@@ -149,18 +151,81 @@ feature 'Table view' do
     team_without_leader = Team.create(:name => "Team Without Leader")
     team_with_leader.event.teams << team_without_leader
     visit events_path
-    within ('.yellow') do
-      page.should have_content team_without_leader.event.teams.with_leaders.count
+    within('.table-teams') do
+      within ('.yellow') do
+        page.should have_content team_without_leader.event.teams.with_leaders.count
+      end
     end
   end
 
   scenario 'the number should be green if all teams have leaders' do
     team_with_leader = FactoryGirl.create(:team_with_leader)
     visit events_path
-    within first('.green') do
-      page.should have_content team_with_leader.event.teams.with_leaders.count
+    within('.table-teams') do
+      within first('.green') do
+        page.should have_content team_with_leader.event.teams.with_leaders.count
+      end
     end
   end
+
+  scenario 'shows the number of jobs and how many have volunteers for each event' do
+    job_a = FactoryGirl.create(:job)
+    job_a.workable.jobs << job_b = Job.create(:name => "Job B")
+    visit event_path(job_a.workable)
+    within('#edit_job_'+job_a.id.to_s) do
+      click_on "Sign Up!"
+    end
+    visit events_path
+    page.should have_content job_a.workable.jobs.with_volunteers.count
+    page.should have_content job_a.workable.jobs.count
+  end
+
+  scenario 'the number should be red if no jobs have volunteers' do
+    job = FactoryGirl.create(:job)
+    visit events_path
+    within('.table-jobs') do
+      within('.red') do
+        page.should have_content job.workable.jobs.with_volunteers.count
+      end
+    end
+  end
+
+  scenario 'the number should be yellow if at least one (but not all) of the jobs have volunteers' do
+    job_a = FactoryGirl.create(:job)
+    job_b = Job.create(:name => "Job B")
+    job_a.workable.jobs << job_b
+    visit event_path(job_a.workable)
+    within('#edit_job_'+job_a.id.to_s) do
+      click_on "Sign Up!"
+    end
+    visit events_path
+    within('.table-jobs') do
+      within ('.yellow') do
+        page.should have_content job_a.workable.jobs.with_volunteers.count
+      end
+    end
+  end
+
+  scenario 'the number should be green if all jobs have volunteerss' do
+    job_a = FactoryGirl.create(:job)
+    job_b = Job.create(:name => "Job B")
+    job_a.workable.jobs << job_b
+    visit event_path(job_a.workable)
+    within('#edit_job_'+job_a.id.to_s) do
+      click_on "Sign Up!"
+    end
+    save_and_open_page
+    within('#edit_job_'+job_b.id.to_s) do
+      click_on "Sign Up!"
+    end
+    visit events_path
+    within('.table-jobs') do
+      within first('.green') do
+        page.should have_content job_a.workable.jobs.with_volunteers.count
+      end
+    end
+  end
+
 end
 
 feature 'Listing events by city' do

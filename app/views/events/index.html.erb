@@ -45,16 +45,24 @@
           <td><%= event.start.strftime("%b %-d, %Y @ %-I:%M%P") %></td>
           <td><%= event.leader ?  link_to(event.leader.first_name, user_path(event.leader)) : "Take the lead" %></td>
           <td class="table-teams">
-            <% if event.teams.with_leaders.count < 1 %>
-              <span class="red"><%= event.teams.with_leaders.count %></span>/<span class="green"><%= event.teams.count %></span>
-            <% elsif event.teams.with_leaders.count == event.teams.count %>
+            <% if event.teams.with_leaders.count == event.teams.count %>
               <span class="green"><%= event.teams.with_leaders.count %></span>/<span class="green"><%= event.teams.count %></span>
+            <% elsif event.teams.with_leaders.count < 1 %>
+              <span class="red"><%= event.teams.with_leaders.count %></span>/<span class="green"><%= event.teams.count %></span>
             <% else %>
               <span class="yellow"><%= event.teams.with_leaders.count %></span>/<span class="green"><%= event.teams.count %></span>
             <% end %>
           </td>
-          <td><%=  %></td>
-          <td><%=  %></td>
+          <td class="table-jobs">
+            <% if event.jobs.with_volunteers.count == event.jobs.count %>
+              <span class="green"><%= event.jobs.with_volunteers.count %></span>/<span class="green"><%= event.jobs.count %></span>
+            <% elsif event.jobs.with_volunteers.count < 1 %>
+              <span class="red"><%= event.jobs.with_volunteers.count %></span>/<span class="green"><%= event.jobs.count %></span>
+            <% else %>
+              <span class="yellow"><%= event.jobs.with_volunteers.count %></span>/<span class="green"><%= event.jobs.count %></span>
+            <% end %>
+          </td>
+          <td></td>
           </tr>
        <% end %>
       </tbody>
