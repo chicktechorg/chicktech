@@ -135,6 +135,32 @@ feature 'Table view' do
       page.should have_content team_with_leader.event.teams.with_leaders.count
     end
   end
+
+  scenario 'the number should be red if no teams have leaders' do
+    team_without_leader = FactoryGirl.create(:team)
+    visit events_path
+    within('.red') do
+      page.should have_content team_without_leader.event.teams.with_leaders.count
+    end
+  end
+
+  scenario 'the number should be yellow if at least one (but not all) of the teams have leaders' do
+    team_with_leader = FactoryGirl.create(:team_with_leader)
+    team_without_leader = Team.create(:name => "Team Without Leader")
+    team_with_leader.event.teams << team_without_leader
+    visit events_path
+    within ('.yellow') do
+      page.should have_content team_without_leader.event.teams.with_leaders.count
+    end
+  end
+
+  scenario 'the number should be green if all teams have leaders' do
+    team_with_leader = FactoryGirl.create(:team_with_leader)
+    visit events_path
+    within first('.green') do
+      page.should have_content team_with_leader.event.teams.with_leaders.count
+    end
+  end
 end
 
 feature 'Listing events by city' do
