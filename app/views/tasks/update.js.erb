@@ -1,9 +1,12 @@
 <% if @task.done? %>
-  $('#<%= "edit_task_" + @task.id.to_s %>').parent().remove();
-  $('#done-task-list').append("<li><%= j render '/jobs/task_form', :task => @task %></li>")
-  $('#<%= "edit_task_" + @task.id.to_s %>').submitOnCheck();
+  var $task = $('#<%= "edit_task_" + @task.id.to_s %>')
+  var $taskGroup = $task.parents(".task-group");
+  $taskGroup.find('.done-task-list').append($task);
+  $task.submitOnCheck();
 <% else %>
+  var $task = $('#<%= "edit_task_" + @task.id.to_s %>')
+  var $taskGroup = $task.parents(".task-group");
   $('#<%= "edit_task_" + @task.id.to_s %>').parent().remove();
-  $('#not-done-task-list').append("<li><%= j render '/jobs/task_form', :task => @task %></li>")
-  $('#<%= "edit_task_" + @task.id.to_s %>').submitOnCheck();
+  $taskGroup.find('.not-done-task-list').append($task);
+  $task.submitOnCheck();
 <% end %>

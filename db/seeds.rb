@@ -5,3 +5,5 @@ User.create(:first_name => 'Hermione', :last_name => 'Granger', :email => 'hermi
 City.create(:name => 'Portland, OR')
 City.create(:name => 'San Francisco, CA')
 City.create(:name => 'Seattle, WA')
+
+Event.create(:name => "Clean the Park", :description => "", :start => "", :finish => "")

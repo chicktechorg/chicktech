@@ -34,4 +34,8 @@ class Event < ActiveRecord::Base
   def self.past
     Event.where("finish < ?", Time.now)
   end
+
+  def start_date
+    start.to_date
+  end
 end
