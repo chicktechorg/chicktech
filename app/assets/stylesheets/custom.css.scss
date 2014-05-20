@@ -672,4 +672,14 @@ input.toggle:checked ~ div { height: 190px; }
 input.toggle:checked + label { background: #ef669e; }
 input.toggle { display: none; }
 
+.red {
+  color: red;
+}
 
+.yellow {
+  color: yellow;
+}
+
+.green {
+  color: green;
+}

@@ -16,6 +16,9 @@ class Team < ActiveRecord::Base
     jobs.where(user: user)
   end
 
+  def self.with_leaders
+    select { |team| team.leader != nil }
+  end
 private
 
   def create_leadership_role

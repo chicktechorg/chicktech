@@ -106,6 +106,37 @@ feature 'Calendar view' do
   end
 end
 
+feature 'Table view' do
+  let(:volunteer) { FactoryGirl.create(:volunteer) }
+  before(:each) { sign_in(volunteer) }
+
+  scenario 'shows all events in the table' do
+    event = FactoryGirl.create(:event)
+    visit events_path
+    within('#events-table') do
+      page.should have_content event.name
+    end
+  end
+
+  scenario 'shows the leader of an event if there is one' do
+    event = FactoryGirl.create(:event_without_leader)
+    visit event_path(event)
+    click_button "Take the lead!"
+    visit events_path
+    page.should have_content volunteer.first_name
+  end
+
+  scenario 'shows the number of teams and how many have leaders for each event' do
+    team_with_leader = FactoryGirl.create(:team_with_leader)
+    team_without_leader = Team.create(:name => "Team Without Leader")
+    team_with_leader.event.teams << team_without_leader
+    visit events_path
+    within('.table-teams') do
+      page.should have_content team_with_leader.event.teams.with_leaders.count
+    end
+  end
+end
+
 feature 'Listing events by city' do
   let(:volunteer) { FactoryGirl.create(:volunteer) }
   let(:city_1) { FactoryGirl.create(:city, name: 'Portland') }

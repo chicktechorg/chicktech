@@ -24,7 +24,7 @@
     <% end %>
   </div>
 
-  <div class="table-responsive">
+  <div class="events-responsive", id="events-table">
     <table class="table">
       <thead>
         <tr>
@@ -44,9 +44,17 @@
           <td><%= event.city.name %></td>
           <td><%= event.start.strftime("%b %-d, %Y @ %-I:%M%P") %></td>
           <td><%= event.leader ?  link_to(event.leader.first_name, user_path(event.leader)) : "Take the lead" %></td>
-          <td><%= "2/6" %></td>
-          <td><%= "3/10"  %></td>
-          <td><%= 2  %></td>
+          <td class="table-teams">
+            <% if event.teams.with_leaders.count < 1 %>
+              <span class="red"><%= event.teams.with_leaders.count %></span>/<span class="green"><%= event.teams.count %></span>
+            <% elsif event.teams.with_leaders.count == event.teams.count %>
+              <span class="green"><%= event.teams.with_leaders.count %></span>/<span class="green"><%= event.teams.count %></span>
+            <% else %>
+              <span class="yellow"><%= event.teams.with_leaders.count %></span>/<span class="green"><%= event.teams.count %></span>
+            <% end %>
+          </td>
+          <td><%=  %></td>
+          <td><%=  %></td>
           </tr>
        <% end %>
       </tbody>
