@@ -122,14 +122,14 @@ describe Event do
       team = FactoryGirl.create(:team)
       event = team.event
       template = event.create_template
-      template.teams.first.name.should eq event.teams.first.name
+      template.teams.first.name.should eq team.name
     end
 
     it 'creates a template that has all the same jobs as the event' do
       job = FactoryGirl.create(:job)
       event = job.workable
       template = event.create_template
-      template.jobs.first.name.should eq event.jobs.first.name
+      template.jobs.first.name.should eq job.name
     end
 
     it 'creates a template with all the same teams and their jobs' do
@@ -138,8 +138,21 @@ describe Event do
       event = team.event
       template = event.create_template
       first_template_job = template.teams.first.jobs.first
-      first_event_job = event.teams.first.jobs.first
-      first_template_job.name.should eq first_event_job.name
+      first_template_job.name.should eq job.name
+    end
+
+    it 'creates a template all jobs and their tasks' do
+      team_job = FactoryGirl.create(:team_job)
+      team = team_job.workable
+      event = team.event
+      job = event.jobs.create(name: 'this job')
+      task_1 = team_job.tasks.create(description: 'do this')
+      task_2 = job.tasks.create(description: 'do that')
+      template = event.create_template
+      template_task_1 = template.teams.first.jobs.first.tasks.first
+      template_task_2 = template.jobs.first.tasks.first
+      template_task_1.description.should eq task_1.description
+      template_task_2.description.should eq task_2.description
     end
   end
 end

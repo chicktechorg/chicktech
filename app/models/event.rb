@@ -37,7 +37,7 @@ class Event < ActiveRecord::Base
   end
 
   def create_template
-    template = self.dup :include => [:jobs, {:teams => :jobs}]
+    template = self.dup :include => [{:jobs => :tasks}, {:teams => {:jobs => :tasks}}]
     template.update(template: true)
     template
   end
