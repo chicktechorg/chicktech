@@ -36,6 +36,10 @@ class Event < ActiveRecord::Base
     Event.where("finish < ?", Time.now)
   end
 
+  def start_date
+    start.to_date
+  end
+
   def create_template
     template = self.dup :include => [{:jobs => :tasks}, {:teams => {:jobs => :tasks}}]
     template.update(template: true)

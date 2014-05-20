@@ -23,7 +23,7 @@
 </div>
 <div id="sidebar-wrapper">
   <ul class="sidebar-nav">
-    <li class="sidebar-brand"><%= link_to image_tag("ChickTech_color_change.jpg", :class => 'logo-image'), root_path, :class => 'navbar-brand' %></a></li>
+    <li class="sidebar-brand"><%= link_to image_tag("ChickTech_color_change.jpg", :class => 'logo-image'), events_path, :class => 'navbar-brand' %></a></li>
     <% if user_signed_in? %>
 
       <li>Hello, <%= current_user.first_name %><li>
