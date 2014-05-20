@@ -106,7 +106,6 @@ feature 'Calendar view' do
   end
 end
 
-
 feature 'Listing events by city' do
   let(:volunteer) { FactoryGirl.create(:volunteer) }
   let(:city_1) { FactoryGirl.create(:city, name: 'Portland') }
