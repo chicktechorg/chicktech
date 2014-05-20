@@ -15,6 +15,7 @@ gem 'validates_timeliness'
 gem 'devise_invitable'
 gem 'jquery-turbolinks'
 gem 'bootstrap-datepicker-rails'
+gem 'deep_cloneable'
 
 group :development, :test do
   gem 'rspec-rails'
