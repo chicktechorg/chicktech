@@ -1,13 +1,60 @@
+<div class="col-md-11">
+  <h2>All Events</h2>
 
-  <div class="col-md-11">
-      <h2>All Events</h2>
-    <select>
-    <option value="Portland">Portland</option>
-    <option value="Seattle">Seattle</option>
-    <option value="San Francisco">San Francisco</option>
-  </select>
+  <%= form_tag events_path, :method => :get do %>
+    <%= collection_select :city, :id, City.all, :id, :name %>
+    <%= submit_tag 'Filter' %>
+  <% end %>
 
-    <div class="table-responsive">
+  <div id="events-calendar">
+    <h2 id="month">
+      <%= link_to "<", date: @date.prev_month %>
+      <%= @date.strftime("%B %Y") %>
+      <%= link_to ">", date: @date.next_month %>
+    </h2>
+    <%= calendar @date do |date| %>
+      <%= date.day %>
+      <% if @events_by_date[date] %>
+        <ul>
+          <% @events_by_date[date].each do |event| %>
+            <li><%= link_to event.name, event %></li>
+          <% end %>
+        </ul>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>City</th>
+          <th>Start</th>
+          <th>Event leader</th>
+          <th>Teams</th>
+          <th>Jobs</th>
+          <th>Volunteers</th>
+        </tr>
+      </thead>
+      <tbody>
+        <% @events.each do |event| %>
+        <tr>
+          <td><%= link_to event.name, event_path(event) %></td>
+          <td><%= event.city.name %></td>
+          <td><%= event.start.strftime("%b %-d, %Y @ %-I:%M%P") %></td>
+          <td><%= event.leader ?  link_to(event.leader.first_name, user_path(event.leader)) : "Take the lead" %></td>
+          <td><%= "2/6" %></td>
+          <td><%= "3/10"  %></td>
+          <td><%= 2  %></td>
+          </tr>
+       <% end %>
+      </tbody>
+    </table>
+  </div>
+  <div class="row">
+    <div class="col-md-8">
+      <h2>Upcoming events in 24hrs</h2>
       <table class="table">
         <thead>
           <tr>
@@ -20,37 +67,7 @@
             <th>Volunteers</th>
           </tr>
         </thead>
-        <tbody>
-          <% @events.each do |event| %>
-          <tr>
-            <td><%= link_to event.name, event_path(event) %></td>
-            <td><%= event.city.name %></td>
-            <td><%= event.start.strftime("%b %-d, %Y @ %-I:%M%P") %></td>
-            <td><%= event.leader ?  link_to(event.leader.first_name, user_path(event.leader)) : "Take the lead" %></td>
-            <td><%= "2/6" %></td>
-            <td><%= "3/10"  %></td>
-            <td><%= 2  %></td>
-            </tr>
-         <% end %>
-        </tbody>
       </table>
     </div>
-    <div class="row">
-  <div class="col-md-8">
-    <h2>Upcoming events in 24hrs</h2>
-    <table class="table">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>City</th>
-            <th>Start</th>
-            <th>Event leader</th>
-            <th>Teams</th>
-            <th>Jobs</th>
-            <th>Volunteers</th>
-          </tr>
-        </thead>
   </div>
 </div>
-  </div>
-
