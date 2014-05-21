@@ -36,11 +36,9 @@ describe Event do
   end
 
   describe ".upcoming" do
-    it "returns only the upcoming events" do
-      forty_minutes_from_now = Time.now + 40.minutes
-      event1 = FactoryGirl.create(:event, :start => Time.now, :finish => Time.now + 3.hours)
-      event2 = FactoryGirl.create(:event, :start => Time.now, :finish => Time.now + 30.minutes)
-      Time.stub(:now).and_return(forty_minutes_from_now)
+    it "returns only the upcoming in the next 24 hours events" do
+      event1 = FactoryGirl.create(:event, :start => Time.now + 1.day, :finish => Time.now + 2.days)
+      event2 = FactoryGirl.create(:event, :start => Time.now + 1.week, :finish => Time.now + 2.weeks)
       Event.upcoming.should eq [event1]
     end
   end
@@ -99,6 +97,23 @@ describe Event do
       event = team.event
       volunteer.jobs << job
       event.teams_of_user(volunteer).should eq [team]
+    end
+  end
+
+  describe '#team_jobs' do
+    it 'returns all the jobs that belong to the teams of the event' do
+      team_job = FactoryGirl.create(:team_job)
+      event = team_job.workable.event
+      event.team_jobs.first.should eq team_job
+    end
+  end
+
+  describe '#all_jobs' do
+    it 'returns all the jobs that belong to event and teams within the event' do
+      team_job = FactoryGirl.create(:team_job)
+      event = team_job.workable.event
+      event_job = FactoryGirl.create(:job, workable: event)
+      event.all_jobs.length.should eq 2
     end
   end
 end

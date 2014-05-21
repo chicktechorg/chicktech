@@ -106,6 +106,53 @@ feature 'Calendar view' do
   end
 end
 
+feature 'Table view' do
+  let(:volunteer) { FactoryGirl.create(:volunteer) }
+  before(:each) { sign_in(volunteer) }
+
+  scenario 'shows all events in the table' do
+    event = FactoryGirl.create(:event)
+    visit events_path
+    within('#events-table') do
+      page.should have_content event.name
+    end
+  end
+
+  scenario 'shows the leader of an event if there is one' do
+    event = FactoryGirl.create(:event_without_leader)
+    visit event_path(event)
+    click_button "Take the lead!"
+    visit events_path
+    page.should have_content volunteer.first_name
+  end
+
+  scenario 'shows the number of teams and how many have leaders for each event' do
+    team_with_leader = FactoryGirl.create(:team_with_leader)
+    team_with_leader.event.teams << team_without_leader = Team.create(:name => "Team Without Leader")
+    visit events_path
+    within('#events-table') do
+      page.should have_content team_with_leader.event.teams.with_leaders.count
+      page.should have_content team_with_leader.event.teams.count
+    end
+    within('#upcoming-table') do
+      page.should have_content team_with_leader.event.teams.with_leaders.count
+      page.should have_content team_with_leader.event.teams.count
+    end
+  end
+
+  scenario 'shows the number of jobs and how many have volunteers for each event' do
+    job_a = FactoryGirl.create(:job)
+    job_a.workable.jobs << job_b = Job.create(:name => "Job B")
+    visit event_path(job_a.workable)
+    within('#edit_job_'+job_a.id.to_s) do
+      click_on "Sign Up!"
+    end
+    visit events_path
+    page.should have_content job_a.workable.jobs.with_volunteers.count
+    page.should have_content job_a.workable.jobs.count
+  end
+end
+
 feature 'Listing events by city' do
   let(:volunteer) { FactoryGirl.create(:volunteer) }
   let(:city_1) { FactoryGirl.create(:city, name: 'Portland') }
@@ -119,8 +166,11 @@ feature 'Listing events by city' do
     visit events_path
     select city_2.name, :from => 'city_id'
     click_button 'Filter'
-    page.should have_content event_2.name
-    page.should_not have_content event_1.name
+
+    within "#events-table" do
+      page.should have_content event_2.name
+      page.should_not have_content event_1.name
+    end
   end
 
   scenario 'shows city name in the dropdown' do

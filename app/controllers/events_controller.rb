@@ -10,6 +10,7 @@ class EventsController < ApplicationController
       @events = Event.all
     end
     @events_by_date = @events.group_by(&:start_date)
+    @upcoming = Event.upcoming
   end
 
   def new
