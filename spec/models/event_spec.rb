@@ -37,10 +37,8 @@ describe Event do
 
   describe ".upcoming" do
     it "returns only the upcoming events" do
-      forty_minutes_from_now = Time.now + 40.minutes
-      event1 = FactoryGirl.create(:event, :start => Time.now, :finish => Time.now + 3.hours)
-      event2 = FactoryGirl.create(:event, :start => Time.now, :finish => Time.now + 30.minutes)
-      Time.stub(:now).and_return(forty_minutes_from_now)
+      event1 = FactoryGirl.create(:event, :start => Time.now + 1.day, :finish => Time.now + 2.days)
+      event2 = FactoryGirl.create(:event, :start => Time.now + 1.week, :finish => Time.now + 2.weeks)
       Event.upcoming.should eq [event1]
     end
   end
