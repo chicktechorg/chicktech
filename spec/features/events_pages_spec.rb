@@ -214,7 +214,6 @@ feature 'Table view' do
     within('#edit_job_'+job_a.id.to_s) do
       click_on "Sign Up!"
     end
-    save_and_open_page
     within('#edit_job_'+job_b.id.to_s) do
       click_on "Sign Up!"
     end
