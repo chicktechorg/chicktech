@@ -8,10 +8,6 @@ class Team < ActiveRecord::Base
 
   after_create :create_leadership_role
 
-  def leader_name
-    leadership_role.user.first_name
-  end
-
   def jobs_of_user(user)
     jobs.where(user: user)
   end
