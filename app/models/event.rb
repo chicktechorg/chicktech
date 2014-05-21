@@ -15,7 +15,8 @@ class Event < ActiveRecord::Base
   accepts_nested_attributes_for :leadership_role
 
   def self.upcoming
-    Event.where("finish > ?", Time.now)
+    time_range = (Time.now..Time.now + 1.day)
+    Event.where(start: time_range)
   end
 
   def leader
@@ -23,7 +24,31 @@ class Event < ActiveRecord::Base
   end
 
   def all_jobs
-    team_jobs + jobs
+    jobs + team_jobs
+  end
+
+  def number_of_jobs
+    all_jobs.count
+  end
+
+  def number_of_jobs_with_volunteers
+    jobs.with_volunteers.count + team_jobs.with_volunteers.count
+  end
+
+  def number_of_teams
+    teams.count
+  end
+
+  def number_of_teams_with_leaders
+    teams.with_leaders.count
+  end
+
+  def number_of_volunteer_positions
+    number_of_jobs + number_of_teams
+  end
+
+  def number_of_filled_volunteer_positions
+    number_of_jobs_with_volunteers + number_of_teams_with_leaders
   end
 
   def jobs_of_user(user)

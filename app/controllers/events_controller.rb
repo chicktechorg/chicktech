@@ -2,10 +2,10 @@ class EventsController < ApplicationController
   authorize_resource
 
   def index
-    @events = Event.all
     @date = params[:date] ? Date.parse(params[:date]) : Date.today
     @events = params[:city] ? Event.where(:city_id => params[:city][:id]) : Event.all
     @events_by_date = @events.group_by(&:start_date)
+    @upcoming = Event.upcoming
   end
 
   def new

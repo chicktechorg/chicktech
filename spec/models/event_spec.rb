@@ -36,7 +36,7 @@ describe Event do
   end
 
   describe ".upcoming" do
-    it "returns only the upcoming events" do
+    it "returns only the upcoming in the next 24 hours events" do
       event1 = FactoryGirl.create(:event, :start => Time.now + 1.day, :finish => Time.now + 2.days)
       event2 = FactoryGirl.create(:event, :start => Time.now + 1.week, :finish => Time.now + 2.weeks)
       Event.upcoming.should eq [event1]
