@@ -1,9 +1,7 @@
-$(function(){
-	$(".form_datetime").datetimepicker({
-     format: "dd MM yyyy - HH:ii P",
-     showMeridian: true,
-     autoclose: true,
-     todayBtn: true
- });
+var logic = function( currentDateTime ){
+  // 'this' is jquery object datetimepicker
+};
+jQuery('#datetimepicker_rantime').datetimepicker({
+  onChangeDateTime:logic,
+  onShow:logic
 });
-
