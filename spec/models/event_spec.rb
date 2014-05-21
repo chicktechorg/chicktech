@@ -101,4 +101,21 @@ describe Event do
       event.teams_of_user(volunteer).should eq [team]
     end
   end
+
+  describe '#team_jobs' do
+    it 'returns all the jobs that belong to the teams of the event' do
+      team_job = FactoryGirl.create(:team_job)
+      event = team_job.workable.event
+      event.team_jobs.first.should eq team_job
+    end
+  end
+
+  describe '#all_jobs' do
+    it 'returns all the jobs that belong to event and teams within the event' do
+      team_job = FactoryGirl.create(:team_job)
+      event = team_job.workable.event
+      event_job = FactoryGirl.create(:job, workable: event)
+      event.all_jobs.length.should eq 2
+    end
+  end
 end

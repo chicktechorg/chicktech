@@ -8,6 +8,7 @@ class Event < ActiveRecord::Base
 
   has_many :jobs, as: :workable
   has_many :teams
+  has_many :team_jobs, :through => :teams, :source => :jobs
   belongs_to :city
   has_one :leadership_role, :as => :leadable, :dependent => :destroy
 
@@ -19,6 +20,10 @@ class Event < ActiveRecord::Base
 
   def leader
     leadership_role.user
+  end
+
+  def all_jobs
+    team_jobs + jobs
   end
 
   def jobs_of_user(user)
@@ -34,6 +39,7 @@ class Event < ActiveRecord::Base
   def self.past
     Event.where("finish < ?", Time.now)
   end
+
   def start_date
     start.to_date
   end
