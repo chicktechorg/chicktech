@@ -109,7 +109,7 @@ describe Event do
     end
   end
 
-<<<<<<< HEAD
+
   describe '#create_template' do
     it 'creates a template off an existing event' do
       event = FactoryGirl.create(:event)
@@ -152,7 +152,9 @@ describe Event do
       template_task_2 = template.jobs.first.tasks.first
       template_task_1.description.should eq task_1.description
       template_task_2.description.should eq task_2.description
-=======
+    end
+  end
+
   describe '#team_jobs' do
     it 'returns all the jobs that belong to the teams of the event' do
       team_job = FactoryGirl.create(:team_job)
@@ -167,7 +169,6 @@ describe Event do
       event = team_job.workable.event
       event_job = FactoryGirl.create(:job, workable: event)
       event.all_jobs.length.should eq 2
->>>>>>> master
     end
   end
 end
