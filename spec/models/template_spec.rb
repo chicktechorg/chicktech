@@ -9,4 +9,14 @@ describe Template do
       Template.all.any? { |temp| temp.name == event.name }.should be_false
     end
   end
+
+  describe '#create_event_from_template' do
+    it 'creates an event off an existing template' do
+      template = FactoryGirl.create(:template)
+      event = template.create_event_from_template
+      Event.all.count.should eq 1
+    end
+  end
 end
+
+

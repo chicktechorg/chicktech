@@ -26,13 +26,11 @@ class EventsController < ApplicationController
     @cities = City.all
     if params[:event][:template_id] != ""
       @template = Template.find(params[:event][:template_id])
-      transfer_jobs =
-      @event.jobs << @template.jobs
-      @event.teams << @template.teams
-
-
-    end
-    if @event.save
+      @event = @template.create_event_from_template
+      @event.update(event_params)
+      flash[:notice] = "Event with template created successfully!"
+      redirect_to new_event_path
+    elsif @event.save
       flash[:notice] = "Event created successfully!"
       redirect_to new_event_path
     else
