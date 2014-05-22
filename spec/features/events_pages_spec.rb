@@ -270,3 +270,19 @@ feature "Showing all jobs on the page" do
     page.should_not have_content "No jobs have been created for this event"
   end
 end
+
+feature "saving a template"  do
+ let(:volunteer) { FactoryGirl.create(:volunteer) }
+
+  scenario "from the event show page" do
+    @event = FactoryGirl.create(:event)
+    sign_in(volunteer)
+    visit event_path(@event)
+    click_on "Save as Template"
+    page.should have_content "Template saved"
+    Template.all.count.should eq 1
+  end
+end
+
+
+

@@ -4,10 +4,17 @@
       <div class="col-md-8">
         <div class="event-info well">
           <h2><% provide :title, "#{@event.name}" %></h2>
+          <%= form_tag '/templates' do %>
+            <%= hidden_field_tag :event_id, @event.id %>
+            <%= submit_tag 'Save as Template' %>
+          <% end %>
+          <%#= link_to "Make Template", :method => :post, :action => '/templates' %>
+
           <%= render @event %>
           <% if can? :update, @event %>
 
             <%= link_to "Add jobs", new_job_path(:job => { workable_id: @event.id, workable_type: 'Event' }), :class => "btn btn-primary btn-sm", id: "new_job_link", remote: true %>
+
             <%= link_to "Add a team", new_team_path(:team => { event_id: @event.id }), :class => "btn btn-primary btn-sm", id: "new_team_link", remote: true %>
           <% end %>
 

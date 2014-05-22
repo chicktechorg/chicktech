@@ -6,7 +6,6 @@ class Event < ActiveRecord::Base
   validates :start, :presence => true, :timeliness => { :on_or_after => Time.now }, :unless => :template
   validates :finish, :presence => true, :timeliness => { :on_or_after => :start }, :unless => :template
 
-
   has_many :jobs, as: :workable
   has_many :teams
   belongs_to :city
