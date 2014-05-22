@@ -2,7 +2,7 @@
   <h2>All Events</h2>
 
   <%= form_tag events_path, :method => :get do %>
-    <%= collection_select :city, :id, City.all, :id, :name %>
+    <%= collection_select :city, :id, City.all, :id, :name, {:selected => @city ? @city.id : ""}  %>
     <%= submit_tag 'Filter' %>
   <% end %>
 
@@ -24,7 +24,7 @@
     <% end %>
   </div>
 
-  <div class="table-responsive">
+  <div class="events-responsive", id="events-table">
     <table class="table">
       <thead>
         <tr>
@@ -38,36 +38,29 @@
         </tr>
       </thead>
       <tbody>
-        <% @events.each do |event| %>
-        <tr>
-          <td><%= link_to event.name, event_path(event) %></td>
-          <td><%= event.city.name %></td>
-          <td><%= event.start.strftime("%b %-d, %Y @ %-I:%M%P") %></td>
-          <td><%= event.leader ?  link_to(event.leader.first_name, user_path(event.leader)) : "Take the lead" %></td>
-          <td><%= "2/6" %></td>
-          <td><%= "3/10"  %></td>
-          <td><%= 2  %></td>
-          </tr>
-       <% end %>
+        <%= render partial: 'event_table_row', collection: @events, as: :event %>
       </tbody>
     </table>
   </div>
-  <div class="row">
-    <div class="col-md-8">
-      <h2>Upcoming events in 24hrs</h2>
-      <table class="table">
-        <thead>
-          <tr>
-            <th>Name</th>
-            <th>City</th>
-            <th>Start</th>
-            <th>Event leader</th>
-            <th>Teams</th>
-            <th>Jobs</th>
-            <th>Volunteers</th>
-          </tr>
-        </thead>
-      </table>
-    </div>
+
+  <div class="events-responsive" id="upcoming-table">
+    <h2>Upcoming events in 24hrs</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>City</th>
+          <th>Start</th>
+          <th>Event leader</th>
+          <th>Teams</th>
+          <th>Jobs</th>
+          <th>Volunteers</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render partial: 'event_table_row', collection: @upcoming, as: :event %>
+      </tbody>
+    </table>
   </div>
+
 </div>

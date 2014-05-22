@@ -21,9 +21,13 @@ class Job < ActiveRecord::Base
   def taken?
     self.user_id != nil
   end
-  
+
   def change_status
     self.done = !self.done
+  end
+
+  def self.with_volunteers
+    select { |job| job.taken? != false }
   end
 
 private
