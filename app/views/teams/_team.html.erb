@@ -1,15 +1,15 @@
 <div class="col-md-12 well-event">
   <div class="team-descriptions">
     <% provide :title, "#{team.name}" %>
-    <h2><%= link_to team.name, team %></h2> 
+    <h3>Team Title: <%= link_to team.name, team %></h3>
     <h4>for <%= team.event.name %></h4>
     <% if team.leader %>
-      <h4>Team lead: <%= "#{team.leader.first_name} #{team.leader.last_name}" %></h4> 
+      <h4>Team lead: <%= "#{team.leader.first_name} #{team.leader.last_name}" %></h4>
     <% end %>
     <% if team.leadership_role.available? %>
       <%= form_for team.leadership_role do |f| %>
         <%= f.hidden_field :signing_up, :value => true %>
-        <%= f.submit "Take the Lead!", :class => "submit-no-button" %>
+        <%= f.submit "Take Lead", :class => "submit-no-button" %>
       <% end %>
     <% elsif can? :update, team.leadership_role %>
       <div class="edit-delete-indent">
@@ -17,8 +17,8 @@
       </div>
     <% end %>
 
-    <p class="team"><%= link_to 'Edit', edit_team_path(team) %> 
-        <%= link_to 'Delete', team_path(team), 
+    <p class="team"><%= link_to 'Edit', edit_team_path(team) %>
+        <%= link_to 'Delete', team_path(team),
                              method: :delete,
                              :data => { :confirm => 'Are you sure? This will delete all
                                                      jobs within this team' } %></p>

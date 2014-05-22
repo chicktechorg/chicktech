@@ -56,6 +56,8 @@ GEM
       execjs
     coffee-script-source (1.6.3)
     debug_inspector (0.0.2)
+    deep_cloneable (1.6.1)
+      activerecord (>= 3.1.0)
     devise (3.1.1)
       bcrypt-ruby (~> 3.0)
       orm_adapter (~> 0.1)
@@ -199,10 +201,11 @@ DEPENDENCIES
   better_errors
   binding_of_caller
   bootstrap-datepicker-rails
-  bootstrap-sass (~> 3.0.0.0.rc)
+  bootstrap-sass
   cancan
   capybara
   coffee-rails
+  deep_cloneable
   devise
   devise_invitable
   factory_girl_rails

@@ -1,12 +1,12 @@
-<div class="well-event">
-  <h1><%= link_to event.name, event_path(event.id), :class => 'event-name' %></h1><small><%= event.start.to_time.strftime("%b %-d, %Y @ %-I:%M%P") %></small> - <small><%= event.finish.to_time.strftime("%b %-d, %Y @ %-I:%M%P") %></small>
-  <p><%= event.city.name %></p>
-  <p><%= event.description %></p>
+<div>
+    <h1 id="event-title"><%= link_to event.name, event_path(event.id), :class => 'event-name' %></h1><h2 id="event-location"><%= event.city.name %></h2>    
+
+  <h4 id="start-end">Starts on: <small><%= event.start.to_time.strftime("%b %-d, %Y @ %-I:%M%P") %>,</small> Ends on: <small><%= event.finish.to_time.strftime("%b %-d, %Y @ %-I:%M%P") %></small></h4>
+  <h3>Description:</h3> <span><p><%= event.description %></p></span>
 
   <% if can? :manage, event %>
-    <div>
-      <p><%= link_to "Edit Event Details", edit_event_path(event) %></p>
-      <p><%= link_to "Delete", event_path(event), :method => :delete, :data => { :confirm => 'Are you sure?' } %></p>
+    <div class="text-align">
+      <div><%= link_to "Edit Event", edit_event_path(event) %> <%= link_to "Delete", event_path(event), :method => :delete, :data => { :confirm => 'Are you sure?' } %></div>
     </div>
   <% end %>
 </div>

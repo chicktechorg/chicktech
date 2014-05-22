@@ -1,26 +1,21 @@
 class EventsController < ApplicationController
   authorize_resource
-  
+
   def index
     @events = Event.all
-    if params[:city]
-      @events = Event.where(:city_id => params[:city][:city_id])
-      respond_to do |format|
-        format.html { redirect_to user_path(current_user) }
-        format.js
-      end
-    else
-      @events = Event.all
-    end
+    @date = params[:date] ? Date.parse(params[:date]) : Date.today
+    @events = params[:city] ? Event.where(:city_id => params[:city][:id]) : Event.all
+    @events_by_date = @events.group_by(&:start_date)
   end
 
   def new
     @event = Event.new
-    @events = Event.upcoming
+    @events = Event.all
     @leadership_role = LeadershipRole.new(leadable: @event)
   end
 
   def create
+    @events = Event.all
     @event = Event.new(event_params)
     @cities = City.all
     if @event.save
@@ -32,10 +27,12 @@ class EventsController < ApplicationController
   end
 
   def show
+    @events = Event.all
     @event = Event.find(params[:id])
+
   end
 
-  def edit 
+  def edit
     @event = Event.find(params[:id])
   end
 
