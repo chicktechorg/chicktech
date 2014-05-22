@@ -2,7 +2,7 @@
   <h2>All Events</h2>
 
   <%= form_tag events_path, :method => :get do %>
-    <%= collection_select :city, :id, City.all, :id, :name %>
+    <%= collection_select :city, :id, City.all, :id, :name, {:selected => @city ? @city.id : ""}  %>
     <%= submit_tag 'Filter' %>
   <% end %>
 

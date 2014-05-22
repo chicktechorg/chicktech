@@ -172,6 +172,17 @@ feature 'Listing events by city' do
       page.should_not have_content event_1.name
     end
   end
+
+  scenario 'shows city name in the dropdown' do
+    event_1 = FactoryGirl.create(:event, :city => city_1)
+    event_2 = FactoryGirl.create(:event, :city => city_2)
+    visit events_path
+    select city_2.name, :from => 'city_id'
+    click_button 'Filter'
+    within '#city_id' do
+      page.should have_content city_2.name
+    end
+  end
 end
 
 feature "Adding a job" do
