@@ -13,11 +13,11 @@
   </div>
   <div class="form-group">
     <%= f.label :start %>
-    <%= f.text_field :start, :class => 'form_datetime form-control-short' %>
+    <%= f.text_field :start, :class => 'form_datetime form-control-short datetimepicker'%>
   </div>
   <div class="form-group">
     <%= f.label :finish %>
-    <%= f.text_field :finish, :class => 'form_datetime form-control-short' %>
+    <%= f.text_field :finish, :class => 'form_datetime form-control-short datetimepicker' %>
   </div>
   <%= f.fields_for :leadership_role, @leadership_role do |ff| %>
     <%= ff.hidden_field :name %>
@@ -26,3 +26,4 @@
   <% end %>
   <%= f.submit :class => 'create-button' %>
 <% end %>
+<script>jQuery('.datetimepicker').datetimepicker();</script>

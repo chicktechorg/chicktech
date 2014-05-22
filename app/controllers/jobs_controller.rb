@@ -27,11 +27,12 @@ class JobsController < ApplicationController
   end
 
   def update
+    #TODO look into handling this with AJAX
     @job = Job.find(params[:id])
     if params[:job][:signing_up]
       @job.update(user_id: current_user.id)
       flash[:notice] = "Congratulations! You are signed up for the job #{@job.name}."
-      redirect_to @job
+      redirect_to @job.workable
     elsif params[:job][:resigning]
       @job.update(user_id: nil)
       flash[:notice] = "You have resigned from the job #{@job.name}."

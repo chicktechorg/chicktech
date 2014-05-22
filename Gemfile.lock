@@ -205,7 +205,7 @@ DEPENDENCIES
   cancan
   capybara
   coffee-rails
-  deep_cloneable (~> 1.6.1)
+  deep_cloneable
   devise
   devise_invitable
   factory_girl_rails
