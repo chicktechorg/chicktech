@@ -23,6 +23,8 @@
           <% if @event.leader %>
             <h4>Event lead: <%= "#{@event.leader.first_name} #{@event.leader.last_name}" %></h4>
           <% end %>
+          </div>
+          <div class="event-info well">
          <% if @event.teams.any? %>
             <div id="event-teams">
               <% @event.teams.each do |team| %>
