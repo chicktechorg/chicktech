@@ -672,4 +672,13 @@ input.toggle:checked ~ div { height: 190px; }
 input.toggle:checked + label { background: #ef669e; }
 input.toggle { display: none; }
 
+#event-title {
+  text-align: center;
+}
+#event-location {
+  text-align: center;
+}
 
+#start-end {
+  text-align: center;
+}
