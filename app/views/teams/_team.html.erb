@@ -1,7 +1,7 @@
 <div class="col-md-12 well-event">
   <div class="team-descriptions">
     <% provide :title, "#{team.name}" %>
-    <h2><%= link_to team.name, team %></h2>
+    <h3>Team Title: <%= link_to team.name, team %></h3>
     <h4>for <%= team.event.name %></h4>
     <% if team.leader %>
       <h4>Team lead: <%= "#{team.leader.first_name} #{team.leader.last_name}" %></h4>
@@ -9,11 +9,11 @@
     <% if team.leadership_role.available? %>
       <%= form_for team.leadership_role do |f| %>
         <%= f.hidden_field :signing_up, :value => true %>
-        <%= f.submit "Take the Lead!", :class => "submit-no-button" %>
+        <%= f.submit "Take Lead", :class => "submit-no-button" %>
       <% end %>
     <% elsif can? :update, team.leadership_role %>
       <div class="edit-delete-indent">
-        <%= link_to "Corey", leadership_role_path(team.leadership_role, :leadership_role => { :resigning => false }), :method => :patch, :class => "remove" %>
+        <%= link_to "Resign", leadership_role_path(team.leadership_role, :leadership_role => { :resigning => false }), :method => :patch, :class => "remove" %>
       </div>
     <% end %>
 
