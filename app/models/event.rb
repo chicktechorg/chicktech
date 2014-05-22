@@ -12,7 +12,10 @@ class Event < ActiveRecord::Base
   belongs_to :city
   has_one :leadership_role, :as => :leadable, :dependent => :destroy
 
+  attr_accessor :template_id
   accepts_nested_attributes_for :leadership_role
+    accepts_nested_attributes_for :team_jobs
+
 
   def self.upcoming
     time_range = (Time.now..Time.now + 1.day)
@@ -74,4 +77,5 @@ class Event < ActiveRecord::Base
     template.update(template: true)
     template
   end
+
 end

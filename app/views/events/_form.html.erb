@@ -11,6 +11,12 @@
     <%= f.label :city %>
     <%= f.collection_select(:city_id, City.all, :id, :name)%>
   </div>
+
+  <div class="form-group">
+    <%= f.label :template %>
+    <%= f.collection_select(:template_id, Event.where(:template => true), :id, :name, {prompt: "Select a template"} )%>
+  </div>
+
   <div class="form-group">
     <%= f.label :start %>
     <%= f.text_field :start, :class => 'form_datetime form-control-short datetimepicker'%>
@@ -27,3 +33,4 @@
   <%= f.submit :class => 'create-button' %>
 <% end %>
 <script>jQuery('.datetimepicker').datetimepicker();</script>
+
