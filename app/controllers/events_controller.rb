@@ -24,13 +24,13 @@ class EventsController < ApplicationController
     @events = Event.all
     @event = Event.new(event_params)
     @cities = City.all
-    if params[:event][:template_id]
+    if params[:event][:template_id] != ""
       @template = Template.find(params[:event][:template_id])
       transfer_jobs =
       @event.jobs << @template.jobs
       @event.teams << @template.teams
-      asdlkfjhasdf
-      cloned_associations = self.dup :include => [{:jobs => :tasks}, {:teams => {:jobs => :tasks}}]
+
+
     end
     if @event.save
       flash[:notice] = "Event created successfully!"
