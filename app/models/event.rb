@@ -1,10 +1,10 @@
 class Event < ActiveRecord::Base
-  default_scope { order(:start) }
+  default_scope { where(template: false).order(:start) }
 
   validates :name, :presence => true
-  validates :city_id, :presence => true
-  validates :start, :presence => true, :timeliness => { :on_or_after => Time.now }
-  validates :finish, :presence => true, :timeliness => { :on_or_after => :start }
+  validates :city_id, :presence => true, :unless => :template
+  validates :start, :presence => true, :timeliness => { :on_or_after => Time.now }, :unless => :template
+  validates :finish, :presence => true, :timeliness => { :on_or_after => :start }, :unless => :template
 
   has_many :jobs, as: :workable
   has_many :teams
@@ -12,7 +12,10 @@ class Event < ActiveRecord::Base
   belongs_to :city
   has_one :leadership_role, :as => :leadable, :dependent => :destroy
 
+  attr_accessor :template_id
   accepts_nested_attributes_for :leadership_role
+    accepts_nested_attributes_for :team_jobs
+
 
   def self.upcoming
     time_range = (Time.now..Time.now + 1.day)
@@ -68,4 +71,11 @@ class Event < ActiveRecord::Base
   def start_date
     start.to_date
   end
+
+  def create_template
+    template = self.dup :include => [{:jobs => :tasks}, {:teams => {:jobs => :tasks}}]
+    template.update(template: true)
+    template
+  end
+
 end
