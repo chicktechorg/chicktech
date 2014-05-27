@@ -10,6 +10,7 @@ class EventsController < ApplicationController
       @events = Event.all
     end
     @events_by_date = @events.group_by(&:start_date)
+    @templates = Event.where(:template => true)
     @upcoming = Event.upcoming
   end
 
@@ -23,7 +24,13 @@ class EventsController < ApplicationController
     @events = Event.all
     @event = Event.new(event_params)
     @cities = City.all
-    if @event.save
+    if params[:event][:template_id] != ""
+      @template = Template.find(params[:event][:template_id])
+      @event = @template.create_event_from_template
+      @event.update(event_params)
+      flash[:notice] = "Event with template created successfully!"
+      redirect_to new_event_path
+    elsif @event.save
       flash[:notice] = "Event created successfully!"
       redirect_to new_event_path
     else
@@ -34,7 +41,6 @@ class EventsController < ApplicationController
   def show
     @events = Event.all
     @event = Event.find(params[:id])
-
   end
 
   def edit

@@ -27,6 +27,21 @@ feature "Creating events" do
     visit new_event_path
     page.should have_content "Access denied."
   end
+
+  scenario "with template" do
+    @template = FactoryGirl.create(:template)
+    sign_in(admin)
+    visit new_event_path
+    fill_in 'Name', with: 'Example event'
+    fill_in 'Description', with: 'Example event description'
+    fill_in 'event_start', with: 'December 25'
+    fill_in 'event_finish', with: 'December 26'
+    select @city.name, from: 'event[city_id]'
+    select @template.name, from: 'event[template_id]'
+    click_on "Create Event"
+    expect(page).to have_content "with template"
+  end
+
 end
 
 feature "Listing events" do
@@ -331,3 +346,19 @@ feature "Showing all jobs on the page" do
     page.should_not have_content "No jobs have been created for this event"
   end
 end
+
+feature "saving a template"  do
+ let(:volunteer) { FactoryGirl.create(:volunteer) }
+
+  scenario "from the event show page" do
+    @event = FactoryGirl.create(:event)
+    sign_in(volunteer)
+    visit event_path(@event)
+    click_on "Save as Template"
+    page.should have_content "Template saved"
+    Template.all.count.should eq 1
+  end
+end
+
+
+

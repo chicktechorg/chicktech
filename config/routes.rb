@@ -14,5 +14,6 @@ Chicktech::Application.routes.draw do
   resources :teams
   resources :leadership_roles, :only => :update
   resources :comments
+  match "templates", :to => 'templates#create', :via => :post
   root :to => "static_pages#index"
 end

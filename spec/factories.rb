@@ -1,6 +1,10 @@
 require 'spec_helper'
 
 FactoryGirl.define do
+  factory :template do
+    sequence(:name) { |n| "Template #{n}" }
+    template true
+  end
 
   factory :event do
     sequence(:name) { |n| "Event #{n}" }
@@ -42,17 +46,17 @@ FactoryGirl.define do
     sequence(:name) { |n| "The Chosen One #{n}" }
     description 'Save Hogwarts'
     association :workable, factory: :event
-  
+
     factory :team_job do
       association :workable, factory: :team
-    end  
+    end
   end
 
   factory :task do
     description 'Example task'
     job
   end
-  
+
   factory :city do
     sequence(:name) { |n| "Portland#{n}, OR" }
   end
@@ -65,7 +69,7 @@ FactoryGirl.define do
     role 'volunteer'
     password 'voldemort'
     password_confirmation 'voldemort'
-    
+
     factory :admin do
       first_name 'Severus'
       email 'severus@hogwarts.edu'

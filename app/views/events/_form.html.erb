@@ -1,4 +1,5 @@
 <%= form_for @event do |f| %>
+
   <div class="form-group">
     <%= f.label :name %>
     <%= f.text_field :name, :class => 'form-control' %>
@@ -7,10 +8,12 @@
     <%= f.label :description %>
     <%= f.text_area :description, :class => 'form-control' %>
   </div>
-  <div class="form-group"> 
-    <%= f.label :city %>
+
+  <div class="form-group">
+    <%= f.label :city %></br>
     <%= f.collection_select(:city_id, City.all, :id, :name)%>
   </div>
+
   <div class="form-group">
     <%= f.label :start %>
     <%= f.text_field :start, :class => 'form_datetime form-control-short datetimepicker'%>
@@ -24,6 +27,12 @@
     <%= ff.hidden_field :leadable_id %>
     <%= ff.hidden_field :leadable_type %>
   <% end %>
+
+  <div class="form-group">
+    <%= f.label :template %></br>
+    <%= f.collection_select(:template_id, Event.where(:template => true), :id, :name, {prompt: "None"} )%>
+  </div>
   <%= f.submit :class => 'create-button' %>
 <% end %>
 <script>jQuery('.datetimepicker').datetimepicker();</script>
+
