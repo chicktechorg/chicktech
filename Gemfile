@@ -10,7 +10,7 @@ gem 'turbolinks'
 gem 'jbuilder'
 gem 'devise'
 gem 'cancan'
-gem 'bootstrap-sass'
+gem "bootstrap-sass"
 gem 'validates_timeliness'
 gem 'devise_invitable'
 gem 'jquery-turbolinks'

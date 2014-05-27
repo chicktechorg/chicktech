@@ -7,6 +7,10 @@ class ApplicationController < ActionController::Base
 
 protected
 
+  def after_sign_in_path_for(user)
+    events_path
+  end
+
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:accept_invitation) do |u|
       u.permit(:first_name,

@@ -1,8 +1,8 @@
 <div>
-    <h1 id="event-title"><%= link_to event.name, event_path(event.id), :class => 'event-name' %></h1><h2 id="event-location"><%= event.city.name %></h2>    
+    <h3 id="event-title"><%= link_to event.name, event_path(event.id), :class => 'event-name' %></h3><h5 id="event-location"><%= event.city.name %></h5>    
 
-  <h4 id="start-end">Starts on: <small><%= event.start.to_time.strftime("%b %-d, %Y @ %-I:%M%P") %>,</small> Ends on: <small><%= event.finish.to_time.strftime("%b %-d, %Y @ %-I:%M%P") %></small></h4>
-  <h3>Description:</h3> <span><p><%= event.description %></p></span>
+  <h5 id="start-end">Starts on: <small><%= event.start.to_time.strftime("%b %-d, %Y @ %-I:%M%P") %></small></h5> <h5>Ends on: <small><%= event.finish.to_time.strftime("%b %-d, %Y @ %-I:%M%P") %></small></h5>
+  <h5>Description:</h5> <span><p><%= event.description %></p></span>
 
   <% if can? :manage, event %>
     <div class="text-align">

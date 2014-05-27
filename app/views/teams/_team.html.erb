@@ -11,6 +11,13 @@
         <%= f.hidden_field :signing_up, :value => true %>
         <%= f.submit "Take Lead", :class => "submit-no-button" %>
       <% end %>
+
+      <%= form_for(team.leadership_role) do |f| %>
+        <%= f.label :user %></br>
+        <%= f.collection_select(:user_id, User.all, :id, :first_name)%>
+        <%= f.submit "Update", :class => "sign-in-button-small" %>
+      <% end %>
+
     <% elsif can? :update, team.leadership_role %>
       <div class="edit-delete-indent">
         <%= link_to "Resign", leadership_role_path(team.leadership_role, :leadership_role => { :resigning => false }), :method => :patch, :class => "remove" %>

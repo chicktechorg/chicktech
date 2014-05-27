@@ -40,7 +40,7 @@
         </tr>
       </thead>
       <tbody>
-        <%= render partial: 'event_table_row', collection: Event.future, as: :event %>
+        <%= render partial: 'event_table_row', collection: @events.future, as: :event %>
       </tbody>
     </table>
   </div>
@@ -60,7 +60,7 @@
         </tr>
       </thead>
       <tbody>
-        <%= render partial: 'event_table_row', collection: @upcoming, as: :event %>
+        <%= render partial: 'event_table_row', collection: @events.upcoming, as: :event %>
       </tbody>
     </table>
   </div>

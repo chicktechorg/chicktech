@@ -5,7 +5,10 @@
   <% else %>
     <%= form_for job do |f| %>
       <%= f.hidden_field :signing_up, :value => true %>
-      <%= f.submit "Sign Up!", :method => :patch, :class => "submit-no-button" %>
+           <%= f.label :user %></br>
+           <%= f.collection_select(:user_id, User.all, :id, :first_name)%>
+        <%= f.submit "Sign Up!", :method => :patch, :class => "submit-no-button" %>
+
     <% end %>
   <% end %>
 

@@ -50,8 +50,8 @@ hr.style-four {
 
 #sidebar-wrapper {
   margin-left: -250px;
-  left: 250px;
-  width: 250px;
+  left: 230px;
+  width: 200px;
   background: #cecac6;
   position: fixed;
   height: 100%;
@@ -226,8 +226,6 @@ background-color: #cecac6;
 box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
 }
 
-
-
 .welcome {
   color: #736759;
   text-align: center;
@@ -235,7 +233,7 @@ box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.05);
 }
 
 .well-event h4 {
-  margin-left: 2%;
+  margin-left: 10%        ;
 }
 
 .navbar-default .navbar-nav > li > a {
@@ -255,8 +253,8 @@ color: #4bbbbd;
 }
 
 .job-descriptions {
-  text-indent: 30px;
-}
+  text-indent: 10px;
+}0
 
 /*buttons*/
 
@@ -570,7 +568,8 @@ bootstrap theme
 
 .content-header h1 {
   margin: 0;
-  margin-left: 20px;
+  margin-left: 20
+  px;
   line-height: 65px;
   display: inline-block;
 }
@@ -673,14 +672,14 @@ input.toggle:checked + label { background: #ef669e; }
 input.toggle { display: none; }
 
 #event-title {
-  text-align: center;
+  text-align: left;
 }
 #event-location {
-  text-align: center;
+  text-align: left;
 }
 
 #start-end {
-  text-align: center;
+  text-align: left;
 }
 
 
