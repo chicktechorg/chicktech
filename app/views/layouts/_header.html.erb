@@ -32,7 +32,7 @@
         <li><%= link_to "New Event", "/events/new", :class => 'nav-font' %></li>
       <% elsif current_user.role? :volunteer %>
         <li><%= link_to "All Volunteers", users_path, :class => 'nav-font' %></li>
-        <li><%= link_to "My Events", root_path, :class => 'nav-font' %></li>
+        <li><%= link_to "Events", events_path, :class => 'nav-font' %></li>
       <% end %>
       <% if current_user.role? :superadmin %>
         <li><%= link_to "Volunteers", users_path, :class => 'nav-font' %></li>

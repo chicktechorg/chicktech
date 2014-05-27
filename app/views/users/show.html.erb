@@ -2,7 +2,13 @@
   <div class="page-content inset">
     <div class="row">
       <div class="col-md-8">
-        <h2 class='section-header well'> Welcome back <%= @user.first_name %></h2>
+        <h2 class='section-header well'>
+          <% if @user == current_user %>
+            Welcome back <%= @user.first_name %>
+          <% else %>
+            <%= @user.first_name %>'s profile
+          <% end %>
+        </h2>
 
           <%= render 'commitments', events: @user.commitment_events, user: @user %>
       </div>
