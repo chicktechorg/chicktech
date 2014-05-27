@@ -17,6 +17,10 @@ class Event < ActiveRecord::Base
     accepts_nested_attributes_for :team_jobs
 
 
+  def self.future
+    Event.where('start >= ?', Date.today)
+  end
+
   def self.upcoming
     time_range = (Time.now..Time.now + 1.day)
     Event.where(start: time_range)
