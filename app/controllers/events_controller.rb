@@ -7,7 +7,7 @@ class EventsController < ApplicationController
       @events = Event.where(:city_id => params[:city][:id])
       @city = City.find(params[:city][:id])
     else
-      if current_user.role? :volunteer
+      if current_user.role == "volunteer"
         @events = Event.where(:city_id => current_user.city)
       else
         @events = Event.all
