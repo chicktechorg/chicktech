@@ -1,0 +1,9 @@
+$('a#new_event_form').click(function() {
+  $('#new_event_form').contents().unwrap();
+  $('<%= j render("form") %>').appendTo(".col-md-7");
+});
+
+$('a#new_event_form').click(function() {
+  $('#new_template_form').contents().unwrap();
+  $('<%= j render("form") %>').appendTo(".col-md-7");
+});

@@ -1,9 +1,12 @@
 <div id="page-content-wrapper">
   <div class="page-content inset">
     <div class="row">
-      <div class="col-md-4">
+      <div class="col-md-7">
 
-          <h2 class='section-header'> Create a New Event</h2>
+          <h2 class='section-header'>
+            <%= link_to "New Event", new_event_path, id: "new_event_form", remote: true %>
+            or<%= link_to "New Template", new_event_path, id: "new_template_form", remote: true %>
+          </h2>
           <% if @event.errors.any? %>
             <div class="alert alert-danger">
               <h4>Please correct these errors:</h4>
@@ -14,11 +17,11 @@
               </ul>
             </div>
           <% end %>
-          <%= render '/events/form' %>
 
       </div>
     </div>
   </div>
 </div>
+
 
 
