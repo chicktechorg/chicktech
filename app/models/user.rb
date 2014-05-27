@@ -2,7 +2,7 @@ class User < ActiveRecord::Base
   attr_reader :raw_invitation_token
 
   validates_presence_of :first_name
-  validates_presence_of :last_name      
+  validates_presence_of :last_name
   validates_presence_of :phone
   validates_presence_of :role
 
@@ -15,9 +15,10 @@ class User < ActiveRecord::Base
   has_many :team_leads, through: :leadership_roles, source: :leadable, source_type: 'Team'
   has_many :leadership_roles, :dependent => :nullify
   has_many :comments
+  belongs_to :city
 
   # Include default devise modules. Others available are:
-  # :confirmable, :lockable, :timeoutable and :omniauthable, 
+  # :confirmable, :lockable, :timeoutable and :omniauthable,
   devise :database_authenticatable, :registerable, :invitable,
          :recoverable, :rememberable, :trackable, :validatable
 
