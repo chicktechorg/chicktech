@@ -43,7 +43,7 @@ feature 'Showing a team' do
 
   it "should have a list of jobs within that team" do
     @job = FactoryGirl.create(:job, workable: @team)
-    visit team_path(@team)
+    visit event_path(@team.event)
     page.should have_content @job.name
   end
 end

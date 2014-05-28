@@ -1,4 +1,4 @@
-require 'spec_helper'
+
 
 FactoryGirl.define do
   factory :template do
@@ -58,7 +58,7 @@ FactoryGirl.define do
   end
 
   factory :city do
-    sequence(:name) { |n| "Portland#{n}, OR" }
+    sequence(:name) { |n| "City#{n}, OR" }
   end
 
   factory :volunteer, class: User do
@@ -69,6 +69,7 @@ FactoryGirl.define do
     role 'volunteer'
     password 'voldemort'
     password_confirmation 'voldemort'
+    city
 
     factory :admin do
       first_name 'Severus'
@@ -76,6 +77,7 @@ FactoryGirl.define do
       role 'admin'
       password 'voldemort'
       password_confirmation 'voldemort'
+      city
     end
 
     factory :superadmin do
@@ -83,6 +85,7 @@ FactoryGirl.define do
       last_name 'Dumbledore'
       email 'graybeard@hogwarts.edu'
       role 'superadmin'
+      city
     end
   end
 end

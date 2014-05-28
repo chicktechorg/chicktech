@@ -29,6 +29,8 @@
 
     <% if @user == current_user %>
       <%= link_to "Edit", edit_user_path(current_user) %>
+    <% elsif current_user.role == "superadmin" %>
+        <%= link_to "Edit", edit_user_path(@user) %>
     <% end %>
     </div>
   </div>

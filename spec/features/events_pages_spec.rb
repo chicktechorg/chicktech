@@ -50,11 +50,9 @@ feature "Listing events" do
 
   scenario "with several events", :js => true do
     sign_in(volunteer)
-    event_1 = FactoryGirl.create(:event, :city_id => @city.id)
-    event_2 = FactoryGirl.create(:event, :city_id => @city.id)
+    event_1 = FactoryGirl.create(:event, city: volunteer.city)
+    event_2 = FactoryGirl.create(:event, city: volunteer.city)
     visit events_path
-    select @city.name, from: 'city_id'
-    click_on "Filter"
     page.should have_content event_1.name
     page.should have_content event_2.name
   end
@@ -62,8 +60,8 @@ feature "Listing events" do
   scenario "which have passed" do
     sign_in(volunteer)
     six_hours_from_now = Time.now + 6.hours
-    event_1 = FactoryGirl.create(:event, :city_id => @city.id)
-    event_2 = FactoryGirl.create(:event, :city_id => @city.id)
+    event_1 = FactoryGirl.create(:event, city: volunteer.city)
+    event_2 = FactoryGirl.create(:event, city: volunteer.city)
     Time.stub(:now).and_return(six_hours_from_now)
     visit events_path
     page.should have_content event_1.name
@@ -79,8 +77,8 @@ feature "Listing events" do
 end
 
 feature 'Calendar view' do
-  let(:volunteer) { FactoryGirl.create(:volunteer) }
-  before(:each) { sign_in(volunteer) }
+  let(:superadmin) { FactoryGirl.create(:superadmin) }
+  before(:each) { sign_in(superadmin) }
 
   scenario 'shows events in current month' do
     event = FactoryGirl.create(:event)
@@ -125,11 +123,13 @@ feature 'Table view' do
   let(:volunteer) { FactoryGirl.create(:volunteer) }
   before(:each) { sign_in(volunteer) }
 
-  scenario 'shows all events in the table' do
-    event = FactoryGirl.create(:event)
+  scenario 'shows all events, filtered by the users city, in the table' do
+    volunteer_event = FactoryGirl.create(:event, city: volunteer.city)
+    non_volunteer_event = FactoryGirl.create(:event)
     visit events_path
     within('#events-table') do
-      page.should have_content event.name
+      page.should have_content volunteer_event.name
+      page.should_not have_content non_volunteer_event.name
     end
   end
 
@@ -142,6 +142,9 @@ feature 'Table view' do
   end
 
   scenario 'shows the number of teams and how many have leaders for each event' do
+    superadmin = FactoryGirl.create(:superadmin)
+    click_on "Sign out"
+    sign_in(superadmin)
     team_with_leader = FactoryGirl.create(:team_with_leader)
     team_with_leader.event.teams << team_without_leader = Team.create(:name => "Team Without Leader")
     visit events_path
@@ -169,11 +172,11 @@ feature 'Table view' do
 end
 
 feature 'Listing events by city' do
-  let(:volunteer) { FactoryGirl.create(:volunteer) }
+  let(:superadmin) { FactoryGirl.create(:superadmin) }
   let(:city_1) { FactoryGirl.create(:city, name: 'Portland') }
   let(:city_2) { FactoryGirl.create(:city, name: 'Seattle') }
   before(:each) do
-    sign_in(volunteer)
+    sign_in(superadmin)
   end
   scenario 'shows only events within the selected city' do
     event_1 = FactoryGirl.create(:event, :city => city_1)
@@ -211,14 +214,11 @@ feature "Adding a job" do
 
   scenario "signed in as volunteer", js: true do
     volunteer = FactoryGirl.create(:volunteer)
-    event_1 = FactoryGirl.create(:event)
-    event_2 = FactoryGirl.create(:event, city: event_1.city)
     sign_in(volunteer)
+    event = FactoryGirl.create(:event, city: volunteer.city)
     visit events_path
-    select  event_1.city.name, from: 'city_id'
-    click_on 'Filter'
     within('#events-calendar') do
-      click_on(event_1.name)
+      click_on(event.name)
     end
     page.should_not have_content "Add jobs"
   end
@@ -294,9 +294,9 @@ end
 feature "Signing up for jobs" do
   let(:volunteer) { FactoryGirl.create(:volunteer) }
   let(:admin) { FactoryGirl.create(:admin) }
-
   scenario "signing up for a job", js: true do
-    job = FactoryGirl.create(:job)
+    event = FactoryGirl.create(:event, city: volunteer.city)
+    job = FactoryGirl.create(:job, workable: event)
     sign_in(volunteer)
     visit events_path
     within('#events-calendar') do
@@ -318,7 +318,8 @@ feature "Signing up for jobs" do
   end
 
   scenario "jobs are taken by other users", js: true do
-    job = FactoryGirl.create(:job)
+    event = FactoryGirl.create(:event, city: volunteer.city)
+    job = FactoryGirl.create(:job, workable: event)
     sign_in(volunteer)
     visit events_path
     within('#events-calendar') do
