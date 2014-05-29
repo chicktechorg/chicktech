@@ -82,4 +82,35 @@ class Event < ActiveRecord::Base
     template
   end
 
+  def volunteer_count
+    volunteers = []
+
+    volunteers << leader if leader
+
+    teams.each { |team| volunteers << team.leader }
+
+    jobs.each { |j| volunteers << j.user }
+
+    team_jobs.each { |tj| volunteers << tj.user }
+
+    volunteers = volunteers - [nil]
+    volunteers.uniq.count
+  end
+
 end
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
