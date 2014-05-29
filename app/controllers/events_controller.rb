@@ -4,16 +4,16 @@ class EventsController < ApplicationController
   def index
     @date = params[:date] ? Date.parse(params[:date]) : Date.today
     if params[:city]
-      @events = Event.where(:city_id => params[:city][:id])
+      @events = Event.where(:city_id => params[:city][:id]).paginate(:per_page => 10, :page => params[:page])
       @city = City.find(params[:city][:id])
     else
       if current_user.role == "volunteer"
-        @events = Event.where(:city_id => current_user.city)
+        @events = Event.where(:city_id => current_user.city).paginate(:per_page => 10, :page => params[:page])
       else
-        @events = Event.all
+        @events = Event.all.paginate(:per_page => 10, :page => params[:page])
       end
     end
-    @events_by_date = @events.group_by(&:start_date)
+    @events_by_date = Event.all.group_by(&:start_date)
     @templates = Event.where(:template => true)
     @upcoming = Event.upcoming
   end

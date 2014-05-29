@@ -26,6 +26,10 @@
     <% end %>
   </div>
 
+  <div class='row text-center'>
+    <%= will_paginate @events, previous_label: h("<"), next_label: h(">") %>
+  </div>
+
   <div class="events-responsive", id="events-table">
     <table class="table">
       <thead>

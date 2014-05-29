@@ -30,7 +30,8 @@ class JobsController < ApplicationController
     #TODO look into handling this with AJAX
     @job = Job.find(params[:id])
     if params[:job][:signing_up]
-      @job.update(user_id: current_user.id)
+      @user = params[:job][:user_id]
+      @job.update(user_id: @user)
       flash[:notice] = "Congratulations! You are signed up for the job #{@job.name}."
       redirect_to @job.workable
     elsif params[:job][:resigning]
