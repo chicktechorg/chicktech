@@ -1,26 +1,4 @@
-<div class="navbar navbar-default navbar-fixed-top">
-  <div class="navbar-header">
-    <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-      <span class="icon-bar"></span>
-    </button>
-  </div>
-  <div class="navbar-collapse collapse">
-    <ul class="nav navbar-nav">
-      <% if user_signed_in? %>
-        <% if current_user.role? :superadmin %>
-          <li><%= link_to "Manage Volunteers", users_path, :class => 'nav-font' %></li>
-        <% end %>
-        <% if current_user.role? :admin %>
-          <li><%= link_to "Manage Events", "/events/new", :class => 'nav-font' %></li>
-        <% end %>
-        <li><%= link_to "My Events", root_path, :class => 'nav-font' %></li>
-        <li><%= link_to "All Volunteers", users_path, :class => 'nav-font' %></li>
-      <% end %>
-    </ul>
-  </div>
-</div>
+
 <div id="sidebar-wrapper">
   <ul class="sidebar-nav">
     <li class="sidebar-brand"><%= link_to image_tag("ChickTech_color_change.jpg", :class => 'logo-image'), events_path, :class => 'navbar-brand' %></a></li>
