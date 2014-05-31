@@ -1,12 +1,18 @@
-<div>
-    <h3 id="event-title"><%= link_to event.name, event_path(event.id), :class => 'event-name' %></h3><h5 id="event-location"><%= event.city.name %></h5>    
-
-  <h5 id="start-end">Starts on: <small><%= event.start.to_time.strftime("%b %-d, %Y @ %-I:%M%P") %></small></h5> <h5>Ends on: <small><%= event.finish.to_time.strftime("%b %-d, %Y @ %-I:%M%P") %></small></h5>
-  <h5>Description:</h5> <span><p><%= event.description %></p></span>
-
-  <% if can? :manage, event %>
-    <div class="text-align">
-      <div><%= link_to "Edit Event", edit_event_path(event) %> <%= link_to "Delete", event_path(event), :method => :delete, :data => { :confirm => 'Are you sure?' } %></div>
-    </div>
-  <% end %>
+<div clas="row">
+  <div class="col-sm-10">
+    <% if Event.where(template: true).find_by_name(@event.name) == nil %>
+      <%= form_tag '/templates' do %>
+        <%= hidden_field_tag :event_id, @event.id %>
+        <%= submit_tag 'Save as Template' %>
+      <% end %>
+    <% end %>
+      <h1 class="event-name"><%= event.name %></h1>
+      <% if can? :manage, event %>
+        <%= link_to "Edit", edit_event_path(event) %> <%= link_to "Delete", event_path(event), :method => :delete, :data => { :confirm => 'Are you sure?' } %>
+      <% end %>
+    <h4><%= event.city.name %></h4>
+    <h4>Start: <%= event.start.to_time.strftime("%b %-d, %Y @ %-I:%M%P") %></h4>
+    <h4>End: <%= event.finish.to_time.strftime("%b %-d, %Y @ %-I:%M%P") %></h4>
+    <p><%= event.description %></p>
+  </div>
 </div>
