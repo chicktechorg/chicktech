@@ -3,17 +3,21 @@
   <% if job.taken? %>
     <h5>Leader: <%= link_to "#{job.user.first_name}", user_path(job.user) %> <%= link_to (job.owned_by?(current_user) ? "Resign" : "Unassign"), job_path(job, :job => { :resigning => true }), :method => :patch, :class => "remove" %></h5>
   <% else %>
-    <%= form_for job do |f| %>
-      <%= f.hidden_field :signing_up, :value => true %>
-      <%= f.submit "Take the Lead!", :method => :patch, :class => "submit-no-button" %>
-    <% end %>
+    <div class="take-job">
+      <%= form_for job do |f| %>
+        <%= f.hidden_field :signing_up, :value => true %>
+        <%= f.submit "Take the Lead!", :method => :patch, :class => "submit-no-button" %>
+      <% end %>
+    </div>
 
-    <%= form_for job do |f| %>
-      <%= f.hidden_field :signing_up, :value => true %>
-      <%= f.label :user, "Assign to" %>
-      <%= f.collection_select(:user_id, User.all, :id, :first_name)%>
-      <%= f.submit "Submit", :method => :patch, :class => "submit-no-button" %>
-    <% end %>
+    <div class="assign-job">
+      <%= form_for job do |f| %>
+        <%= f.hidden_field :signing_up, :value => true %>
+        <%= f.label :user, "Assign to" %>
+        <%= f.collection_select(:user_id, User.all, :id, :first_name)%>
+        <%= f.submit "Submit", :method => :patch, :class => "submit-no-button" %>
+      <% end %>
+    </div>
   <% end %>
 
   <% if can? :update, job %>
