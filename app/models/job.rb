@@ -30,6 +30,10 @@ class Job < ActiveRecord::Base
     select { |job| job.taken? != false }
   end
 
+  def get_event
+    workable.instance_of?(Event) ? workable : workable.event
+  end
+
 private
 
   def set_not_done
