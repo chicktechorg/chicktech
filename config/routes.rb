@@ -6,11 +6,14 @@ Chicktech::Application.routes.draw do
       put 'users/:id' => 'devise/registrations#update', :as => 'user_registration'
     end
   resources :users
-  resources :jobs
-  resources :tasks, :except => [:new, :edit, :show]
+  resources :jobs do
+    resources :tasks
+  end
+  resources :tasks
   resources :cities, :except => [:new, :edit, :update]
   resources :teams
   resources :leadership_roles, :only => :update
   resources :comments
+  match "templates", :to => 'templates#create', :via => :post
   root :to => "static_pages#index"
 end

@@ -3,7 +3,7 @@ require 'spec_helper'
 feature "City pages" do
   subject { page }
   let(:volunteer) { FactoryGirl.create(:volunteer) }
-  let(:admin) { FactoryGirl.create(:admin) }
+  let(:superadmin) { FactoryGirl.create(:superadmin) }
 
   context "when signed in as volunteer" do
     before { sign_in(volunteer) }
@@ -42,33 +42,30 @@ feature "City pages" do
   end
 
   context "when signed in as admin" do
-    before { sign_in(admin) }
-
-    context "adding cities", js: true do
-      before { click_on 'Add or Remove a city' }
+    before { sign_in(superadmin) }
 
       scenario "with valid input" do
+        visit cities_path
         fill_in 'Name', with: 'San Francisco, CA'
         click_on 'Add'
         page.should have_content 'San Francisco, CA'
       end
 
       scenario "with invalid input" do
+        visit cities_path
         click_on 'Add'
         page.should have_content 'blank'
       end
-    end
 
     context "removing cities", js: true do
       before do
         @city = FactoryGirl.create(:city)
-        visit user_path(admin)
-        click_on 'Add or Remove a city'
+        visit cities_path
         click_on 'X'
       end
 
       it "should not show deleted city" do
-        page.should have_content "#{@city.name} has been deleted."
+        page.should have_content "has been deleted."
       end
     end
   end

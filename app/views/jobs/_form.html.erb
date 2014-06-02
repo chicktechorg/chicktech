@@ -1,4 +1,4 @@
-<%= form_for @job do |f| %>
+<%= form_for @job, remote: true do |f| %>
   <div class="form-group">
     <%= f.label :name %>
     <%= f.text_field :name, :class => 'form-control' %>
@@ -14,7 +14,7 @@
   <% if @job.workable_id %>
     <%= f.hidden_field :workable_id %>
     <%= f.hidden_field :workable_type %>
-  <% else %>  
+  <% else %>
     <div class="form-group">
       <%= f.label :event %>
       <%= f.collection_select(:event_id, Event.upcoming, :id, :name) %>

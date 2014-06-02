@@ -1,6 +1,6 @@
 class UsersController < ApplicationController
   authorize_resource
-  
+
   def index
     @users = User.all
   end
@@ -23,7 +23,6 @@ class UsersController < ApplicationController
 
   def show
    @user = User.find(params[:id])
-   @events = Event.all
    @jobs = Job.all
    @cities = City.all
    @teams = Team.all
@@ -54,6 +53,6 @@ class UsersController < ApplicationController
 private
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :email, :phone, :password, :password_confirmation, :role)
+    params.require(:user).permit(:first_name, :last_name, :email, :phone, :password, :password_confirmation, :role, :city_id, :gender, :birthday)
   end
 end

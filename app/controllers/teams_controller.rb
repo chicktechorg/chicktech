@@ -6,7 +6,10 @@ class TeamsController < ApplicationController
   def create
     @team = Team.new(team_params)
     if @team.save
-      redirect_to @team.event, notice: 'Team added!'
+      respond_to do |format|
+        format.html { redirect_to @team.event, notice: 'Team added!' }
+        format.js
+      end
     else
       render :new
     end
