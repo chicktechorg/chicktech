@@ -1,9 +1,8 @@
-<% if Event.where(template: true).find_by_name(event.name) == nil %>
-  <%= form_tag '/templates' do %>
-    <%= hidden_field_tag :event_id, event.id %>
-    <%= submit_tag 'Save as Template' %>
-  <% end %>
+<%= form_tag '/templates' do %>
+  <%= hidden_field_tag :event_id, event.id %>
+  <%= submit_tag 'Save as Template' %>
 <% end %>
+
 <h1><%= event.name %></h1>
   <% if can? :manage, event %>
     <%= link_to "Edit", edit_event_path(event) %> <%= link_to "Delete", event_path(event), :method => :delete, :data => { :confirm => 'Are you sure?' } %>
