@@ -99,7 +99,8 @@ feature "'Manage Volunteers' link" do
     fill_in "Email", :with => superuser.email
     fill_in "Password", :with => superuser.password
     click_button "Sign in"
-    page.should have_content 'Manage Volunteers'
+    click_link "Volunteers"
+    page.should have_content 'Manage Users'
   end
 
   scenario "when Admin is signed in" do
@@ -124,7 +125,7 @@ feature "'Manage Events' link" do
     fill_in "Email", :with => admin.email
     fill_in "Password", :with => admin.password
     click_button "Sign in"
-    page.should have_content 'Manage Events'
+    page.should have_content 'All Events'
   end
   scenario "Superadmin is signed in" do
     superuser = FactoryGirl.create(:superadmin)
@@ -132,7 +133,7 @@ feature "'Manage Events' link" do
     fill_in "Email", :with => superuser.email
     fill_in "Password", :with => superuser.password
     click_button "Sign in"
-    page.should have_content 'Manage Events'
+    page.should have_content 'All Events'
   end
 end
 
@@ -163,7 +164,7 @@ feature "deleting a user" do
     job = FactoryGirl.create(:job, :user_id => volunteer.id)
     volunteer.destroy
     visit job_path(job)
-    page.should have_button 'Sign Up!'
+    page.should have_button 'Take the Lead!'
   end
 end
 

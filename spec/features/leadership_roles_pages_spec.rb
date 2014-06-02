@@ -23,10 +23,12 @@ feature 'Resigning from leadership role' do
     end
 
     scenario "clicking removes the leader" do
+
       sign_in(@event.leader)
+
       visit event_path(@event)
       click_on 'Resign'
-      page.should have_content 'leader has resigned'
+      page.should have_content 'The leader has resigned'
     end
   end
 end

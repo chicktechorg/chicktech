@@ -1,30 +1,25 @@
 <div class="job-descriptions">
-  <h3>Job Title: <%= link_to job.name, job_path(job) %></h3>
+  <h2><%= link_to job.name, job_path(job) %></h2>
   <% if job.taken? %>
-    <p><span class='label'>Taken by:</span> <%= job.user.first_name %> <%= job.user.last_name %></p>
+    <h5>Leader: <%= link_to "#{job.user.first_name}", user_path(job.user) %> <%= link_to (job.owned_by?(current_user) ? "Resign" : "Unassign"), job_path(job, :job => { :resigning => true }), :method => :patch, :class => "remove" %></h5>
   <% else %>
     <%= form_for job do |f| %>
       <%= f.hidden_field :signing_up, :value => true %>
-           <%= f.label :user %></br>
-           <%= f.collection_select(:user_id, User.all, :id, :first_name)%>
-        <%= f.submit "Sign Up!", :method => :patch, :class => "submit-no-button" %>
-
+      <%= f.submit "Take the Lead!", :method => :patch, :class => "submit-no-button" %>
     <% end %>
-  <% end %>
 
-  <p><span class='label'>Description:</span> <%= job.description %></p>
-
-  <% if job.try(:due_date) %>
-    <p><span class='label'>Due Date:</span> <%= job.due_date.to_time.strftime("%b %-d, %Y") %></p>
+    <%= form_for job do |f| %>
+      <%= f.hidden_field :signing_up, :value => true %>
+      <%= f.label :user, "Assign to" %>
+      <%= f.collection_select(:user_id, User.all, :id, :first_name)%>
+      <%= f.submit "Submit", :method => :patch, :class => "submit-no-button" %>
+    <% end %>
   <% end %>
 
   <% if can? :update, job %>
     <div class="edit-delete-indent">
-      <p>This job is <%= job.done ? "complete." : "not complete." %> <%= link_to "Change status", job_path(job, :job => {:job_done => true}), :method=> :patch, :class => "remove" %></p>
-      <p><%= link_to "Add Task", new_job_task_path(job), class: "new_job_task_link", remote: true %>
-      <%= link_to "Delete", job_path(job), :method => :delete, :data => { :confirm => 'Are you sure?' } %>
-      <%= link_to "Edit", edit_job_path(job) %>
-      <%= link_to (job.owned_by?(current_user) ? "Resign" : "Unassign"), job_path(job, :job => { :resigning => true }), :method => :patch, :class => "remove" %></p>
+      <p>This job is <%= job.done ? "complete." : "not complete." %> <%= link_to "Complete", job_path(job, :job => {:job_done => true}), :method=> :patch, :class => "remove" %></p>
+      <p><%= link_to "Add Task", new_job_task_path(job), class: "new_job_task_link", remote: true %></p>
     </div>
   <% end %>
 

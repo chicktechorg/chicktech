@@ -9,7 +9,7 @@ feature 'Adding a team' do
 
   scenario 'navigating to the add team page' do
     visit event_path(@event)
-    click_on 'Add a team'
+    click_on 'Add team'
     page.should have_content "Add a team to #{@event.name}"
   end
 
@@ -85,29 +85,31 @@ feature 'Destroying a team' do
     sign_in(admin)
   end
 
-  context 'when visiting event page' do
-    before do
-      visit event_path(@team.event)
-      within('p.team') do
-        click_on 'Delete'
-      end
-    end
-    subject { page }
+  # I think this link should exist soley on the team show page
 
-    it { should_not have_content @team.name }
-    it { should have_content 'Team deleted.'}
-  end
+  # context 'when visiting event page' do
+    # before do
+    #   visit event_path(@team.event)
+    #   within('p.team') do
+    #     click_on 'Delete'
+    #   end
+    # end
+    # subject { page }
 
-  context 'when visiting team show page' do
-    before do
-      visit team_path(@team)
-      click_on 'Delete'
-    end
-    subject { page }
+    # it { should_not have_content @team.name }
+    # it { should have_content 'Team deleted.'}
+  # end
 
-    it { should_not have_content @team.name }
-    it { should have_content 'Team deleted.'}
-  end
+  # context 'when visiting team show page' do
+  #   before do
+  #     visit team_path(@team)
+  #     click_on 'Delete'
+  #   end
+  #   subject { page }
+
+  #   it { should_not have_content @team.name }
+  #   it { should have_content 'Team deleted.'}
+  # end
 end
 
 feature "Signing up to be an Team Leader" do
