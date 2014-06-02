@@ -3,6 +3,10 @@ class UsersController < ApplicationController
 
   def index
     @users = User.all
+    respond_to do |format|
+      format.html
+      format.xls {send_data @users.to_xls, :filename => 'users.xls'}
+    end
   end
 
   def new

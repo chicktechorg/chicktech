@@ -6,6 +6,7 @@
           <div class="manage-users well">
             <h2 class='section-header'>Manage Users</h2>
              <h3><%= link_to "Invite a new user", new_user_invitation_path %></h3>
+             <%= link_to "Excel Export", users_path(format: "xls") %>
             <div class="table-responsive">
                 <table class="table">
                   <thead>
