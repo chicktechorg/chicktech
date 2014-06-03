@@ -1,1 +1,10 @@
-<p>Hello <%= @url %>!</p>
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Volunteers Needed for ChickTech Event</h1>
+    <p>Hello <%= @user.first_name %>, this is Janice from ChickTech. I just wanted to let you know that we have an event taking place this <%= @event.start %> in <%= @event.city.name %>, and we still have <%= @positions_to_fill %> positions left to fill. You can click this link <%= @url %> to see the event description and which positions are still open. If anyone can lend a hand I would really appreciate it.</p>
+  </body>
+</html>

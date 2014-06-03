@@ -43,12 +43,9 @@ feature "Creating events" do
   end
 end
 
-feature "Viewing an event" do
+feature "Send volunteer invitations button" do
   let(:superadmin) { FactoryGirl.create(:superadmin) }
   let(:event) { FactoryGirl.create(:event, :city_id => superadmin.city.id)}
-  let(:team) { FactoryGirl.create(:team, :event_id => event.id)}
-  let(:job) { FactoryGirl.create(:job, :workable => event)}
-  let(:team_job) { FactoryGirl.create(:team_job, :workable => team)}
   before(:each) { sign_in(superadmin) }
 
   scenario 'send email containing number of open positions' do
@@ -58,10 +55,24 @@ feature "Viewing an event" do
     ActionMailer::Base.deliveries.count.should eq event.city.users.count
   end
 
-  # scenario 'send email to each user' do
-  #   visit event_path(event)
-  #   click_button "email button"
-  # end
+  scenario 'contents of email sent with only one position' do
+    job = FactoryGirl.create(:job)
+    mail = UserMailer.invite_volunteer(superadmin, job.workable)
+    mail.subject.should eq "#{job.workable.name} has 1 more position to be filled"
+    mail.to.should eq [superadmin.email]
+    mail.from.should eq ['noreply@chicktech.herokuapp.com']
+    mail.body.encoded.should have_content(superadmin.first_name)
+  end
+
+  scenario 'contents of email sent with more than one position' do
+    job_a = FactoryGirl.create(:job)
+    job_b = FactoryGirl.create(:job, :workable => job_a.workable)
+    mail = UserMailer.invite_volunteer(superadmin, job_a.workable)
+    mail.subject.should eq "#{job_a.workable.name} has 2 more positions to be filled"
+    mail.to.should eq [superadmin.email]
+    mail.from.should eq ['noreply@chicktech.herokuapp.com']
+    mail.body.encoded.should have_content(superadmin.first_name)
+  end
 end
 
 feature "Listing events" do
