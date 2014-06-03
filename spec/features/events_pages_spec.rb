@@ -41,7 +41,27 @@ feature "Creating events" do
     click_on "Create Event"
     expect(page).to have_content "with template"
   end
+end
 
+feature "Viewing an event" do
+  let(:superadmin) { FactoryGirl.create(:superadmin) }
+  let(:event) { FactoryGirl.create(:event, :city_id => superadmin.city.id)}
+  let(:team) { FactoryGirl.create(:team, :event_id => event.id)}
+  let(:job) { FactoryGirl.create(:job, :workable => event)}
+  let(:team_job) { FactoryGirl.create(:team_job, :workable => team)}
+  before(:each) { sign_in(superadmin) }
+
+  scenario 'send email containing number of open positions' do
+    rand(5).times { FactoryGirl.create(:volunteer, city: event.city) }
+    visit event_path(event)
+    click_button "Send volunteer invitations"
+    ActionMailer::Base.deliveries.count.should eq event.city.users.count
+  end
+
+  # scenario 'send email to each user' do
+  #   visit event_path(event)
+  #   click_button "email button"
+  # end
 end
 
 feature "Listing events" do
