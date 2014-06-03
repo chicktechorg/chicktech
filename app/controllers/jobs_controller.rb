@@ -29,18 +29,18 @@ class JobsController < ApplicationController
   def update
     #TODO look into handling this with AJAX
     @job = Job.find(params[:id])
-    if params[:job][:user_id]
-      @user = params[:job][:user_id]
-      @job.update(user_id: @user)
-      flash[:notice] = "Congratulations! You are signed up for the job #{@job.name}."
-      redirect_to event_path(@job.get_event)
-    elsif params[:job][:signing_up]
+    if params[:signing_up]
       @job.update(user_id: current_user.id)
       flash[:notice] = "Congratulations! You are signed up for the job #{@job.name}."
       redirect_to event_path(@job.get_event)
-    elsif params[:job][:resigning]
+    elsif params[:resigning]
       @job.update(user_id: nil)
       flash[:notice] = "You have resigned from the job #{@job.name}."
+      redirect_to event_path(@job.get_event)
+    elsif params[:job][:user_id]
+      @user = params[:job][:user_id]
+      @job.update(user_id: @user)
+      flash[:notice] = "Congratulations! You are signed up for the job #{@job.name}."
       redirect_to event_path(@job.get_event)
     elsif params[:job][:job_done]
       @job.change_status

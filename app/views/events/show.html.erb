@@ -1,32 +1,24 @@
-<div class="row">
-  <h2><% provide :title, "#{@event.name}" %></h2>
-  <div class="col-sm-10">
-   <%= render @event %>
-  </div>
-  <div class="col-sm-10">
-    <h2>Teams</h2>
-    <% if can? :update, @event %>
-      <%= link_to "Add team", new_team_path(:team => { event_id: @event.id }), id: "new_team_link", remote: true %>
-    <% end %>
-    <% if @event.teams.any? %>
-       <div id="event-teams">
-         <% @event.teams.each do |team| %>
-           <%= render team %>
-         <% end %>
-       </div>
-     <% end %>
-  </div>
-  <div class="col-sm-10">
-    <h2>Jobs Without Teams</h2>
+<% provide :title, "#{@event.name}" %>
 
-    <% if can? :update, @event %>
-      <%= link_to "Add job", new_job_path(:job => { workable_id: @event.id, workable_type: 'Event' }), id: "new_job_link", remote: true %>
-    <% end %>
-
-    <div id="event-jobs">
-      <% if @event.jobs.any? %>
-        <%= render @event.jobs %>
-      <% end %>
+<div class="event">
+  <div class="event-info">
+    <h1 class="event-name"><%= @event.name %></h1>
+    <div class="description">
+      <p><%= @event.description %></p>
+    </div>
+    <div class="aside">
+      <span class="start">
+        <%= @event.start.strftime('%D') %>
+      </span> - 
+      <span class="finish">
+        <%= @event.finish.strftime('%D') %>
+      </span>
     </div>
   </div>
+
+  <div id="teams">
+    <%= render partial: 'teams/team_panel', collection: @event.teams, as: :team %>
+  </div>
 </div>
+  
+ 
