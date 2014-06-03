@@ -1,0 +1,23 @@
+<div class="team-panel">
+  <div class="heading">
+    <h4>
+      <%= link_to "#team-#{team.id}", data: { toggle: "collapse", parent: "#teams" } do %>
+        <%= team.name %>
+      <% end %>
+      <%= position_display(team.leadership_role) %>
+    </h4>
+  </div>
+  <div id="team-<%= team.id %>" class="panel-collapse collapse">
+    <table class="jobs">
+      <% team.jobs.each do |job| %>
+      <tr>
+        <td>
+          <%= position_display(job) %>
+          <h4><%= job.name %></h4>
+          <p><%= job.description %></p>
+        </td>
+      </tr>
+      <% end %>
+    </table>
+  </div>
+</div>
