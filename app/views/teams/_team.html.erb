@@ -23,11 +23,9 @@
     <% end %>
     <% if can? :update, @event %>
 
-
       <% if can? :update, @event %>
         <%= link_to "Add job", new_job_path(:job => { workable_id: team.id, workable_type: 'Team' }), id: "new_team_job_link", remote: true %>
       <% end %>
-
 
     <% end %>
 </div>
@@ -36,4 +34,3 @@
     <%= render job %>
   <% end %>
 </div>
-
