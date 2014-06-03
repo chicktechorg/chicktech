@@ -1,15 +1,25 @@
 class TasksController < ApplicationController
   authorize_resource
-  
+
   def index
     @tasks = Task.all
   end
 
+  def new
+    @task = Task.new
+    @job = Job.find(params[:job_id])
+  end
+
   def create
+    @job = Job.find(params[:job_id])
     @task = Task.new(task_params)
     if @task.save
-      flash[:notice] = "Task has been successfully created."
-      redirect_to job_path(@task.job)
+      @job.tasks << @task
+      respond_to do |format|
+        flash[:notice] = "Task has been successfully created."
+        format.html { redirect_to event_path(@task.job.workable) }
+        format.js
+      end
     else
       render :new
     end

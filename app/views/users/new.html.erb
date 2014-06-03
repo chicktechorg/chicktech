@@ -21,6 +21,15 @@
   <div><%= f.label :last_name %>
   <%= f.text_field :last_name %></div>
 
+  <div><%= f.label :gender %>
+  <%= f.select(:gender,[['Male', 'Male'], ['Female', 'Female'], ['Other', 'Other']]) %></div>
+
+  <div><%= f.label :birthday %>
+  <%= f.date_select :birthday, :start_year=>1900 %></div>
+
+  <div><%= f.label :city %>
+  <%= f.text_field :city %></div>
+
   <div><%= f.label :phone %>
   <%= f.text_field :phone %></div>
 
@@ -32,7 +41,7 @@
 
   <div><%= f.label :password_confirmation %>
   <%= f.password_field :password_confirmation %></div>
-  
+
   <div><%= f.label :role %>
   <%= f.collection_select :role, User::ROLES, :to_s, :humanize %></div>
 

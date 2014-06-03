@@ -11,6 +11,15 @@ describe Event do
   it { should have_one(:leadership_role).dependent(:destroy) }
   it { should belong_to :city }
 
+  describe '.all' do
+    it "should not return templates" do
+      template = FactoryGirl.create(:template)
+      event = FactoryGirl.create(:event)
+      Event.all.any? { |temp| temp.name == template.name }.should be_false
+      Event.all.any? { |temp| temp.name == event.name }.should be_true
+    end
+  end
+
   describe "#start" do
     it "should be valid if the event starts after the time it's created" do
       event = FactoryGirl.build(:event, :start => Time.now + 1.hour)
@@ -36,11 +45,9 @@ describe Event do
   end
 
   describe ".upcoming" do
-    it "returns only the upcoming events" do
-      forty_minutes_from_now = Time.now + 40.minutes
-      event1 = FactoryGirl.create(:event, :start => Time.now, :finish => Time.now + 3.hours)
-      event2 = FactoryGirl.create(:event, :start => Time.now, :finish => Time.now + 30.minutes)
-      Time.stub(:now).and_return(forty_minutes_from_now)
+    it "returns only the upcoming in the next 24 hours events" do
+      event1 = FactoryGirl.create(:event, :start => Time.now + 1.day, :finish => Time.now + 2.days)
+      event2 = FactoryGirl.create(:event, :start => Time.now + 1.week, :finish => Time.now + 2.weeks)
       Event.upcoming.should eq [event1]
     end
   end
@@ -99,6 +106,69 @@ describe Event do
       event = team.event
       volunteer.jobs << job
       event.teams_of_user(volunteer).should eq [team]
+    end
+  end
+
+
+  describe '#create_template' do
+    it 'creates a template off an existing event' do
+      event = FactoryGirl.create(:event)
+      template = event.create_template
+      Template.all.count.should eq 1
+    end
+
+    it 'create a template that has all the same team names as the event' do
+      team = FactoryGirl.create(:team)
+      event = team.event
+      template = event.create_template
+      template.teams.first.name.should eq team.name
+    end
+
+    it 'creates a template that has all the same jobs as the event' do
+      job = FactoryGirl.create(:job)
+      event = job.workable
+      template = event.create_template
+      template.jobs.first.name.should eq job.name
+    end
+
+    it 'creates a template with all the same teams and their jobs' do
+      job = FactoryGirl.create(:team_job)
+      team = job.workable
+      event = team.event
+      template = event.create_template
+      first_template_job = template.teams.first.jobs.first
+      first_template_job.name.should eq job.name
+    end
+
+    it 'creates a template all jobs and their tasks' do
+      team_job = FactoryGirl.create(:team_job)
+      team = team_job.workable
+      event = team.event
+      job = event.jobs.create(name: 'this job')
+      task_1 = team_job.tasks.create(description: 'do this')
+      task_2 = job.tasks.create(description: 'do that')
+      template = event.create_template
+      template_task_1 = template.teams.first.jobs.first.tasks.first
+      template_task_2 = template.jobs.first.tasks.first
+      template_task_1.description.should eq task_1.description
+      template_task_2.description.should eq task_2.description
+    end
+  end
+
+  describe '#team_jobs' do
+    it 'returns all the jobs that belong to the teams of the event' do
+      team_job = FactoryGirl.create(:team_job)
+      event = team_job.workable.event
+      event.team_jobs.first.should eq team_job
+    end
+  end
+
+  describe '#all_jobs' do
+    it 'returns all the jobs that belong to event and teams within the event' do
+      team_job = FactoryGirl.create(:team_job)
+      event = team_job.workable.event
+      event_job = FactoryGirl.create(:job, workable: event)
+      event.all_jobs.length.should eq 2
     end
   end
 end

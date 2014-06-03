@@ -6,10 +6,10 @@
 
     <h3><%= event.name %> <span><%= link_to 'view', event %></span></h3>
 
-    <% if !event.leader.nil? %>
-      <p>Leader:<%= link_to "#{event.leader.first_name} #{event.leader.last_name}", event.leader %></p>
-    <% else %>
+    <% if event.leader.nil? %>
       <p>No leader</p>
+    <% else %>
+      <p>Leader:<%= link_to "#{event.leader.first_name} #{event.leader.last_name}", event.leader %></p>
     <% end %>
 
     <ul class="list-group">

@@ -1,19 +1,72 @@
-<div class="col-md-12"> 
-  <div class="all-tasks well">
-  	<h2>Past Chicktech Events</h2>
-	  <% @events.past.each do |event| %>
-	  	<div class="well-event">
-				<h1><%= link_to event.name, event_path(event.id), :class => 'event-name' %></h1><small><%= event.start.to_time.strftime("%b %-d, %Y @ %-I:%M%P") %></small> - <small><%= event.finish.to_time.strftime("%b %-d, %Y @ %-I:%M%P") %></small>
-			  <p><%= event.city.name %></p>
-			  <p><%= event.description %></p>
+<div class="col-md-11">
+  <h2>All Events</h2>
 
-			  <% if can? :manage, event %>
-			    <div>
-			      <p><%= link_to "Edit Event Details", edit_event_path(event) %></p>
-			      <p><%= link_to "Delete", event_path(event), :method => :delete, :data => { :confirm => 'Are you sure?' } %></p>
-			    </div>
-			  <% end %>
-			</div>
-		<% end %>
-	</div>
+  <% if current_user.role? :admin || :superadmin %>
+    <%= form_tag events_path, :method => :get do %>
+      <%= collection_select :city, :id, City.all, :id, :name, {:include_blank => 'Select City'}, {:selected => @city ? @city.id : ""}  %>
+      <%= submit_tag 'Filter' %>
+    <% end %>
+  <% end %>
+
+  <div id="events-calendar">
+    <h2 id="month">
+      <%= link_to "<", date: @date.prev_month %>
+      <%= @date.strftime("%B %Y") %>
+      <%= link_to ">", date: @date.next_month %>
+    </h2>
+    <%= calendar @date do |date| %>
+      <%= date.day %>
+      <% if @events_by_date[date] %>
+        <ul>
+          <% @events_by_date[date].each do |event| %>
+            <li><%= link_to event.name, event %></li>
+          <% end %>
+        </ul>
+      <% end %>
+    <% end %>
+  </div>
+
+  <div class='row text-center'>
+    <%= will_paginate @events %>
+  </div>
+
+  <div class="events-responsive", id="events-table">
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>City</th>
+          <th>Start</th>
+          <th>Event leader</th>
+          <th>Teams</th>
+          <th>Jobs</th>
+          <th>Volunteers</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render partial: 'event_table_row', collection: @events.future, as: :event %>
+      </tbody>
+    </table>
+  </div>
+
+  <div class="events-responsive" id="upcoming-table">
+    <h2>Upcoming events in 24hrs</h2>
+    <table class="table">
+      <thead>
+        <tr>
+          <th>Name</th>
+          <th>City</th>
+          <th>Start</th>
+          <th>Event leader</th>
+          <th>Teams</th>
+          <th>Jobs</th>
+          <th>Volunteers</th>
+        </tr>
+      </thead>
+      <tbody>
+        <%= render partial: 'event_table_row', collection: @events.upcoming, as: :event %>
+      </tbody>
+    </table>
+  </div>
+
 </div>

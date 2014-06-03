@@ -5,7 +5,10 @@
   <% else %>
     <%= form_for job do |f| %>
       <%= f.hidden_field :signing_up, :value => true %>
-      <%= f.submit "Sign Up!", :method => :patch, :class => "submit-no-button" %>
+           <%= f.label :user %></br>
+           <%= f.collection_select(:user_id, User.all, :id, :first_name)%>
+        <%= f.submit "Sign Up!", :method => :patch, :class => "submit-no-button" %>
+
     <% end %>
   <% end %>
 
@@ -18,10 +21,32 @@
   <% if can? :update, job %>
     <div class="edit-delete-indent">
       <p>This job is <%= job.done ? "complete." : "not complete." %> <%= link_to "Change status", job_path(job, :job => {:job_done => true}), :method=> :patch, :class => "remove" %></p>
-      <p><%= link_to "Delete", job_path(job), :method => :delete, :data => { :confirm => 'Are you sure?' } %>
+      <p><%= link_to "Add Task", new_job_task_path(job), class: "new_job_task_link", remote: true %>
+      <%= link_to "Delete", job_path(job), :method => :delete, :data => { :confirm => 'Are you sure?' } %>
       <%= link_to "Edit", edit_job_path(job) %>
       <%= link_to (job.owned_by?(current_user) ? "Resign" : "Unassign"), job_path(job, :job => { :resigning => true }), :method => :patch, :class => "remove" %></p>
     </div>
-  <% end %>      
+  <% end %>
+
+  <% if job.tasks.count > 0 %>
+    <div class="task-group">
+      <div>
+        <h4>Not Done</h4>
+        <ul class="not-done-task-list">
+          <% job.incompleted_tasks.each do |task| %>
+            <li><%= render 'jobs/task_form', :task => task %></li>
+          <% end %>
+        </ul>
+      </div>
+      <div>
+        <h4>Done</h4>
+        <ul class="done-task-list">
+          <% job.completed_tasks.each do |task| %>
+            <li><%= render 'jobs/task_form', :task => task %></li>
+          <% end %>
+        </ul>
+      </div>
+    </div>
+  <% end %>
 </div>
 
