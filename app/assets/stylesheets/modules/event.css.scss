@@ -1,0 +1,55 @@
+@import "./globals/all";
+
+.event {
+	.event-info {
+		@include make-row();
+
+		.description {
+			@include make-md-column(9);
+		}
+
+		.aside {
+			@include make-md-column(3);
+			background-color: #ddd;
+		}
+	}
+
+	#teams {
+		@extend .panel-group;
+
+
+	}
+}
+
+.team-panel {
+	@extend .panel;
+	@extend .panel-default;
+
+	.heading {
+		@extend .panel-heading;
+
+		h4 {
+			@extend .panel-title;
+		}
+	}
+
+	.body {
+		@extend .panel-body;
+	}
+
+	.jobs {
+		@extend .table;
+
+		li {
+			@extend .list-group-item;
+		}
+
+		.job-user {
+			@extend .pull-right;
+		}
+	}
+
+	.position-display {
+		@extend .pull-right;
+	}
+}

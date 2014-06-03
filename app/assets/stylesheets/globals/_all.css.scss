@@ -1,0 +1,5 @@
+@import "./variables";
+
+// bootstrap overrides
+$brand-primary: $chicktech-blue;
+@import "bootstrap";
