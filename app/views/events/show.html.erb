@@ -20,7 +20,7 @@
     <h2>Jobs Without Teams</h2>
 
     <% if can? :update, @event %>
-      <%= link_to "Add job", new_job_path(:job => { workable_id: @event.id, workable_type: 'Event' }), id: "new_job_link", remote: true %>
+      <%= link_to "Add job", new_job_path(:job => { workable_id: @event.id, workable_type: 'Event' }), id: "new_event_job_link", remote: true %>
     <% end %>
 
     <div id="event-jobs">
