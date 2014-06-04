@@ -1,4 +1,4 @@
-Volunteer Management System for Chicktech, a nonprofit organization dedicated to providing hands-on opportunities for girls and women to get engaged with technology.
+Volunteer Management System for ChickTech, a nonprofit organization dedicated to providing hands-on opportunities for girls and women to get engaged with technology.
 
 http://www.chicktech.org/
 
