@@ -6,7 +6,7 @@
     <% if team.leader %>
       <h4>Team lead: <%= "#{team.leader.first_name} #{team.leader.last_name}" %></h4>
     <% end %>
-    <% if team.leadership_role.available? %>
+    <% if can? :manage, team %>
       <%= form_for team.leadership_role do |f| %>
         <%= f.hidden_field :signing_up, :value => true %>
         <%= f.submit "Take the Lead!", :class => "submit-no-button" %>
@@ -16,12 +16,10 @@
         <%= f.collection_select(:user_id, User.all, :id, :first_name)%>
         <%= f.submit "Submit", :class => "submit-no-button" %>
       <% end %>
-    <% elsif can? :update, team.leadership_role %>
+
       <div class="edit-delete-indent">
         <%= link_to "Resign", leadership_role_path(team.leadership_role, :leadership_role => { :resigning => false }), :method => :patch, :class => "remove" %>
       </div>
-    <% end %>
-    <% if can? :update, @event %>
 
       <% if can? :update, @event %>
         <%= link_to "Add job", new_job_path(:job => { workable_id: team.id, workable_type: 'Team' }), id: "new_team_job_link", remote: true %>
