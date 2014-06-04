@@ -3,7 +3,7 @@
   <%= submit_tag 'Save as Template', :class => "btn btn-warning btn-xs" %>
 <% end %>
 <%= form_tag '/emails' do %>
-  <%= hidden_field_tag :event_id, @event.id %>
+  <%= hidden_field_tag :event_id, event.id %>
   <%= submit_tag 'Send volunteer invitations', :class => "btn btn-warning btn-xs" %>
 <% end %>
 
