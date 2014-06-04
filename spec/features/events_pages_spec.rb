@@ -51,20 +51,20 @@ feature "Send volunteer invitations button" do
   scenario 'send email containing number of open positions' do
     rand(5).times { FactoryGirl.create(:volunteer, city: event.city) }
     visit event_path(event)
-    click_button "Send volunteer invitations"
+    click_button "Send Volunteer Invitations"
     ActionMailer::Base.deliveries.count.should eq event.city.users.count
   end
 
   scenario 'flash notice the number of invitation emails sent' do
     visit event_path(event)
-    click_button "Send volunteer invitations"
+    click_button "Send Volunteer Invitations"
     page.should have_content "1 invitation email sent."
   end
 
   scenario 'flash notice the number of invitation emails sent with more that 1 volunteer' do
     FactoryGirl.create(:volunteer, city: event.city)
     visit event_path(event)
-    click_button "Send volunteer invitations"
+    click_button "Send Volunteer Invitations"
     page.should have_content "2 invitation emails sent."
   end
 
@@ -85,6 +85,28 @@ feature "Send volunteer invitations button" do
     mail.to.should eq [superadmin.email]
     mail.from.should eq ['noreply@chicktech.herokuapp.com']
     mail.body.encoded.should have_content(superadmin.first_name)
+  end
+end
+
+feature "I Would Like To Lead This Event button" do
+  let(:volunteer) { FactoryGirl.create(:volunteer) }
+  let(:event) { FactoryGirl.create(:event_without_leader, :city_id => volunteer.city.id)}
+  before(:each) { sign_in(volunteer) }
+
+  scenario 'send request to be made leader of event' do
+    FactoryGirl.create(:superadmin, city: event.city)
+    FactoryGirl.create(:admin, city: event.city)
+    visit event_path(event)
+    click_on "I Would Like To Lead This Event"
+    ActionMailer::Base.deliveries.count.should eq 2
+  end
+
+  scenario 'flash notice that the request email was sent' do
+    FactoryGirl.create(:superadmin, city: event.city)
+    FactoryGirl.create(:admin, city: event.city)
+    visit event_path(event)
+    click_button "I Would Like To Lead This Event"
+    page.should have_content "Request email sent"
   end
 end
 
@@ -164,10 +186,13 @@ feature 'Calendar view' do
 end
 
 feature 'Table view' do
+  let(:superadmin) { FactoryGirl.create(:superadmin) }
   let(:volunteer) { FactoryGirl.create(:volunteer) }
-  before(:each) { sign_in(volunteer) }
+  before(:each) { sign_in(superadmin) }
 
   scenario 'shows all events, filtered by the users city, in the table' do
+    click_on "Sign out"
+    sign_in(volunteer)
     volunteer_event = FactoryGirl.create(:event, city: volunteer.city)
     non_volunteer_event = FactoryGirl.create(:event)
     visit events_path
@@ -182,11 +207,10 @@ feature 'Table view' do
     visit event_path(event)
     click_button "Take the lead!"
     visit events_path
-    page.should have_content volunteer.first_name
+    page.should have_content superadmin.first_name
   end
 
   scenario 'shows the number of teams and how many have leaders for each event' do
-    superadmin = FactoryGirl.create(:superadmin)
     click_on "Sign out"
     sign_in(superadmin)
     team_with_leader = FactoryGirl.create(:team_with_leader)
@@ -203,10 +227,10 @@ feature 'Table view' do
   end
 
   scenario 'shows the number of jobs and how many have volunteers for each event', js: true do
-    event = FactoryGirl.create(:event, city: volunteer.city)
-    job_without_volunteer = FactoryGirl.create(:job, workable: event)
-    job_with_volunteer = FactoryGirl.create(:job, workable: event, user: volunteer)
-    visit events_path(city_id: volunteer.city.id)
+    event = FactoryGirl.create(:event, city: superadmin.city)
+    job_without_superadmin = FactoryGirl.create(:job, workable: event)
+    job_with_superadmin = FactoryGirl.create(:job, workable: event, user: superadmin)
+    visit events_path(city_id: superadmin.city.id)
     within '#events-table' do
       page.should have_content '1/2'
     end
@@ -311,7 +335,7 @@ feature "Signing up to be an Event Leader" do
       @event.leadership_role.user_id = nil
       @event.leadership_role.save
       visit event_path(@event)
-      page.should have_button('Take the lead!')
+      page.should have_button('I Would Like To Lead This Event')
     end
   end
 
@@ -391,11 +415,11 @@ feature "Showing all jobs on the page" do
 end
 
 feature "saving a template"  do
- let(:volunteer) { FactoryGirl.create(:volunteer) }
+ let(:superadmin) { FactoryGirl.create(:superadmin) }
 
   scenario "from the event show page" do
     @event = FactoryGirl.create(:event)
-    sign_in(volunteer)
+    sign_in(superadmin)
     visit event_path(@event)
     click_on "Save as Template"
     page.should have_content "Template saved"

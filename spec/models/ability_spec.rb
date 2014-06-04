@@ -28,7 +28,7 @@ subject { Ability.new(user) }
       describe "managing tasks" do
         let(:job) { FactoryGirl.create(:job) }
         before { user.jobs << job }
-        
+
         it { should be_able_to(:manage, job.tasks.new) }
         it { should_not be_able_to(:manage, Job.new) }
       end
@@ -37,7 +37,7 @@ subject { Ability.new(user) }
         let(:event_with_leader) { FactoryGirl.create(:event) }
         let(:event_without_leader) { FactoryGirl.create(:event_without_leader) }
 
-        it { should be_able_to :update, event_without_leader.leadership_role }
+        it { should_not be_able_to :update, event_without_leader.leadership_role }
         it { should_not be_able_to :update, event_with_leader.leadership_role }
       end
 
@@ -56,7 +56,7 @@ subject { Ability.new(user) }
     describe "abilities" do
       let(:user) { FactoryGirl.create(:volunteer) }
       before { @event = FactoryGirl.create(:event, leadership_role: FactoryGirl.create(:leadership_role, user: user)) }
-      
+
       it { should be_able_to(:update, @event) }
       it { should be_able_to(:manage, Team.new(event: @event)) }
       it { should be_able_to(:manage, Job.new(workable: @event)) }
