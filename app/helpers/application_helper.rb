@@ -11,7 +11,7 @@ module ApplicationHelper
   def position_display(position)
   	content_tag :span, class: 'position-display' do
 	  	if position.user.nil?
-	  	  sign_up_link(position)
+	  	  sign_up_button(position)
 	  	elsif position.user = current_user
 	  		("You " + resignation_link(position)).html_safe
 	  	else 
@@ -20,7 +20,7 @@ module ApplicationHelper
 	  end
   end
 
-  def sign_up_link(position)
+  def sign_up_button(position)
   	position_path = position.class.name.underscore + "_path"
   	button_to "Take the Lead!", send(position_path, position, signing_up: true), method: :patch, :class => 'btn btn-xs btn-success'
   end
@@ -28,5 +28,12 @@ module ApplicationHelper
   def resignation_link(position)
   	position_path = position.class.name.underscore + "_path"
   	link_to "(resign)", send(position_path, position, resigning: true), method: :patch, class: 'text-muted'
+  end
+
+  def event_date_range(event)
+		format = "%A, %B %-d at %-l:%M%P"
+		start = event.start.strftime(format)
+		finish = event.finish.strftime(format)
+		"#{start} - #{finish}"
   end
 end

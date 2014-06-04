@@ -1,23 +1,20 @@
 @import "./globals/all";
 
 .event {
+	@include make-row();
+
 	.event-info {
-		@include make-row();
+		@include make-md-column(4);
 
 		.description {
-			@include make-md-column(9);
-		}
-
-		.aside {
-			@include make-md-column(3);
-			background-color: #ddd;
+			font-size: 80%;
+			text-align: justify;
 		}
 	}
 
 	#teams {
+		@include make-md-column(8);
 		@extend .panel-group;
-
-
 	}
 }
 

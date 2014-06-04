@@ -1,18 +1,12 @@
 <% provide :title, "#{@event.name}" %>
 
 <div class="event">
+  <div class="event-header">
+    <h1><%= @event.name %></h1>
+    <h4><%= event_date_range(@event) %></h4>
   <div class="event-info">
-    <h1 class="event-name"><%= @event.name %></h1>
     <div class="description">
       <p><%= @event.description %></p>
-    </div>
-    <div class="aside">
-      <span class="start">
-        <%= @event.start.strftime('%D') %>
-      </span> - 
-      <span class="finish">
-        <%= @event.finish.strftime('%D') %>
-      </span>
     </div>
   </div>
 
