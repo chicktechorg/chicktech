@@ -44,6 +44,10 @@ class User < ActiveRecord::Base
     UserMailer.send_information(self).deliver
   end
 
+  def invite_volunteer
+    UserMailer.invite_volunteer(self).deliver
+  end
+
   def self.pending
     User.where("invitation_token IS NOT NULL")
   end

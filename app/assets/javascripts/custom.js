@@ -5,5 +5,3 @@ $(function() {
     todayBtn: "linked"
 	});
 });
-
-
