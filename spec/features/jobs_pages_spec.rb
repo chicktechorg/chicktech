@@ -8,7 +8,7 @@ feature 'Creating jobs' do
     sign_in(admin)
     event = FactoryGirl.create(:event)
     visit event_path(event)
-    click_on 'Add jobs'
+    click_on 'Add job'
     fill_in 'Name', with: 'Example name'
     click_on 'Create Job'
     page.should have_content 'successfully'
@@ -18,7 +18,7 @@ feature 'Creating jobs' do
     sign_in(admin)
     event = FactoryGirl.create(:event)
     visit event_path(event)
-    click_on 'Add jobs'
+    click_on 'Add job'
     click_on 'Create Job'
     page.should have_content 'blank'
   end
@@ -31,7 +31,7 @@ feature 'User signs up for a job' do
 
   scenario 'successfully' do
     visit event_path(job.workable)
-    click_on 'Sign Up!'
+    click_on 'Take the Lead!'
     page.should have_content 'Congratulations!'
   end
 
@@ -122,7 +122,7 @@ feature 'open up jobs for other from deleted user' do
     @volunteer.destroy
     @job.reload
     visit job_path(@job)
-    page.should have_button 'Sign Up!'
+    page.should have_button 'Take the Lead!'
   end
 end
 

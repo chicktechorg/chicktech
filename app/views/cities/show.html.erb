@@ -1,5 +1,7 @@
 <h1>Events around <%= @city.name %></h1>
 
-<% @city.events.each do |event| %>
-  <%= render event %>
+<% if @city.events.any? %>
+  <% @city.events.each do |event| %>
+    <%= render event %>
+  <% end %>
 <% end %>
