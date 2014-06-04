@@ -55,6 +55,19 @@ feature "Send volunteer invitations button" do
     ActionMailer::Base.deliveries.count.should eq event.city.users.count
   end
 
+  scenario 'flash notice the number of invitation emails sent' do
+    visit event_path(event)
+    click_button "Send volunteer invitations"
+    page.should have_content "1 invitation email sent."
+  end
+
+  scenario 'flash notice the number of invitation emails sent with more that 1 volunteer' do
+    FactoryGirl.create(:volunteer, city: event.city)
+    visit event_path(event)
+    click_button "Send volunteer invitations"
+    page.should have_content "2 invitation emails sent."
+  end
+
   scenario 'contents of email sent with only one position' do
     job = FactoryGirl.create(:job)
     mail = UserMailer.invite_volunteer(superadmin, job.workable)
