@@ -1,12 +1,25 @@
-<div>
-    <h3 id="event-title"><%= link_to event.name, event_path(event.id), :class => 'event-name' %></h3><h5 id="event-location"><%= event.city.name %></h5>    
+<%= form_tag '/templates' do %>
+  <%= hidden_field_tag :event_id, event.id %>
+  <%= submit_tag 'Save as Template' %>
+<% end %>
 
-  <h5 id="start-end">Starts on: <small><%= event.start.to_time.strftime("%b %-d, %Y @ %-I:%M%P") %></small></h5> <h5>Ends on: <small><%= event.finish.to_time.strftime("%b %-d, %Y @ %-I:%M%P") %></small></h5>
-  <h5>Description:</h5> <span><p><%= event.description %></p></span>
-
+<h1><%= event.name %></h1>
   <% if can? :manage, event %>
-    <div class="text-align">
-      <div><%= link_to "Edit Event", edit_event_path(event) %> <%= link_to "Delete", event_path(event), :method => :delete, :data => { :confirm => 'Are you sure?' } %></div>
-    </div>
+    <%= link_to "Edit", edit_event_path(event) %> <%= link_to "Delete", event_path(event), :method => :delete, :data => { :confirm => 'Are you sure?' } %>
   <% end %>
-</div>
+  <% if event.leadership_role.available? %>
+    <%= form_for event.leadership_role do |f| %>
+      <%= f.hidden_field :signing_up, :value => true %>
+      <%= f.submit "Take the lead!", :class => "submit-no-button" %>
+    <% end %>
+
+  <% elsif can? :update, event.leadership_role %>
+      <%= link_to (event.leadership_role.owned_by?(current_user) ? "Resign" : "Unassign"), leadership_role_path(event.leadership_role, :leadership_role => {:resigning => false}), :method => :patch, :class => "remove" %>
+  <% end %>
+  <% if event.leader %>
+    <h4>Leader: <%= link_to "#{event.leader.first_name}", user_path(event.leader)  %></h4>
+  <% end %>
+<h4><%= event.city.name %></h4>
+<h4>Start: <%= event.start.to_time.strftime("%b %-d, %Y @ %-I:%M%P") %></h4>
+<h4>End: <%= event.finish.to_time.strftime("%b %-d, %Y @ %-I:%M%P") %></h4>
+<p><%= event.description %></p>

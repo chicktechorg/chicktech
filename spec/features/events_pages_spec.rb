@@ -158,16 +158,14 @@ feature 'Table view' do
     end
   end
 
-  scenario 'shows the number of jobs and how many have volunteers for each event' do
-    job_a = FactoryGirl.create(:job)
-    job_a.workable.jobs << job_b = Job.create(:name => "Job B")
-    visit event_path(job_a.workable)
-    within('#edit_job_'+job_a.id.to_s) do
-      click_on "Sign Up!"
+  scenario 'shows the number of jobs and how many have volunteers for each event', js: true do
+    event = FactoryGirl.create(:event, city: volunteer.city)
+    job_without_volunteer = FactoryGirl.create(:job, workable: event)
+    job_with_volunteer = FactoryGirl.create(:job, workable: event, user: volunteer)
+    visit events_path(city_id: volunteer.city.id)
+    within '#events-table' do
+      page.should have_content '1/2'
     end
-    visit events_path
-    page.should have_content job_a.workable.jobs.with_volunteers.count
-    page.should have_content job_a.workable.jobs.count
   end
 end
 
@@ -209,7 +207,7 @@ feature "Adding a job" do
     event = FactoryGirl.create(:event)
     sign_in(admin)
     visit event_path(event)
-    page.should have_content "Add jobs"
+    page.should have_content "Add job"
   end
 
   scenario "signed in as volunteer", js: true do
@@ -228,20 +226,20 @@ feature "Adding a team" do
   context "as an admin" do
     let(:admin) { FactoryGirl.create(:admin) }
 
-    it "page should have content 'Add a team'" do
+    it "page should have content 'Add team'" do
       event = FactoryGirl.create(:event)
       sign_in(admin)
       visit event_path(event)
-      page.should have_content "Add a team"
+      page.should have_content "Add team"
     end
   end
 
   context "as an event leader" do
-    it "page should have content 'Add a team'" do
+    it "page should have content 'Add team'" do
       event = FactoryGirl.create(:event)
       sign_in(event.leader)
       visit event_path(event)
-      page.should have_content "Add a team"
+      page.should have_content "Add team"
     end
   end
 end
@@ -302,7 +300,7 @@ feature "Signing up for jobs" do
     within('#events-calendar') do
       click_on(job.workable.name)
     end
-    click_on "Sign Up!"
+    click_on "Take the Lead!"
     page.should have_content "Congratulations"
   end
 
@@ -310,11 +308,11 @@ feature "Signing up for jobs" do
     job = FactoryGirl.create(:job)
     sign_in(volunteer)
     visit event_path(job.workable)
-    click_on "Sign Up!"
+    click_on "Take the Lead!"
     click_on "Sign out"
     sign_in(admin)
     visit event_path(job.workable)
-    page.should_not have_content "Sign Up!"
+    page.should_not have_content "Take the Lead!"
   end
 
   scenario "jobs are taken by other users", js: true do
@@ -325,15 +323,15 @@ feature "Signing up for jobs" do
     within('#events-calendar') do
       click_on(job.workable.name)
     end
-    click_on "Sign Up!"
+    click_on "Take the Lead!"
     click_on "Sign out"
     sign_in(admin)
     visit events_path
     within('#events-calendar') do
       click_on(job.workable.name)
     end
-    page.should_not have_button "Sign Up!"
-    page.should have_content "Taken by"
+    page.should_not have_button "Take the Lead!"
+    page.should have_content "Leader:"
   end
 end
 
