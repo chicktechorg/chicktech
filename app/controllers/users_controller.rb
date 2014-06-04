@@ -1,8 +1,12 @@
 class UsersController < ApplicationController
   authorize_resource
-  
+
   def index
     @users = User.all
+    respond_to do |format|
+      format.html
+      format.xls {send_data @users.to_xls, :filename => 'users.xls'}
+    end
   end
 
   def new
@@ -23,7 +27,6 @@ class UsersController < ApplicationController
 
   def show
    @user = User.find(params[:id])
-   @events = Event.all
    @jobs = Job.all
    @cities = City.all
    @teams = Team.all
@@ -54,6 +57,6 @@ class UsersController < ApplicationController
 private
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :email, :phone, :password, :password_confirmation, :role)
+    params.require(:user).permit(:first_name, :last_name, :email, :phone, :password, :password_confirmation, :role, :city_id, :gender, :birthday, :photo, :photo_file_name, :photo_content_type, :photo_file_size, :photo_updated_at)
   end
 end

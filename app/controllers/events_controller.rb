@@ -1,29 +1,40 @@
 class EventsController < ApplicationController
   authorize_resource
-  
+
   def index
-    @events = Event.all
+    @date = params[:date] ? Date.parse(params[:date]) : Date.today
     if params[:city]
-      @events = Event.where(:city_id => params[:city][:city_id])
-      respond_to do |format|
-        format.html { redirect_to user_path(current_user) }
-        format.js
-      end
+      @events = Event.where(:city_id => params[:city][:id]).paginate(:per_page => 10, :page => params[:page])
+      @city = City.find(params[:city][:id])
     else
-      @events = Event.all
+      if current_user.role == "volunteer"
+        @events = Event.where(:city_id => current_user.city).paginate(:per_page => 10, :page => params[:page])
+      else
+        @events = Event.all.paginate(:per_page => 10, :page => params[:page])
+      end
     end
+    @events_by_date = Event.all.group_by(&:start_date)
+    @templates = Event.where(:template => true)
+    @upcoming = Event.upcoming
   end
 
   def new
     @event = Event.new
-    @events = Event.upcoming
+    @events = Event.all
     @leadership_role = LeadershipRole.new(leadable: @event)
   end
 
   def create
+    @events = Event.all
     @event = Event.new(event_params)
     @cities = City.all
-    if @event.save
+    if params[:event][:template_id] != ""
+      @template = Template.find(params[:event][:template_id])
+      @event = @template.create_event_from_template
+      @event.update(event_params)
+      flash[:notice] = "Event with template created successfully!"
+      redirect_to new_event_path
+    elsif @event.save
       flash[:notice] = "Event created successfully!"
       redirect_to new_event_path
     else
@@ -32,10 +43,11 @@ class EventsController < ApplicationController
   end
 
   def show
+    @events = Event.all
     @event = Event.find(params[:id])
   end
 
-  def edit 
+  def edit
     @event = Event.find(params[:id])
   end
 

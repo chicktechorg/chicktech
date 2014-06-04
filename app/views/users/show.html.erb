@@ -1,18 +1,65 @@
 <div id="page-content-wrapper">
   <div class="page-content inset">
-    <div class="row">
-      <div class="col-md-6">
-        <h2 class='section-header well'><%= @user.first_name %>'s Commitments:</h2>
-          
-          <%= render 'commitments', events: @user.commitment_events, user: @user %>
+   <div class="container usercard">
+     <div class="row">
+      <div class="span1">
+          <img class="thumbnail" src="//placehold.it/100x100" class="img-rounded">
+      </div>
+        <div class="span2 offset2">
+          <h3><% if @user == current_user %>
+            Hello <%= @user.first_name %>
+          <% else %>
+            <%= @user.first_name %>'s profile
+          </h3>
+          <% end %>
+              <% if @user == current_user %>
+                <%= link_to "Edit", edit_user_path(current_user) %>
+              <% elsif current_user.role == "superadmin" %>
+                  <%= link_to "Edit", edit_user_path(@user) %>
+              <% end %>
+        </div>
+     </div>
+     <div class="row">
+      <div class="span3 offset1">
+         Events <span class="badge badge-success">2</span>
+         Teams <span class="badge badge-success">3</span>
+         Jobs <span class="badge badge-success">1</span>
+      </div>
+           </div>
+          <hr>
+                  <ul>
+                    <li><b>Name:</b> <%= @user.first_name %> <%= @user.last_name %></li>
+                  </ul>
+                  <ul>
+                    <li><b>Role:</b> <%= @user.role %></li>
+                  </ul>
+                  <ul>
+                    <li><b>Phone:</b> <%= @user.phone %></li>
+                  </ul>
+                  <ul>
+                    <li><b>Email:</b> <%= @user.email %></li>
+                  </ul>
+                  <ul>
+                    <li><b>Gender:</b> <%= @user.gender %></li>
+                  </ul>
+                  <ul>
+                    <li><b>Birthday:</b> <%= @user.birthday %></li>
+                  </ul>
+                  <ul>
+                    <li><b>City:</b> <%= @user.city.name %></li>
+                  </ul>
 
-      </div>   
-      <div class="col-md-6 cities"> 
-        <%= render 'cities/dropdown', :cities => @cities %> 
-        <div id="found-events">
-        </div> 
-      </div>  
-    </div>
+                  </div>
+                </div>
+
+              </div>
+          </hr>
+     <br>
+    <h3><%= @user.first_name %>'s commitments</h3>
+        <div class="col-md-12">
+            <%= render 'commitments', events: @user.commitment_events, user: @user %>
+        </div>
+      <div class="col-md-12">
+   </div>
   </div>
 </div>
-     

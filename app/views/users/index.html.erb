@@ -1,29 +1,44 @@
 <div id="page-content-wrapper">
   <div class="page-content inset">
     <div class="row">
-      <div class="col-md-6">
+      <div class="col-md-9">
         <% if current_user.role? :superadmin %>
           <div class="manage-users well">
             <h2 class='section-header'>Manage Users</h2>
-            <h3><%= link_to "Invite a new user", new_user_invitation_path %></h3>
-            <% @users.confirmed.each do |user| %>
-              <ul>
-                <li><%= link_to "#{user.first_name} #{user.last_name}", user %></li>
-                <li><%= user.email %></li>
-                <li><%= user.phone %></li>
-                <li><%= link_to "Remove volunteer",
-                        user_path(user),
-                        :method => :delete,
-                        :class => "remove",
-                        :id => "remove#{user.id}" %></li>
-              </ul> 
-            <% end %>
+             <h3><%= link_to "Invite a new user", new_user_invitation_path %></h3>
+             <h3><%= link_to "Excel Export Users", users_path(format: "xls") %></h3>
+            <div class="table-responsive">
+                <table class="table">
+                  <thead>
+                    <tr>
+                      <th>Name</th>
+                      <th>Phone</th>
+                      <th>Email</th>
+                      <th>Roles</th>
+                      <th>Action</th>
+                    </tr>
+                  </thead>
+               <% @users.confirmed.each do |user| %>
+               <tbody>
+                  <tr>
+                    <td><%= link_to "#{user.first_name} #{user.last_name}", user %></td>
+                    <td><%= user.email %></td>
+                    <td><%= user.phone %></td>
+                    <td><%= user.role %></td>
+                    <td><%= link_to "Remove volunteer",
+                            user_path(user),
+                            :method => :delete,
+                            :class => "remove",
+                            :id => "remove#{user.id}" %></td>
+                  </tr>
+                <% end %>
+               <tbody>
           <% end %>
         </div>
-      </div>   
-      <div class="col-md-6 pending">
-        <% if current_user.role? :superadmin %> 
-          <h2 class="section-header well"> Pending Users </h2>
+      </div>
+      <div class="col-md-4 pending">
+        <% if current_user.role? :superadmin %>
+          <h3> Pending Users </h3>
           <div class="pending-user well">
             <% @users.pending.each do |user| %>
               <% if user %>
@@ -40,7 +55,7 @@
             <% end %>
           <% end %>
         </div>
-      </div>  
+      </div>
     </div>
   </div>
 </div>
@@ -53,14 +68,14 @@
             <div class="job-info well">
             <% @users.confirmed.each do |user| %>
               <ul>
-                <li><%= link_to "#{user.first_name} #{user.last_name}", user %></li> 
+                <li><%= link_to "#{user.first_name} #{user.last_name}", user %></li>
                 <li>EMAIL: <%= user.email %></li>
                 <li>PHONE: <%= user.phone %></li>
               </ul>
             <% end %>
           <% end %>
-        </div> 
-      </div>     
+        </div>
+      </div>
     </div>
   </div>
 </div>

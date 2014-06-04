@@ -1,12 +1,48 @@
-<div class="well-event">
-  <h1><%= link_to event.name, event_path(event.id), :class => 'event-name' %></h1><small><%= event.start.to_time.strftime("%b %-d, %Y @ %-I:%M%P") %></small> - <small><%= event.finish.to_time.strftime("%b %-d, %Y @ %-I:%M%P") %></small>
-  <p><%= event.city.name %></p>
-  <p><%= event.description %></p>
-
-  <% if can? :manage, event %>
-    <div>
-      <p><%= link_to "Edit Event Details", edit_event_path(event) %></p>
-      <p><%= link_to "Delete", event_path(event), :method => :delete, :data => { :confirm => 'Are you sure?' } %></p>
-    </div>
+<% if current_user.role? :admin || :superadmin %>
+  <%= form_tag '/templates' do %>
+    <%= hidden_field_tag :event_id, event.id %>
+    <%= submit_tag 'Save as Template', :class => "btn btn-warning btn-xs" %>
   <% end %>
-</div>
+<% end %>
+
+<% if can? :invite_volunteers, event %>
+  <%= form_tag '/emails' do %>
+    <%= hidden_field_tag :event_id, event.id %>
+    <%= submit_tag 'Send Volunteer Invitations', :class => "btn btn-warning btn-xs" %>
+  <% end %>
+<% end %>
+
+<h1><%= event.name %></h1>
+
+<% if event.leader %>
+  <h4>Leader: <%= link_to "#{event.leader.first_name}", user_path(event.leader) %></h4>
+<% else %>
+  <h4>No Leader</h4>
+<% end %>
+
+<% if can? :manage, event %>
+  <%= link_to "Edit", edit_event_path(event) %> <%= link_to "Delete", event_path(event), :method => :delete, :data => { :confirm => 'Are you sure?' } %>
+<% end %>
+<% if event.leadership_role.available? && (current_user.role? :admin || :superadmin) %>
+  <%= form_for(event.leadership_role) do |f| %>
+    <%= f.hidden_field :volunteer_request, :value => true %>
+    <%= f.submit "Take the lead!", :class => "submit-no-button" %>
+  <% end %>
+  <%= form_for(event.leadership_role) do |f| %>
+    <%= f.label :user, "Assign to" %>
+    <%= f.collection_select(:user_id, User.all, :id, :first_name)%>
+    <%= f.submit "Submit", :class => "submit-no-button" %>
+  <% end %>
+<% elsif event.leadership_role.available? %>
+  <%= form_tag '/emails' do %>
+    <%= hidden_field_tag :event_id, event.id %>
+    <%= submit_tag 'I Would Like To Lead This Event', :class => "btn btn-warning btn-xs" %>
+  <% end %>
+<% elsif can? :update, event.leadership_role %>
+    <%= link_to (event.leadership_role.owned_by?(current_user) ? "Resign" : "Unassign"), leadership_role_path(event.leadership_role, :leadership_role => {:resigning => false}), :method => :patch, :class => "remove" %>
+<% end %>
+
+<h4><%= event.city.name %></h4>
+<h4>Start: <%= event.start.to_time.strftime("%b %-d, %Y @ %-I:%M%P") %></h4>
+<h4>End: <%= event.finish.to_time.strftime("%b %-d, %Y @ %-I:%M%P") %></h4>
+<p><%= event.description %></p>

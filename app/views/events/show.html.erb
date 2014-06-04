@@ -1,47 +1,34 @@
-<div id="page-content-wrapper">
-  <div class="page-content inset">
-    <div class="row">
-      <div class="col-md-6">
-        <div class="event-info well">
-          <h2 class='section-header'><% provide :title, "#{@event.name}" %></h2>
-          <%= render @event %>
-          <% if can? :update, @event %>
-            <%= link_to "Add jobs", new_job_path(:job => { workable_id: @event.id, workable_type: 'Event' }) %>
-            <%= link_to "Add a team", new_team_path(:team => { event_id: @event.id }) %>
-          <% end %>
-          <% if @event.leadership_role.available? %>
-            <%= form_for @event.leadership_role do |f| %>
-              <%= f.hidden_field :signing_up, :value => true %>
-              <%= f.submit "Take the lead!", :class => "submit-no-button" %>
-            <% end %>
-          <% elsif can? :update, @event.leadership_role %>
-            <%= link_to (@event.leadership_role.owned_by?(current_user) ? "Resign" : "Unassign"), leadership_role_path(@event.leadership_role, :leadership_role => {:resigning => false}), :method => :patch, :class => "remove" %>
-          <% end %>
-          <% if @event.leader %>
-            <h4>Event lead: <%= "#{@event.leader.first_name} #{@event.leader.last_name}" %></h4> 
-          <% end %> 
-        </div> 
-      </div>   
-      <div class="col-md-6 cities well"> 
-          <% if @event.jobs.any? %>
-            <h3>Jobs for this event</h3>
-            <div class="col-md-12 well-event">
-              <% @event.jobs.each do |job| %>
-                <%= render job %>
-              <% end %>
-            </div>
-          <% end %>
-
-        <% if @event.teams.any? %>
-          <h2>Teams</h2>
-          <% @event.teams.each do |team| %>
-            <%= render team %>
-          <% end %>
-        <% end %> 
-      </div>  
+<div class="row">
+  <% provide :title, "#{@event.name}" %>
+  <div class="col-sm-10">
+   <%= render @event %>
+  </div>
+  <div class="col-sm-10">
+    <h2>Teams</h2>
+    <% if can? :update, @event %>
+      <%= link_to "Add team", new_team_path(:team => { event_id: @event.id }), id: "new_team_link", remote: true %>
+    <% end %>
+    <% if @event.teams.any? %>
+      <div id="event-teams">
+        <% @event.teams.each do |team| %>
+          <%= render team %>
+        <% end %>
+      </div>
+    <% else %>
+      <p>No teams available</p>
+    <% end %>
+  </div>
+  <div class="col-sm-10">
+    <h2>Jobs Without Teams</h2>
+    <% if can? :update, @event %>
+      <%= link_to "Add job", new_job_path(:job => { workable_id: @event.id, workable_type: 'Event' }), id: "new_event_job_link", remote: true %>
+    <% end %>
+    <div id="event-jobs">
+      <% if @event.jobs.any? %>
+        <%= render @event.jobs %>
+      <% else %>
+        <p>No jobs available</p>
+      <% end %>
     </div>
   </div>
 </div>
-     
-
-
