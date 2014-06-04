@@ -1,4 +1,5 @@
 class UserMailer < ActionMailer::Base
+  include ActionView::Helpers::TextHelper
   default from: 'noreply@chicktech.herokuapp.com'
 
   def welcome_email(user)
@@ -17,12 +18,7 @@ class UserMailer < ActionMailer::Base
     @user = user
     @event = event
     @url = "http://chicktech.org/events/#{@event.id}"
-    @positions_to_fill = "#{(@event.number_of_teams - @event.number_of_teams_with_leaders) + (@event.number_of_jobs - @event.number_of_jobs_with_volunteers)}"
 
-    if @positions_to_fill.to_i > 1
-      mail(to: @user.email, subject: "#{@event.name} has #{@positions_to_fill} more positions to be filled")
-    else
-      mail(to: @user.email, subject: "#{@event.name} has #{@positions_to_fill} more position to be filled")
-    end
+    mail(to: @user.email, subject: "#{@event.name} has #{pluralize(@event.number_of_available_positions, 'more position')} to be filled")
   end
 end
