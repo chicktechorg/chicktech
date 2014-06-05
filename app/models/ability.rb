@@ -14,7 +14,7 @@ class Ability
         can :update, Job, :user => nil
         can :update, Team, :leadership_role => { :user_id => user.id }
         can :update, LeadershipRole, :user => user
-        can :update, LeadershipRole, :user => nil
+
         can :manage, Comment, :user_id => user.id
       end
 

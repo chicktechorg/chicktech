@@ -1,39 +1,34 @@
 <div class="col-md-12 well-event">
-  <div class="team-descriptions">
+
     <% provide :title, "#{team.name}" %>
-    <h3>Team Title: <%= link_to team.name, team %></h3>
-    <h4>for <%= team.event.name %></h4>
+    <h3><%= link_to team.name, team %></h3>
+
     <% if team.leader %>
       <h4>Team lead: <%= "#{team.leader.first_name} #{team.leader.last_name}" %></h4>
     <% end %>
-    <% if team.leadership_role.available? %>
+    <% if can? :manage, team %>
       <%= form_for team.leadership_role do |f| %>
         <%= f.hidden_field :signing_up, :value => true %>
-        <%= f.submit "Take Lead", :class => "submit-no-button" %>
+        <%= f.submit "Take the Lead!", :class => "submit-no-button" %>
       <% end %>
-
       <%= form_for(team.leadership_role) do |f| %>
-        <%= f.label :user %></br>
+        <%= f.label :user, "Assign to" %>
         <%= f.collection_select(:user_id, User.all, :id, :first_name)%>
-        <%= f.submit "Update", :class => "sign-in-button-small" %>
+        <%= f.submit "Submit", :class => "submit-no-button" %>
       <% end %>
 
-    <% elsif can? :update, team.leadership_role %>
       <div class="edit-delete-indent">
         <%= link_to "Resign", leadership_role_path(team.leadership_role, :leadership_role => { :resigning => false }), :method => :patch, :class => "remove" %>
       </div>
-    <% end %>
 
-    <p class="team"><%= link_to 'Edit', edit_team_path(team) %>
-        <%= link_to 'Delete', team_path(team),
-                             method: :delete,
-                             :data => { :confirm => 'Are you sure? This will delete all
-                                                     jobs within this team' } %></p>
-  </div>
+      <% if can? :update, @event %>
+        <%= link_to "Add job", new_job_path(:job => { workable_id: team.id, workable_type: 'Team' }), id: "new_team_job_link", remote: true %>
+      <% end %>
+
+    <% end %>
 </div>
-<div id='jobs-list'>
+<div id='jobs-list well-event'>
   <% team.jobs.each do |job| %>
     <%= render job %>
   <% end %>
 </div>
-
