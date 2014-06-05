@@ -5,7 +5,7 @@ class UsersController < ApplicationController
     @users = User.all
     respond_to do |format|
       format.html
-      format.xls {send_data @users.to_xls, :filename => 'users.xls'}
+      format.xls {send_data @users.to_xls(:columns => [:role, :first_name, :last_name, :email, :phone, :gender, :birthday, :city_id]), :filename => 'users.xls'}
     end
   end
 
