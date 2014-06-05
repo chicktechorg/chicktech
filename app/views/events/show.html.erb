@@ -9,22 +9,25 @@
       <%= link_to "Add team", new_team_path(:team => { event_id: @event.id }), id: "new_team_link", remote: true %>
     <% end %>
     <% if @event.teams.any? %>
-       <div id="event-teams">
-         <% @event.teams.each do |team| %>
-           <%= render team %>
-         <% end %>
-       </div>
-     <% end %>
+      <div id="event-teams">
+        <% @event.teams.each do |team| %>
+          <%= render team %>
+        <% end %>
+      </div>
+    <% else %>
+      <p>No teams available</p>
+    <% end %>
   </div>
   <div class="col-sm-10">
     <h2>Jobs Without Teams</h2>
     <% if can? :update, @event %>
       <%= link_to "Add job", new_job_path(:job => { workable_id: @event.id, workable_type: 'Event' }), id: "new_event_job_link", remote: true %>
     <% end %>
-
     <div id="event-jobs">
       <% if @event.jobs.any? %>
         <%= render @event.jobs %>
+      <% else %>
+        <p>No jobs available</p>
       <% end %>
     </div>
   </div>

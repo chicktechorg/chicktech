@@ -7,14 +7,14 @@ class Ability
         can :read, [Event, Job, User, City, Team]
         can :update, User, id: user.id
         can :manage, Task, :job => { :user_id => user.id }
-        can :update, Event, :leadership_role => { :user_id => user.id }
+        can [:update, :invite_volunteers], Event, :leadership_role => { :user_id => user.id }
         can :manage, Team, :event => { :leadership_role => { :user_id => user.id } }
         can :manage, Job, :workable => { :leadership_role => { :user_id => user.id } }
         can :update, Job, :user => user
         can :update, Job, :user => nil
         can :update, Team, :leadership_role => { :user_id => user.id }
         can :update, LeadershipRole, :user => user
-        can :update, LeadershipRole, :user => nil
+
         can :manage, Comment, :user_id => user.id
       end
 

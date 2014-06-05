@@ -21,4 +21,12 @@ class UserMailer < ActionMailer::Base
 
     mail(to: @user.email, subject: "#{@event.name} has #{pluralize(@event.number_of_available_positions, 'more position')} to be filled")
   end
+
+  def leadership_request(admin, user, event)
+    @admin = admin.pop
+    @user = user
+    @event = event
+    @url = "http://chicktech.org/events/#{@event.id}"
+    mail(to: @admin.email, subject: "#{@user.first_name} #{@user.last_name} has requested the event leader position on #{@event.name}")
+  end
 end
