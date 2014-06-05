@@ -5,7 +5,7 @@
   <% end %>
 <% end %>
 
-<% if can? :invite_volunteers, event %>
+<% if can? :update, event %>
   <%= form_tag '/emails' do %>
     <%= hidden_field_tag :event_id, event.id %>
     <%= submit_tag 'Send Volunteer Invitations', :class => "btn btn-warning btn-xs" %>
