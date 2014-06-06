@@ -7,19 +7,19 @@ feature 'Resigning from leadership role' do
     scenario 'available if you are the leader' do
       sign_in(@event.leader)
       visit event_path(@event)
-      page.should have_content 'Resign'
+      page.should have_content 'resign'
     end
 
     scenario 'available if you are an admin' do
       sign_in(FactoryGirl.create(:admin))
       visit event_path(@event)
-      page.should have_content 'Unassign'
+      page.should have_content 'unassign'
     end
 
     scenario "not available if you don't have permission" do
       sign_in(FactoryGirl.create(:volunteer))
       visit event_path(@event)
-      page.should_not have_button 'Resign'
+      page.should_not have_button 'resign'
     end
 
     scenario "clicking removes the leader" do
@@ -27,7 +27,7 @@ feature 'Resigning from leadership role' do
       sign_in(@event.leader)
 
       visit event_path(@event)
-      click_on 'Resign'
+      click_on 'resign'
       page.should have_content 'The leader has resigned'
     end
   end

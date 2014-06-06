@@ -1,34 +1,59 @@
-<div class="row">
-  <% provide :title, "#{@event.name}" %>
-  <div class="col-sm-10">
-   <%= render @event %>
-  </div>
-  <div class="col-sm-10">
-    <h2>Teams</h2>
+<% provide :title, "#{@event.name}" %>
+
+<div class="event">
+  <div class="event-header">
     <% if can? :update, @event %>
-      <%= link_to "Add team", new_team_path(:team => { event_id: @event.id }), id: "new_team_link", remote: true %>
-    <% end %>
-    <% if @event.teams.any? %>
-      <div id="event-teams">
-        <% @event.teams.each do |team| %>
-          <%= render team %>
-        <% end %>
+      <div class='admin-buttons pull-right text-right'>
+        <%= button_to('Send Volunteer Invitations', emails_path(event_id: @event.id), :class => "btn btn-warning btn-xs") %>
+        <%= button_to 'Save as Template', templates_path(event_id: @event.id), :class => "btn btn-primary btn-xs" %>
       </div>
-    <% else %>
-      <p>No teams available</p>
     <% end %>
+    <h1>
+      <%= @event.name %>
+    </h1>
+    <h4><%= event_date_range(@event) %></h4>
   </div>
-  <div class="col-sm-10">
-    <h2>Jobs Without Teams</h2>
-    <% if can? :update, @event %>
-      <%= link_to "Add job", new_job_path(:job => { workable_id: @event.id, workable_type: 'Event' }), id: "new_event_job_link", remote: true %>
-    <% end %>
-    <div id="event-jobs">
-      <% if @event.jobs.any? %>
-        <%= render @event.jobs %>
-      <% else %>
-        <p>No jobs available</p>
+  <div class="event-info">
+    <h5>Lead volunteer: <%= event_leader_display(@event.leadership_role) %></h5>
+    <p class="description">
+      <%= @event.description %>
+    </p>
+  </div>
+
+  <div class="event-positions">
+
+    <div id="teams">
+      <h4>Teams</h4>
+      <%= render partial: 'teams/team_panel', collection: @event.teams, as: :team %>
+      <% if can? :update, @event %>
+        <%= link_to new_team_path(:team => { event_id: @event.id }), id: "new_team_link", class: "pull-right", remote: true do %>
+          <i class="fa fa-plus-circle"></i>
+          add a team
+        <% end %>
       <% end %>
     </div>
+
+    <div id="event-jobs">
+      <h4>
+        Other jobs
+        <%= content_tag :span, class: 'available-badge' do %>
+          <%= @event.number_of_available_event_jobs %> available
+        <% end %>
+      </h4>
+      <ul class="list-group">
+        <%= render partial: 'jobs/job_list_item', collection: @event.jobs, as: :job %>
+        <% if can? :update, @event %>
+          <%= link_to new_job_path(:job => { workable_id: @event.id, workable_type: 'Event' }) , id: "new_event_job_link", remote: true do %>
+            <li class="add-job">
+              <i class="fa fa-plus-circle"></i>
+              add a job
+            </li>
+          <% end %>
+        <% end %>
+      </ul>
+    </div>
+
   </div>
 </div>
+  
+ 

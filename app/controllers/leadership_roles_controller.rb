@@ -3,10 +3,10 @@ class LeadershipRolesController < ApplicationController
 
   def update
     @leadership_role = LeadershipRole.find(params[:id])
-    if params[:leadership_role][:signing_up]
+    if params[:signing_up]
       @leadership_role.update(user_id: current_user.id)
       flash[:notice] = "Congratulations! You have taken the lead of #{@leadership_role.leadable.name}."
-    elsif params[:leadership_role][:resigning]
+    elsif params[:resigning]
       @leadership_role.update(user_id: nil)
       flash[:notice] = "The leader has resigned from #{@leadership_role.leadable.name}."
     else

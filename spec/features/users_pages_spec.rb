@@ -164,7 +164,7 @@ feature "deleting a user" do
     job = FactoryGirl.create(:job, :user_id => volunteer.id)
     volunteer.destroy
     visit job_path(job)
-    page.should have_button 'Take the Lead!'
+    page.should have_link 'Sign up'
   end
 end
 

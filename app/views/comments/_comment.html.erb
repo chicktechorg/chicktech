@@ -1,6 +1,5 @@
-<p class='comment-content'><%= comment.content %></p>
-<div class="comment-details">
-  <p><%= comment.user.first_name %>
-    <%= comment.user.last_name %></p>
-    <p><%= comment.created_at.strftime("%A, %B %d, %Y at %I:%M")  %></p>
+<div class="comment well">
+	<h5><%= comment.user.full_name %> says...</h5>
+	<p class='comment-content'><%= comment.content %></p>
+	<p class="text-muted"><%= comment.created_at.strftime("%A, %B %d, %Y at %I:%M") %></p>
 </div>

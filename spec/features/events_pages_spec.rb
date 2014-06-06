@@ -191,7 +191,8 @@ feature 'Table view' do
   before(:each) { sign_in(superadmin) }
 
   scenario 'shows all events, filtered by the users city, in the table' do
-    click_on "Sign out"
+    click_on superadmin.first_name
+    click_on "Log out"
     sign_in(volunteer)
     volunteer_event = FactoryGirl.create(:event, city: volunteer.city)
     non_volunteer_event = FactoryGirl.create(:event)
@@ -205,14 +206,12 @@ feature 'Table view' do
   scenario 'shows the leader of an event if there is one' do
     event = FactoryGirl.create(:event_without_leader)
     visit event_path(event)
-    click_button "Take the lead!"
+    click_on "Sign up"
     visit events_path
     page.should have_content superadmin.first_name
   end
 
   scenario 'shows the number of teams and how many have leaders for each event' do
-    click_on "Sign out"
-    sign_in(superadmin)
     team_with_leader = FactoryGirl.create(:team_with_leader)
     team_with_leader.event.teams << team_without_leader = Team.create(:name => "Team Without Leader")
     visit events_path
@@ -275,7 +274,7 @@ feature "Adding a job" do
     event = FactoryGirl.create(:event)
     sign_in(admin)
     visit event_path(event)
-    page.should have_content "Add job"
+    page.should have_content "add a job"
   end
 
   scenario "signed in as volunteer", js: true do
@@ -286,7 +285,7 @@ feature "Adding a job" do
     within('#events-calendar') do
       click_on(event.name)
     end
-    page.should_not have_content "Add jobs"
+    page.should_not have_content "add a job"
   end
 end
 
@@ -294,20 +293,20 @@ feature "Adding a team" do
   context "as an admin" do
     let(:admin) { FactoryGirl.create(:admin) }
 
-    it "page should have content 'Add team'" do
+    it "page should have content 'add a team'" do
       event = FactoryGirl.create(:event)
       sign_in(admin)
       visit event_path(event)
-      page.should have_content "Add team"
+      page.should have_content "add a team"
     end
   end
 
   context "as an event leader" do
-    it "page should have content 'Add team'" do
+    it "page should have content 'add a team'" do
       event = FactoryGirl.create(:event)
       sign_in(event.leader)
       visit event_path(event)
-      page.should have_content "Add team"
+      page.should have_content "add a team"
     end
   end
 end
@@ -321,7 +320,7 @@ feature "Unassigning an event leader" do
     leadership_role = FactoryGirl.create(:leadership_role, leadable: event, user: volunteer)
     sign_in(admin)
     visit event_path(event)
-    page.should have_content "Unassign"
+    page.should have_content "unassign"
   end
 end
 
@@ -368,19 +367,20 @@ feature "Signing up for jobs" do
     within('#events-calendar') do
       click_on(job.workable.name)
     end
-    click_on "Take the Lead!"
+    click_on "Sign up"
     page.should have_content "Congratulations"
   end
 
   scenario "job is already taken", js: true do
     job = FactoryGirl.create(:job)
-    sign_in(volunteer)
-    visit event_path(job.workable)
-    click_on "Take the Lead!"
-    click_on "Sign out"
     sign_in(admin)
     visit event_path(job.workable)
-    page.should_not have_content "Take the Lead!"
+    click_on "Sign up"
+    click_on admin.first_name
+    click_on "Log out"
+    sign_in(admin)
+    visit event_path(job.workable)
+    page.should_not have_content "Sign up"
   end
 
   scenario "jobs are taken by other users", js: true do
@@ -391,15 +391,16 @@ feature "Signing up for jobs" do
     within('#events-calendar') do
       click_on(job.workable.name)
     end
-    click_on "Take the Lead!"
-    click_on "Sign out"
+    click_on "Sign up"
+    click_on volunteer.first_name
+    click_on "Log out"
     sign_in(admin)
     visit events_path
     within('#events-calendar') do
       click_on(job.workable.name)
     end
-    page.should_not have_button "Take the Lead!"
-    page.should have_content "Leader:"
+    page.should_not have_button "Sign up"
+    page.should have_content volunteer.full_name
   end
 end
 

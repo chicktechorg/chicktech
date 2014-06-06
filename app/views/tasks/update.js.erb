@@ -1,12 +1,5 @@
 <% if @task.done? %>
-  var $task = $('#<%= "edit_task_" + @task.id.to_s %>')
-  var $taskGroup = $task.parents(".task-group");
-  $taskGroup.find('.done-task-list').append($task);
-  $task.submitOnCheck();
+  $('#edit_task_<%= @task.id %>').parent('li').appendTo('.done-task-list');
 <% else %>
-  var $task = $('#<%= "edit_task_" + @task.id.to_s %>')
-  var $taskGroup = $task.parents(".task-group");
-  $('#<%= "edit_task_" + @task.id.to_s %>').parent().remove();
-  $taskGroup.find('.not-done-task-list').append($task);
-  $task.submitOnCheck();
+  $('#edit_task_<%= @task.id %>').parent('li').prependTo('.not-done-task-list')
 <% end %>

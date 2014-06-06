@@ -1,7 +1,10 @@
 <%= form_for @task, remote: true do |f| %>
-  <%= f.label :description %>
-  <%= f.text_field :description, :size => "25" %>
   <%= f.hidden_field :job_id, :value => @job.id %>
   <%= f.hidden_field :done, :value => false %>
-  <%= f.submit :class => 'sign-in-button-small' %>
+  <div class="input-group">
+  	<%= f.text_field :description, class: 'form-control' %>
+  	<span class="input-group-btn">
+	  	<%= f.submit :class => 'btn btn-primary' %>
+	  </span>
+  </div>
 <% end %>

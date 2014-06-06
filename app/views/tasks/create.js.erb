@@ -1,7 +1,3 @@
-$('#new_task').remove();
-$('#new_job_task_link').show();
-$('#not-done-task-list').prepend('<%= j render(@task) %>');
-
-
-
-
+$('.not-done-task-list li').last().before('<%= j render("jobs/task_form", task: @task) %>');
+$('#edit_task_<%= @task.id %>').submitOnCheck();
+$('#task_description').val('');

@@ -1,3 +1,5 @@
+@import "globals/all";
+
 #events-calendar .calendar {
   border-collapse: collapse;
   width: 100%;
@@ -43,4 +45,10 @@
 #events-calendar ul {
   font-size: 11px;
   padding-left: 20px;
+  list-style: none;
+  padding-left: 0px;
+
+  li {
+    font-size: .8em;
+  }
 }

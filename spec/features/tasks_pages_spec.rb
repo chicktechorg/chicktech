@@ -1,13 +1,12 @@
 require 'spec_helper'
 
 feature "Creating tasks" do
-  scenario "with input from volunteer" do
+  scenario "with input from volunteer", js: true do
     volunteer = FactoryGirl.create(:volunteer)
     job = FactoryGirl.create(:job)
     sign_in(volunteer)
-    visit event_path(job.workable)
-    click_on 'Add Task'
-    fill_in 'Description', with: 'Example task description'
+    visit job_path(job)
+    fill_in 'task_description', with: 'Example task description'
     click_on 'Create Task'
     find('.not-done-task-list').should have_content('Example task description')
   end
@@ -19,7 +18,7 @@ feature 'Removing tasks' do
     job = FactoryGirl.create(:job)
     task = FactoryGirl.create(:task, :job_id => job.id)
     sign_in(volunteer)
-    visit event_path(job.workable)
+    visit job_path(job)
     click_link 'X'
     page.should_not have_content task.description
   end
@@ -31,7 +30,7 @@ feature 'Clicking on a task' do
     job = FactoryGirl.create(:job)
     task = FactoryGirl.create(:task, :job_id => job.id)
     sign_in(volunteer)
-    visit event_path(job.workable)
+    visit job_path(job)
     check task.description
     find('.done-task-list').should have_content(task.description)
   end

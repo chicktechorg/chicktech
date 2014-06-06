@@ -70,4 +70,8 @@ class User < ActiveRecord::Base
   def self.confirmed
     User.where("invitation_token IS NULL")
   end
+
+  def full_name
+    "#{first_name} #{last_name}"
+  end
 end

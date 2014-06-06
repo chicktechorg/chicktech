@@ -1,0 +1,77 @@
+@import "./globals/all";
+
+.event {
+	@include make-row();
+
+	.event-header {
+		@include make-md-column(12);
+
+		h1 {
+			color: $chicktech-brown;
+		}
+
+		h4 {
+			color: $chicktech-blue;
+		}
+	}
+
+	.event-info {
+		@include make-md-column(4);
+
+		.description {
+			font-size: 80%;
+			text-align: justify;
+		}
+	}
+
+	.event-positions {
+		@include make-md-column(8);
+
+		#teams {
+			@extend .panel-group;
+		}
+
+		#jobs {
+		}
+	}
+}
+
+.team-panel {
+	@extend .panel;
+	@extend .panel-default;
+
+	.heading {
+		@extend .panel-heading;
+
+		h4 {
+			@extend .panel-title;
+		}
+	}
+}
+
+.job {
+	font-size: .8em;
+}
+
+.volunteer, .leader {
+	@extend .pull-right;
+	
+	a.sign_up {
+		@extend .btn;
+		@extend .btn-info;
+		@extend .btn-xs;
+	}
+
+	a.resign {
+		@extend .text-muted;
+	}
+}
+
+.available-badge {
+	@extend .badge;
+}
+
+.add-job {
+	@extend .list-group-item;
+	@extend .text-center;
+}

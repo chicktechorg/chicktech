@@ -8,9 +8,9 @@
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <div id="wrapper">
 
-    <%= render 'layouts/header' %>
+  <%= render 'layouts/header' if current_user %>
+  <div class="container">
 
     <% if flash[:alert] %>
       <div class="alert alert-danger">

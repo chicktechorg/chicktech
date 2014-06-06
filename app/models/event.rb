@@ -58,6 +58,10 @@ class Event < ActiveRecord::Base
     number_of_jobs_with_volunteers + number_of_teams_with_leaders
   end
 
+  def number_of_available_event_jobs
+    jobs.count - jobs.with_volunteers.count
+  end
+
   def number_of_available_positions
     number_of_volunteer_positions - number_of_filled_volunteer_positions
   end
