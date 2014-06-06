@@ -76,6 +76,10 @@ class Event < ActiveRecord::Base
     end
   end
 
+  def team_activity(user)
+    past_events = Event.where("finish < ?", Time.now)
+  end
+
   def self.past
     Event.where("finish < ?", Time.now)
   end
@@ -92,33 +96,11 @@ class Event < ActiveRecord::Base
 
   def unique_volunteers
     volunteers = []
-
     volunteers << leader if leader
-
     teams.each { |team| volunteers << team.leader }
-
     jobs.each { |j| volunteers << j.user }
-
     team_jobs.each { |tj| volunteers << tj.user }
-
     volunteers = volunteers - [nil]
     volunteers.uniq
   end
-
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-

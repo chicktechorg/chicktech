@@ -18,6 +18,7 @@ gem 'bootstrap-datepicker-rails'
 gem 'deep_cloneable'
 gem 'will_paginate', '~> 3.0'
 gem 'font-awesome-rails'
+gem "paperclip"
 gem 'to_xls'
 
 group :development, :test do

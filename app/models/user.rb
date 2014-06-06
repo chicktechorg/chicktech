@@ -5,6 +5,9 @@ class User < ActiveRecord::Base
   validates_presence_of :last_name
   validates_presence_of :phone
   validates_presence_of :role
+  has_attached_file :photo
+  validates_attachment_size :photo, :less_than => 2.megabytes
+  validates_attachment_content_type :photo, :content_type => ['image/jpeg', 'image/png']
 
   has_many :jobs, :dependent => :nullify
   has_many :events, -> { uniq }, through: :jobs, source: :workable, source_type: 'Event'
@@ -26,6 +29,18 @@ class User < ActiveRecord::Base
 
   def role?(base_role)
     ROLES.index(base_role.to_s) <= ROLES.index(role)
+  end
+
+  def past_events_led
+    event_leads.past.count
+  end
+
+  def past_teams_led
+    team_leads.reject { |t| t.event.finish > Time.now }.count
+  end
+
+  def past_jobs
+    jobs.reject { |j| j.get_event.finish > Time.now }.count
   end
 
   def commitment_events
