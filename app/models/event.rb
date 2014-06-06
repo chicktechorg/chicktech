@@ -58,6 +58,10 @@ class Event < ActiveRecord::Base
     number_of_jobs_with_volunteers + number_of_teams_with_leaders
   end
 
+  def number_of_available_event_jobs
+    jobs.count - jobs.with_volunteers.count
+  end
+
   def jobs_of_user(user)
     jobs.where(user: user)
   end

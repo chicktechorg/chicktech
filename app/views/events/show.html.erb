@@ -12,8 +12,25 @@
     </p>
   </div>
 
-  <div id="teams">
-    <%= render partial: 'teams/team_panel', collection: @event.teams, as: :team %>
+  <div class="event-positions">
+
+    <div id="teams">
+      <h4>Teams</h4>
+      <%= render partial: 'teams/team_panel', collection: @event.teams, as: :team %>
+    </div>
+
+    <div id="event-jobs">
+      <h4>
+        Other jobs
+        <%= content_tag :span, class: 'available-badge' do %>
+          <%= @event.number_of_available_event_jobs %> available
+        <% end %>
+      </h4>
+      <ul class="list-group">
+        <%= render partial: 'jobs/job_list_item', collection: @event.jobs, as: :job %>
+      </ul>
+    </div>
+
   </div>
 </div>
   

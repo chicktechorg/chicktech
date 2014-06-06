@@ -24,9 +24,15 @@
 		}
 	}
 
-	#teams {
+	.event-positions {
 		@include make-md-column(8);
-		@extend .panel-group;
+
+		#teams {
+			@extend .panel-group;
+		}
+
+		#jobs {
+		}
 	}
 }
 
@@ -40,43 +46,27 @@
 		h4 {
 			@extend .panel-title;
 		}
+	}
+}
 
-		.badge {
-			background-color: $chicktech-pink;
-		}
+.job {
+	font-size: .8em;
+}
+
+.volunteer, .leader {
+	@extend .pull-right;
+	
+	a.sign_up {
+		@extend .btn;
+		@extend .btn-info;
+		@extend .btn-xs;
 	}
 
-	.job {
-		font-size: .8em;
-	}
-
-	.team_leader {
-		@extend .pull-right;
+	a.resign {
 		@extend .text-muted;
-		font-size: .8em;
-
-		a.sign_up {
-			@extend .btn;
-			@extend .btn-info;
-			@extend .btn-xs;
-		}
-
-		a.resign {
-			@extend .text-muted;
-		}
 	}
+}
 
-	.job_user {
-		@extend .pull-right;
-		
-		a.sign_up {
-			@extend .btn;
-			@extend .btn-info;
-			@extend .btn-xs;
-		}
-
-		a.resign {
-			@extend .text-muted;
-		}
-	}
+.available-badge {
+	@extend .badge;
 }

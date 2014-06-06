@@ -9,7 +9,7 @@ module ApplicationHelper
   end
 
   def position_display(position)
-  	tag_class = position.class.name == "Job" ? "job_user" : "team_leader"
+  	tag_class = position.class.name == "Job" ? "volunteer" : "leader"
   	content_tag :span, class: tag_class do
 	  	if position.user.nil?
 	  	  sign_up_button(position)
