@@ -25,7 +25,7 @@ module ApplicationHelper
     if can?(:update, event_leadership_role) || !event_leadership_role.available?
       position_display(event_leadership_role)
     else
-      button_to 'I Would Like To Lead This Event', emails_path(:event_id => event_leadership_role.leadable.id), :class => "btn btn-warning btn-xs"
+      button_to 'I Would Like To Lead This Event', emails_path(:event_id => event_leadership_role.leadable.id, request: true), :class => "btn btn-warning btn-xs"
     end
   end
 

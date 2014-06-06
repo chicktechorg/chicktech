@@ -5,8 +5,7 @@ feature "Creating tasks" do
     volunteer = FactoryGirl.create(:volunteer)
     job = FactoryGirl.create(:job)
     sign_in(volunteer)
-    visit event_path(job.workable)
-    click_on 'Add Task'
+    visit job_path(job)
     fill_in 'Description', with: 'Example task description'
     click_on 'Create Task'
     find('.not-done-task-list').should have_content('Example task description')
@@ -19,7 +18,7 @@ feature 'Removing tasks' do
     job = FactoryGirl.create(:job)
     task = FactoryGirl.create(:task, :job_id => job.id)
     sign_in(volunteer)
-    visit event_path(job.workable)
+    visit job_path(job)
     click_link 'X'
     page.should_not have_content task.description
   end
@@ -32,7 +31,6 @@ feature 'Clicking on a task' do
     task = FactoryGirl.create(:task, :job_id => job.id)
     sign_in(volunteer)
     visit job_path(job)
-    save_and_open_page
     check task.description
     find('.done-task-list').should have_content(task.description)
   end

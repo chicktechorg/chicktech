@@ -8,7 +8,7 @@ feature 'Creating jobs' do
     sign_in(admin)
     event = FactoryGirl.create(:event)
     visit event_path(event)
-    click_on 'Add job'
+    click_on 'add a job'
     fill_in 'Name', with: 'Example name'
     click_on 'Create Job'
     page.should have_content 'successfully'
@@ -18,7 +18,7 @@ feature 'Creating jobs' do
     sign_in(admin)
     event = FactoryGirl.create(:event)
     visit event_path(event)
-    click_on 'Add job'
+    click_on 'add a job'
     click_on 'Create Job'
     page.should have_content 'blank'
   end

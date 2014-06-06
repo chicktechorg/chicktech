@@ -2,7 +2,7 @@ class EmailsController < ApplicationController
   include ActionView::Helpers::TextHelper
   def create
     @event = Event.find(params[:event_id])
-    if params[:commit] == "I Would Like To Lead This Event"
+    if params[:request]
       @user = current_user
       @admins = []
       @admins << User.where(:role => "superadmin")
