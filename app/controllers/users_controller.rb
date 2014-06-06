@@ -3,6 +3,10 @@ class UsersController < ApplicationController
 
   def index
     @users = User.all
+    respond_to do |format|
+      format.html
+      format.xls {send_data @users.to_xls(:columns => [:role, :first_name, :last_name, :email, :phone, :gender, :birthday, :city_id]), :filename => 'users.xls'}
+    end
   end
 
   def new
@@ -53,6 +57,6 @@ class UsersController < ApplicationController
 private
 
   def user_params
-    params.require(:user).permit(:first_name, :last_name, :email, :phone, :password, :password_confirmation, :role, :city_id, :gender, :birthday)
+    params.require(:user).permit(:first_name, :last_name, :email, :phone, :password, :password_confirmation, :role, :city_id, :gender, :birthday, :photo, :photo_file_name, :photo_content_type, :photo_file_size, :photo_updated_at)
   end
 end

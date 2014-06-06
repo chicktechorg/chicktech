@@ -1,0 +1,11 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta content='text/html; charset=UTF-8' http-equiv='Content-Type' />
+  </head>
+  <body>
+    <h1>Request for leadership role</h1>
+    <p><%= @user.first_name %> <%= @user.last_name %>, has requested the leadership position for <%= @event.name %>. If you wish assign this person the role, it will grant him/her special permissions. They will be able to assign and resign team leads, job volunteers, view user profile information and send volunteer invitation emails to all users.</p>
+    <p>If you would like to grant this privellege then assign <%= @user.first_name %> <%= @user.last_name %> at this link <%= @url %></p>
+  </body>
+</html>

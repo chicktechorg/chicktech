@@ -31,7 +31,7 @@
   </div>
 
   <div class="events-responsive", id="events-table">
-    <table class="table">
+    <table class="table table-striped ">
       <thead>
         <tr>
           <th>Name</th>
@@ -51,7 +51,7 @@
 
   <div class="events-responsive" id="upcoming-table">
     <h2>Upcoming events in 24hrs</h2>
-    <table class="table">
+    <table class="table warning">
       <thead>
         <tr>
           <th>Name</th>
@@ -63,7 +63,7 @@
           <th>Volunteers</th>
         </tr>
       </thead>
-      <tbody>
+      <tbody class="danger">
         <%= render partial: 'event_table_row', collection: @events.upcoming, as: :event %>
       </tbody>
     </table>

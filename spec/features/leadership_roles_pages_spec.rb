@@ -33,26 +33,6 @@ feature 'Resigning from leadership role' do
   end
 end
 
-feature 'Volunteer signs up to be a leader' do
-  let(:volunteer) { FactoryGirl.create(:volunteer) }
-  let(:event_without_leader) { FactoryGirl.create(:event_without_leader) }
-  let(:event) { FactoryGirl.create(:event) }
-
-  scenario 'successfully' do
-    sign_in(volunteer)
-    visit event_path(event_without_leader)
-    click_on 'Take the lead!'
-    page.should have_content 'Congratulations!'
-  end
-
-  scenario 'resigns from a job' do
-    sign_in(event.leader)
-    visit event_path(event)
-    click_on 'Resign'
-    page.should have_content 'resigned'
-  end
-end
-
 feature 'open leadership role for others when a leader is deleted' do
   before do
     @volunteer = FactoryGirl.create(:volunteer)
@@ -66,6 +46,6 @@ feature 'open leadership role for others when a leader is deleted' do
     @volunteer.destroy
     @event.reload
     visit event_path(@event)
-    page.should have_button 'Take the lead!'
+    page.should have_button 'I Would Like To Lead This Event'
   end
 end
