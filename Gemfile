@@ -17,6 +17,7 @@ gem 'jquery-turbolinks'
 gem 'bootstrap-datepicker-rails'
 gem 'deep_cloneable'
 gem 'will_paginate', '~> 3.0'
+gem "paperclip"
 
 group :development, :test do
   gem 'rspec-rails'

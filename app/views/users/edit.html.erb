@@ -16,7 +16,7 @@
             </div>
           <% end %>
 
-        <%= form_for(@user) do |f| %>
+        <%= form_for @user, :html => { :multipart => true } do |f| %>
 
           <div>
             <%= f.label :first_name %>
@@ -51,6 +51,11 @@
           <div>
             <%= f.label :gender %>
             <%= f.select(:gender, [['Male', 'Male'], ['Female', 'Female'], ['Other', 'Other']]) %>
+          </div>
+
+          <div>
+            <%= f.label :photo, "Photo" %>
+            <%= f.file_field :photo %>
           </div>
 
           <div>

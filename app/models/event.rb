@@ -95,21 +95,4 @@ class Event < ActiveRecord::Base
     volunteers = volunteers - [nil]
     volunteers.uniq
   end
-
 end
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
