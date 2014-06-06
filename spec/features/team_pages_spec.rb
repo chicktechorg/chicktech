@@ -7,12 +7,6 @@ feature 'Adding a team' do
     sign_in(admin)
   end
 
-  scenario 'navigating to the add team page' do
-    visit event_path(@event)
-    click_on 'Add team'
-    page.should have_content "Add a team to #{@event.name}"
-  end
-
   scenario 'filling incorrect information' do
     visit new_team_path(team: { event_id: @event.id })
     click_on "Submit"

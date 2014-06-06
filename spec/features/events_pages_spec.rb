@@ -274,7 +274,7 @@ feature "Adding a job" do
     event = FactoryGirl.create(:event)
     sign_in(admin)
     visit event_path(event)
-    page.should have_content "Add job"
+    page.should have_content "add a job"
   end
 
   scenario "signed in as volunteer", js: true do
@@ -285,7 +285,7 @@ feature "Adding a job" do
     within('#events-calendar') do
       click_on(event.name)
     end
-    page.should_not have_content "Add jobs"
+    page.should_not have_content "add a job"
   end
 end
 
@@ -320,7 +320,7 @@ feature "Unassigning an event leader" do
     leadership_role = FactoryGirl.create(:leadership_role, leadable: event, user: volunteer)
     sign_in(admin)
     visit event_path(event)
-    page.should have_content "Unassign"
+    page.should have_content "unassign"
   end
 end
 

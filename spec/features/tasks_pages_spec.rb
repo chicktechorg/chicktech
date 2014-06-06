@@ -1,12 +1,12 @@
 require 'spec_helper'
 
 feature "Creating tasks" do
-  scenario "with input from volunteer" do
+  scenario "with input from volunteer", js: true do
     volunteer = FactoryGirl.create(:volunteer)
     job = FactoryGirl.create(:job)
     sign_in(volunteer)
     visit job_path(job)
-    fill_in 'Description', with: 'Example task description'
+    fill_in 'task_description', with: 'Example task description'
     click_on 'Create Task'
     find('.not-done-task-list').should have_content('Example task description')
   end

@@ -2,8 +2,13 @@
 
 <div class="event">
   <div class="event-header">
+    <% if can? :update, @event %>
+      <div class='admin-buttons pull-right text-right'>
+        <%= button_to('Send Volunteer Invitations', emails_path(event_id: @event.id), :class => "btn btn-warning btn-xs") %>
+        <%= button_to 'Save as Template', templates_path(event_id: @event.id), :class => "btn btn-primary btn-xs" %>
+      </div>
+    <% end %>
     <h1>
-      <%= button_to('Send Volunteer Invitations', emails_path(event_id: @event.id), :class => "btn btn-warning btn-xs pull-right") if can? :update, @event %>
       <%= @event.name %>
     </h1>
     <h4><%= event_date_range(@event) %></h4>
