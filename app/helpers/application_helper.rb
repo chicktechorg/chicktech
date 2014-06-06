@@ -21,6 +21,14 @@ module ApplicationHelper
 	  end
   end
 
+  def event_leader_display(event_leadership_role)
+    if cannot? :update, event_leadership_role.leadable
+      button_to 'I Would Like To Lead This Event', emails_path(:event_id => event_leadership_role.leadable.id), :class => "btn btn-warning btn-xs"
+    else
+      position_display(event_leadership_role)
+    end
+  end
+
   def sign_up_button(position)
   	position_path = position.class.name.underscore + "_path"
   	link_to "Sign up", send(position_path, position, signing_up: true), method: :patch, class: 'sign_up'
