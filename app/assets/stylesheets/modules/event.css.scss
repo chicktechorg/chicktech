@@ -3,6 +3,18 @@
 .event {
 	@include make-row();
 
+	.event-header {
+		@include make-md-column(12);
+
+		h1 {
+			color: $chicktech-brown;
+		}
+
+		h4 {
+			color: $chicktech-blue;
+		}
+	}
+
 	.event-info {
 		@include make-md-column(4);
 
@@ -28,25 +40,43 @@
 		h4 {
 			@extend .panel-title;
 		}
-	}
 
-	.body {
-		@extend .panel-body;
-	}
-
-	.jobs {
-		@extend .table;
-
-		li {
-			@extend .list-group-item;
-		}
-
-		.job-user {
-			@extend .pull-right;
+		.badge {
+			background-color: $chicktech-pink;
 		}
 	}
 
-	.position-display {
+	.job {
+		font-size: .8em;
+	}
+
+	.team_leader {
 		@extend .pull-right;
+		@extend .text-muted;
+		font-size: .8em;
+
+		a.sign_up {
+			@extend .btn;
+			@extend .btn-info;
+			@extend .btn-xs;
+		}
+
+		a.resign {
+			@extend .text-muted;
+		}
+	}
+
+	.job_user {
+		@extend .pull-right;
+		
+		a.sign_up {
+			@extend .btn;
+			@extend .btn-info;
+			@extend .btn-xs;
+		}
+
+		a.resign {
+			@extend .text-muted;
+		}
 	}
 }

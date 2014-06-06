@@ -2,4 +2,10 @@
 
 // bootstrap overrides
 $brand-primary: $chicktech-blue;
+$btn-info-bg: $chicktech-pink;
+$navbar-default-bg: $chicktech-brown;
+$navbar-default-link-color: #ccc;
+$navbar-default-link-hover-color: #fff;
+$navbar-default-link-active-bg: lighten($navbar-default-bg, 6.5%);
+$navbar-default-link-active-color: #fff;
 @import "bootstrap";

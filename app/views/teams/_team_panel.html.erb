@@ -1,23 +1,26 @@
 <div class="team-panel">
   <div class="heading">
     <h4>
-      <%= link_to "#team-#{team.id}", data: { toggle: "collapse", parent: "#teams" } do %>
-        <%= team.name %>
+      <%= link_to "#{team.name}", "#team-#{team.id}", data: { toggle: "collapse", parent: "#teams" } %>
+      <%= content_tag :span, class: 'badge' do %>
+        <%= team.number_of_available_positions %> available
       <% end %>
       <%= position_display(team.leadership_role) %>
     </h4>
   </div>
-  <div id="team-<%= team.id %>" class="panel-collapse collapse">
-    <table class="jobs">
+  <ul id="team-<%= team.id %>" class="panel-collapse collapse list-group">
+    <!-- <ul class="jobs list-group"> -->
       <% team.jobs.each do |job| %>
-      <tr>
-        <td>
-          <%= position_display(job) %>
-          <h4><%= job.name %></h4>
-          <p><%= job.description %></p>
-        </td>
-      </tr>
+        <li class="job list-group-item">
+          <h4>
+            <%= job.name %>
+            <%= position_display(job) %>
+          </h4>
+          <p>
+            <%= job.description %>
+          </p>
+        </li>
       <% end %>
-    </table>
-  </div>
+    <!-- </ul> -->
+  </ul>
 </div>
