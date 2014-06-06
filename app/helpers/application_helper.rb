@@ -16,7 +16,7 @@ module ApplicationHelper
 	  	elsif position.user == current_user
 	  		("You " + resignation_link(position)).html_safe
 	  	else 
-	  		link_to position.user.full_name, position.user
+	  		link_to(position.user.full_name, position.user) + ' ' + remove_volunteer_link(position)
 	  	end
 	  end
   end
@@ -27,8 +27,16 @@ module ApplicationHelper
   end
 
   def resignation_link(position)
+    link_text = current_user ? "resign" : "unassign"
   	position_path = position.class.name.underscore + "_path"
-  	link_to "(resign)", send(position_path, position, resigning: true), method: :patch, class: 'resign'
+  	link_to "(#{link_text})", send(position_path, position, resigning: true), method: :patch, class: 'resign'
+  end
+
+  def remove_volunteer_link(position)
+    if can? :update, position
+      position_path = position.class.name.underscore + "_path"
+      link_to "(unassign)", send(position_path, position, resigning: true), method: :patch, class: 'resign'
+    end
   end
 
   def event_date_range(event)

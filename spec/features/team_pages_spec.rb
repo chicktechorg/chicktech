@@ -200,7 +200,7 @@ feature "Admin can remove a leader" do
     it "should have a button to unassign the leader" do
       event = FactoryGirl.create(:event)
       visit event_path(event)
-      page.should have_content('Unassign')
+      page.should have_content('unassign')
     end
   end
 end
