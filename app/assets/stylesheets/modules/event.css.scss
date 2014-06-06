@@ -70,3 +70,8 @@
 .available-badge {
 	@extend .badge;
 }
+
+.add-job {
+	@extend .list-group-item;
+	@extend .text-center;
+}

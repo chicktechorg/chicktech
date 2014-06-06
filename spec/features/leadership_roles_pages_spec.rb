@@ -27,7 +27,7 @@ feature 'Resigning from leadership role' do
       sign_in(@event.leader)
 
       visit event_path(@event)
-      click_on 'Resign'
+      click_on 'resign'
       page.should have_content 'The leader has resigned'
     end
   end

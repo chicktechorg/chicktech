@@ -31,7 +31,8 @@ feature 'Clicking on a task' do
     job = FactoryGirl.create(:job)
     task = FactoryGirl.create(:task, :job_id => job.id)
     sign_in(volunteer)
-    visit event_path(job.workable)
+    visit job_path(job)
+    save_and_open_page
     check task.description
     find('.done-task-list').should have_content(task.description)
   end

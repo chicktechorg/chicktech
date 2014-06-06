@@ -10,5 +10,13 @@
   </div>
   <ul id="team-<%= team.id %>" class="panel-collapse collapse list-group">
     <%= render partial: 'jobs/job_list_item', collection: team.jobs, as: :job %>
+    <% if can? :update, team %>
+      <li class="add-job">
+        <%= link_to new_job_path(:job => { workable_id: @event.id, workable_type: 'Event' }), id: "new_event_job_link", remote: true do %>
+          <i class="fa fa-plus-circle"></i>
+          add a job
+        <% end %>
+      </li>
+    <% end %>
   </ul>
 </div>
