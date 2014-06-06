@@ -28,6 +28,18 @@ class User < ActiveRecord::Base
     ROLES.index(base_role.to_s) <= ROLES.index(role)
   end
 
+  def past_events_led
+    event_leads.past.count
+  end
+
+  def past_teams_led
+    team_leads.reject { |t| t.event.finish > Time.now }.count
+  end
+
+  def past_jobs
+    jobs.reject { |j| j.get_event.finish > Time.now }.count
+  end
+
   def commitment_events
     all_events.sort
   end

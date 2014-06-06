@@ -21,12 +21,12 @@
      </div>
      <div class="row">
       <div class="span3 offset1">
-         Events <span class="badge badge-success">2</span>
-         Teams <span class="badge badge-success">3</span>
-         Jobs <span class="badge badge-success">1</span>
+         Event leadership <span class="badge badge-success"><%= @user.past_events_led %></span>
+         Team leadership <span class="badge badge-success"><%= @user.past_teams_led %></span>
+         Jobs <span class="badge badge-success"><%= @user.past_jobs %></span>
       </div>
            </div>
-          <hr>
+            <hr>
                   <ul>
                     <li><b>Name:</b> <%= @user.first_name %> <%= @user.last_name %></li>
                   </ul>
@@ -48,13 +48,11 @@
                   <ul>
                     <li><b>City:</b> <%= @user.city.name %></li>
                   </ul>
-
                   </div>
                 </div>
-
               </div>
           </hr>
-     <br>
+        <br>
     <h3><%= @user.first_name %>'s commitments</h3>
         <div class="col-md-12">
             <%= render 'commitments', events: @user.commitment_events, user: @user %>
