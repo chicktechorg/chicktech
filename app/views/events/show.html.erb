@@ -17,6 +17,12 @@
     <div id="teams">
       <h4>Teams</h4>
       <%= render partial: 'teams/team_panel', collection: @event.teams, as: :team %>
+      <% if can? :update, @event %>
+        <%= link_to new_team_path(:team => { event_id: @event.id }), id: "new_team_link", remote: true do %>
+          <i class="fa fa-plus-circle"></i>
+          add a team
+        <% end %>
+      <% end %>
     </div>
 
     <div id="event-jobs">
