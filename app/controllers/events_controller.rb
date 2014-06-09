@@ -66,7 +66,7 @@ class EventsController < ApplicationController
     name = @event.name
     @event.destroy
     flash[:notice] = "Your event #{@name} has been destroyed."
-    redirect_to new_event_path
+    redirect_to events_path
   end
 
 private
