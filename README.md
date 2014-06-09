@@ -42,14 +42,14 @@ This project was built by:
 
 * Corey Norris     <a href="https://twitter.com/jupiterjazz">@jupiterjazz</a>
 
-* Raouf Nabi
+* Raouf Nabi        <a href="raouf.nabi@gmail.com">raouf.nabi@gmail.com</a>
 
 * Alex Dinnel
 
 * Emily Zhang
 
 
-You can view a [live version of this site on here](http://chicktech.herokuapp.com/).
+You can view a [live version of this site here](http://chicktech.herokuapp.com/).
 
 This application is not currently being maintained.
 
