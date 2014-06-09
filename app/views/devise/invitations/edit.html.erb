@@ -21,13 +21,15 @@
           <p><%= f.label :password %><br />
           <%= f.password_field :password %></p>
 
+          <p><%= f.collection_select :city, :id, City.all, :id, :name, {:include_blank => 'Select City'}, {:selected => @city ? @city.id : ""}  %></p>
+
           <p><%= f.label :password_confirmation %><br />
           <%= f.password_field :password_confirmation %></p>
 
           <p><%= f.submit t("devise.invitations.edit.submit_button"), :class => 'sign-in-button-small' %></p>
         <% end %>
-        </div> 
-      </div>     
+        </div>
+      </div>
     </div>
   </div>
 </div>
