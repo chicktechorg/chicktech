@@ -15,7 +15,7 @@ module ApplicationHelper
 	  	  sign_up_button(position)
 	  	elsif position.user == current_user
 	  		("You " + resignation_link(position)).html_safe
-	  	else 
+	  	else
 	  		link_to(position.user.full_name, position.user) + ' ' + remove_volunteer_link(position)
 	  	end
 	  end

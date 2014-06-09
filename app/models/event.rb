@@ -12,9 +12,11 @@ class Event < ActiveRecord::Base
   belongs_to :city
   has_one :leadership_role, :as => :leadable, :dependent => :destroy
 
+  after_create :create_leadership_role
+
   attr_accessor :template_id
   accepts_nested_attributes_for :leadership_role
-    accepts_nested_attributes_for :team_jobs
+  accepts_nested_attributes_for :team_jobs
 
 
   def self.future
@@ -107,4 +109,10 @@ class Event < ActiveRecord::Base
     volunteers = volunteers - [nil]
     volunteers.uniq
   end
+
+  private
+
+    def create_leadership_role
+      LeadershipRole.create(:leadable => self)
+    end
 end
