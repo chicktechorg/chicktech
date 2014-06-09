@@ -2,6 +2,8 @@
   <div class="heading">
     <h4>
       <%= link_to "#{team.name}", "#team-#{team.id}", data: { toggle: "collapse", parent: "#teams" } %>
+      <%= link_to 'Edit', edit_team_path(team), :class => "btn btn-warning btn-sm" if can? :update, team %>
+      <%= link_to 'Delete', team, method: :delete, data: {confirm: "Are you sure?"}, :class => "btn btn-danger btn-sm" if can? :destroy, team %>
       <%= content_tag :span, class: 'available-badge' do %>
         <%= team.number_of_available_positions %> available
       <% end %>
