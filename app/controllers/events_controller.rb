@@ -55,7 +55,7 @@ class EventsController < ApplicationController
     @event = Event.find(params[:id])
     if @event.update(event_params)
       flash[:notice] = "Your event has been updated."
-      redirect_to new_event_path
+      redirect_to event_path(@event)
     else
       render :edit
     end
