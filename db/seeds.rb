@@ -2,9 +2,9 @@ City.create(:name => 'Portland, OR')
 City.create(:name => 'San Francisco, CA')
 City.create(:name => 'Seattle, WA')
 
-User.create(:first_name => 'Janice', :last_name => 'Levenhagen-Seeley', :email => 'janice.levenhagen@chicktech.org', :password => 'chicktech', :password_confirmation => 'chicktech', :phone => '9712700519', :role => 'superadmin', :city_id => 1 )
-User.create(:first_name => 'Admin', :last_name => 'Example', :email => 'admin@chicktech.org', :password => 'gurlsrule', :password_confirmation => 'gurlsrule', :phone => '5555555555', :role => 'admin', :city_id => 2 )
-User.create(:first_name => 'Hermione', :last_name => 'Granger', :email => 'hermione@hogwarts.edu', :password => 'voldemort', :password_confirmation => 'voldemort', :phone => '1435325454', :role => 'volunteer', :city_id => 1 )
+User.create(:first_name => 'Super', :last_name => 'Admin', :email => 'super.admin@example.com', :password => 'superadmin', :password_confirmation => 'superadmin', :phone => '1111111111', :role => 'superadmin', :city_id => 1 )
+User.create(:first_name => 'Normal', :last_name => 'Admin', :email => 'normal.admin@example.com', :password => 'normaladmin', :password_confirmation => 'normaladmin', :phone => '2222222222', :role => 'admin', :city_id => 2 )
+User.create(:first_name => 'Normal', :last_name => 'Volunteer', :email => 'normal.volunteer@example.com', :password => 'normalvolunteer', :password_confirmation => 'normalvolunteer', :phone => '3333333333', :role => 'volunteer', :city_id => 1 )
 
 30.times do |n|
   city = City.first(:offset => rand(City.count))
