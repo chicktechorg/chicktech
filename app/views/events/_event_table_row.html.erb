@@ -2,11 +2,11 @@
   <td><%= link_to event.name, event_path(event) %></td>
   <td><%= event.city.name %></td>
   <td><%= event.start.strftime("%b %-d, %Y @ %-I:%M%P") %></td>
-  <% if event.leadership_role.available? %>
+  <% if event.leader == nil %>
     <td><%= "Take the lead" %></td>
-  <%= else %>
-    <td>link_to(event.leader.first_name, user_path(event.leader))</td>
-  <% end %>
+   <% else %>
+    <td><%= link_to(event.leader.first_name, user_path(event.leader)) %></td>
+   <% end %>
   <td class="table-teams">
     <%= "#{event.number_of_teams_with_leaders}/#{event.number_of_teams}" %>
   </td>
@@ -17,3 +17,4 @@
     <%= "#{event.unique_volunteers.count}" %>
   </td>
 </tr>
+

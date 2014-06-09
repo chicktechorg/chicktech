@@ -27,7 +27,11 @@ class Event < ActiveRecord::Base
   end
 
   def leader
-    leadership_role.user
+    if leadership_role == nil
+      nil
+    else
+      leadership_role.user
+    end
   end
 
   def all_jobs
