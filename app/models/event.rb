@@ -96,7 +96,7 @@ class Event < ActiveRecord::Base
 
   def unique_volunteers
     volunteers = []
-    volunteers << leader if leader
+    volunteers << leader if leadership_role
     teams.each { |team| volunteers << team.leader }
     jobs.each { |j| volunteers << j.user }
     team_jobs.each { |tj| volunteers << tj.user }

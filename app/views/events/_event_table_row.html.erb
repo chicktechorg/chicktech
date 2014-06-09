@@ -2,7 +2,7 @@
   <td><%= link_to event.name, event_path(event) %></td>
   <td><%= event.city.name %></td>
   <td><%= event.start.strftime("%b %-d, %Y @ %-I:%M%P") %></td>
-  <td><%= event.leader ?  link_to(event.leader.first_name, user_path(event.leader)) : "Take the lead" %></td>
+  <td><%= event.leadership_role ?  link_to(event.leader.first_name, user_path(event.leader)) : "Take the lead" %></td>
   <td class="table-teams">
     <%= "#{event.number_of_teams_with_leaders}/#{event.number_of_teams}" %>
   </td>
