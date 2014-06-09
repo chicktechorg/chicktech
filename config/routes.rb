@@ -16,5 +16,5 @@ Chicktech::Application.routes.draw do
   resources :comments
   resources :emails, :only => :create
   match "templates", :to => 'templates#create', :via => :post
-  root :to => "events#index"
+  root :to => "static_pages#index"
 end
