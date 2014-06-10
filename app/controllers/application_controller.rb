@@ -18,7 +18,8 @@ protected
                :phone,
                :password,
                :password_confirmation,
-               :invitation_token)
+               :invitation_token,
+               :city_id)
     end
   end
 

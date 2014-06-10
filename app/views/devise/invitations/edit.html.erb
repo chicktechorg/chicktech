@@ -21,11 +21,11 @@
           <p><%= f.label :password %><br />
           <%= f.password_field :password %></p>
 
-          <p><%= f.label :city, "Select a city to volunteer in." %></br />
-          <%= f.collection_select(:city_id, City.all, :id, :name)%></p>
-
           <p><%= f.label :password_confirmation %><br />
           <%= f.password_field :password_confirmation %></p>
+
+          <p><%= f.label :city, "Select a city to volunteer in." %></br />
+          <%= f.collection_select(:city_id, City.all, :id, :name, :include_blank => "Please select")%></p>
 
           <p><%= f.submit t("devise.invitations.edit.submit_button"), :class => 'sign-in-button-small' %></p>
         <% end %>

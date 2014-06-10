@@ -5,6 +5,7 @@ class User < ActiveRecord::Base
   validates_presence_of :last_name
   validates_presence_of :phone
   validates_presence_of :role
+  validates_presence_of :city
   has_attached_file :photo
   validates_attachment_size :photo, :less_than => 2.megabytes
   validates_attachment_content_type :photo, :content_type => ['image/jpeg', 'image/png']
