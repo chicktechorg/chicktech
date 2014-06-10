@@ -1,7 +1,7 @@
 <li class="job list-group-item">
   <h4>
     <%= job.name %>
-    <%= link_to 'Edit', edit_job_path(job), :class => "btn btn-warning btn-sm" if can? :update, job %>
+    <%= link_to 'Edit', edit_job_path(job), :class => "btn btn-warning btn-sm" if can? :manage, job %>
     <%= link_to 'Delete', job, method: :delete, data: {confirm: "Are you sure?"}, :class => "btn btn-danger btn-sm" if can? :destroy, job %>
     <%= position_display(job) %>
   </h4>
