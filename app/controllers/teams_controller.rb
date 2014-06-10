@@ -31,7 +31,7 @@ class TeamsController < ApplicationController
     @event = @team.event
     if @team.update(team_params)
       respond_to do |format|
-        format.html { redirect_to @team.event, notice: 'Team added!' }
+        format.html { redirect_to @team.event, notice: 'Team updated!' }
         format.js
       end
     else
