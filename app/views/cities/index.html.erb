@@ -15,7 +15,7 @@
             </ul>
           </div>
         <% end %>
-        
+
         <%= f.label :name %>
         <%= f.text_field :name, :size => "25", placeholder: 'Portland, OR' %>
         <%= f.submit 'Add', :class => "sign-in-button-small" %>
@@ -25,7 +25,9 @@
 
   <ul>
     <% @cities.each do |city| %>
-      <li><%= link_to 'X', city_path(city), method: :delete,  :class => "remove" %><%= link_to city.name, city %> </li>
+      <% if city != current_user.city %>
+        <li><%= link_to 'X', city_path(city), method: :delete,  :class => "remove" %><%= link_to city.name, city %> </li>
+      <% end %>
     <% end %>
   </ul>
 </div>

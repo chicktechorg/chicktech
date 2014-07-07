@@ -1,0 +1,3 @@
+$('.not-done-task-list li').last().before('<%= j render("jobs/task_form", task: @task) %>');
+$('#edit_task_<%= @task.id %>').submitOnCheck();
+$('#task_description').val('');

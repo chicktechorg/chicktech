@@ -6,7 +6,10 @@ class TeamsController < ApplicationController
   def create
     @team = Team.new(team_params)
     if @team.save
-      redirect_to @team.event, notice: 'Team added!'
+      respond_to do |format|
+        format.html { redirect_to @team.event, notice: 'Team added!' }
+        format.js
+      end
     else
       render :new
     end
@@ -25,8 +28,12 @@ class TeamsController < ApplicationController
 
   def update
     @team = Team.find(params[:id])
+    @event = @team.event
     if @team.update(team_params)
-      redirect_to @team, notice: 'Team updated!'
+      respond_to do |format|
+        format.html { redirect_to @team.event, notice: 'Team updated!' }
+        format.js
+      end
     else
       render :edit
     end

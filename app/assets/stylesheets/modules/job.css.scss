@@ -1,0 +1,9 @@
+.tasks {
+	ul {
+		@extend .list-group;
+
+		li {
+			@extend .list-group-item;
+		}
+	}
+}

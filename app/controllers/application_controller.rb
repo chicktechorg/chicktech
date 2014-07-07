@@ -7,6 +7,10 @@ class ApplicationController < ActionController::Base
 
 protected
 
+  def after_sign_in_path_for(user)
+    events_path
+  end
+
   def configure_permitted_parameters
     devise_parameter_sanitizer.for(:accept_invitation) do |u|
       u.permit(:first_name,
@@ -14,8 +18,15 @@ protected
                :phone,
                :password,
                :password_confirmation,
-               :invitation_token)
+               :invitation_token,
+               :city_id)
     end
+  end
+
+  helper_method :event_count
+
+  def event_count
+    Event.all.count
   end
 
   rescue_from CanCan::AccessDenied do |exception|
@@ -23,3 +34,5 @@ protected
     redirect_to root_path
   end
 end
+
+

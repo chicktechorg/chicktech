@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20131118195522) do
+ActiveRecord::Schema.define(version: 20140610152757) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -39,6 +39,7 @@ ActiveRecord::Schema.define(version: 20131118195522) do
     t.datetime "created_at"
     t.datetime "updated_at"
     t.integer  "city_id"
+    t.boolean  "template",    default: false
   end
 
   create_table "jobs", force: true do |t|
@@ -101,6 +102,13 @@ ActiveRecord::Schema.define(version: 20131118195522) do
     t.integer  "invitation_limit"
     t.integer  "invited_by_id"
     t.string   "invited_by_type"
+    t.string   "gender"
+    t.date     "birthday"
+    t.integer  "city_id"
+    t.string   "photo_file_name"
+    t.string   "photo_content_type"
+    t.integer  "photo_file_size"
+    t.datetime "photo_updated_at"
   end
 
   add_index "users", ["email"], name: "index_users_on_email", unique: true, using: :btree

@@ -7,47 +7,29 @@ feature 'Resigning from leadership role' do
     scenario 'available if you are the leader' do
       sign_in(@event.leader)
       visit event_path(@event)
-      page.should have_content 'Resign'
+      page.should have_content 'resign'
     end
 
     scenario 'available if you are an admin' do
       sign_in(FactoryGirl.create(:admin))
       visit event_path(@event)
-      page.should have_content 'Unassign'
+      page.should have_content 'unassign'
     end
 
     scenario "not available if you don't have permission" do
       sign_in(FactoryGirl.create(:volunteer))
       visit event_path(@event)
-      page.should_not have_button 'Resign'
+      page.should_not have_button 'resign'
     end
 
     scenario "clicking removes the leader" do
+
       sign_in(@event.leader)
+
       visit event_path(@event)
-      click_on 'Resign'
-      page.should have_content 'leader has resigned'
+      click_on 'resign'
+      page.should have_content 'The leader has resigned'
     end
-  end
-end
-
-feature 'Volunteer signs up to be a leader' do
-  let(:volunteer) { FactoryGirl.create(:volunteer) }
-  let(:event_without_leader) { FactoryGirl.create(:event_without_leader) }
-  let(:event) { FactoryGirl.create(:event) }
-
-  scenario 'successfully' do
-    sign_in(volunteer)
-    visit event_path(event_without_leader)
-    click_on 'Take the lead!'
-    page.should have_content 'Congratulations!'
-  end
-
-  scenario 'resigns from a job' do
-    sign_in(event.leader)
-    visit event_path(event)
-    click_on 'Resign'
-    page.should have_content 'resigned'
   end
 end
 
@@ -64,6 +46,6 @@ feature 'open leadership role for others when a leader is deleted' do
     @volunteer.destroy
     @event.reload
     visit event_path(@event)
-    page.should have_button 'Take the lead!'
+    page.should have_button 'I Would Like To Lead This Event'
   end
 end

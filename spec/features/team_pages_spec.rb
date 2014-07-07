@@ -7,12 +7,6 @@ feature 'Adding a team' do
     sign_in(admin)
   end
 
-  scenario 'navigating to the add team page' do
-    visit event_path(@event)
-    click_on 'Add a team'
-    page.should have_content "Add a team to #{@event.name}"
-  end
-
   scenario 'filling incorrect information' do
     visit new_team_path(team: { event_id: @event.id })
     click_on "Submit"
@@ -43,7 +37,7 @@ feature 'Showing a team' do
 
   it "should have a list of jobs within that team" do
     @job = FactoryGirl.create(:job, workable: @team)
-    visit team_path(@team)
+    visit event_path(@team.event)
     page.should have_content @job.name
   end
 end
@@ -85,29 +79,31 @@ feature 'Destroying a team' do
     sign_in(admin)
   end
 
-  context 'when visiting event page' do
-    before do
-      visit event_path(@team.event)
-      within('p.team') do
-        click_on 'Delete'
-      end
-    end
-    subject { page }
+  # I think this link should exist soley on the team show page
 
-    it { should_not have_content @team.name }
-    it { should have_content 'Team deleted.'}
-  end
+  # context 'when visiting event page' do
+    # before do
+    #   visit event_path(@team.event)
+    #   within('p.team') do
+    #     click_on 'Delete'
+    #   end
+    # end
+    # subject { page }
 
-  context 'when visiting team show page' do
-    before do
-      visit team_path(@team)
-      click_on 'Delete'
-    end
-    subject { page }
+    # it { should_not have_content @team.name }
+    # it { should have_content 'Team deleted.'}
+  # end
 
-    it { should_not have_content @team.name }
-    it { should have_content 'Team deleted.'}
-  end
+  # context 'when visiting team show page' do
+  #   before do
+  #     visit team_path(@team)
+  #     click_on 'Delete'
+  #   end
+  #   subject { page }
+
+  #   it { should_not have_content @team.name }
+  #   it { should have_content 'Team deleted.'}
+  # end
 end
 
 feature "Signing up to be an Team Leader" do
@@ -196,8 +192,9 @@ feature "Admin can remove a leader" do
 
   context "when there is a leader" do
     it "should have a button to unassign the leader" do
-      visit team_path(team)
-      page.should have_content('Unassign')
+      event = FactoryGirl.create(:event)
+      visit event_path(event)
+      page.should have_content('unassign')
     end
   end
 end

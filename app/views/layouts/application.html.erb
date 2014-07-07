@@ -1,15 +1,16 @@
 <!DOCTYPE html>
 <html>
 <head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <%= stylesheet_link_tag    "application", media: "all", "data-turbolinks-track" => true %>
   <%= javascript_include_tag "application", "data-turbolinks-track" => true %>
   <title><%= full_title(yield(:title)) %></title>
   <%= csrf_meta_tags %>
 </head>
 <body>
-  <div id="wrapper">
 
-    <%= render 'layouts/header' %>
+  <%= render 'layouts/header' if current_user %>
+  <div class="container">
 
     <% if flash[:alert] %>
       <div class="alert alert-danger">
@@ -23,7 +24,7 @@
     <% end %>
 
     <%= yield %>
-    
+
   </div>
 
 <!-- <footer>

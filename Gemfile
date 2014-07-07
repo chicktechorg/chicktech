@@ -1,7 +1,5 @@
 source 'https://rubygems.org'
 
-ruby '2.0.0'
-
 gem 'rails'
 gem 'pg'
 gem 'sass-rails'
@@ -12,18 +10,23 @@ gem 'turbolinks'
 gem 'jbuilder'
 gem 'devise'
 gem 'cancan'
-gem 'bootstrap-sass', '~> 3.0.0.0.rc'
+gem "bootstrap-sass"
 gem 'validates_timeliness'
 gem 'devise_invitable'
 gem 'jquery-turbolinks'
 gem 'bootstrap-datepicker-rails'
+gem 'deep_cloneable'
+gem 'will_paginate', '~> 3.0'
+gem 'font-awesome-rails'
+gem "paperclip"
+gem 'to_xls'
 
 group :development, :test do
   gem 'rspec-rails'
   gem 'pry'
 end
 
-group :development do 
+group :development do
   gem 'better_errors'
   gem 'binding_of_caller'
   gem 'quiet_assets'

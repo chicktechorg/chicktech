@@ -1,0 +1,10 @@
+<%= form_for @task, remote: true do |f| %>
+  <%= f.hidden_field :job_id, :value => @job.id %>
+  <%= f.hidden_field :done, :value => false %>
+  <div class="input-group">
+  	<%= f.text_field :description, class: 'form-control' %>
+  	<span class="input-group-btn">
+	  	<%= f.submit :class => 'btn btn-primary' %>
+	  </span>
+  </div>
+<% end %>

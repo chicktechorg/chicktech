@@ -16,7 +16,7 @@
             </div>
           <% end %>
 
-        <%= form_for(@user) do |f| %>
+        <%= form_for @user, :html => { :multipart => true } do |f| %>
 
           <div>
             <%= f.label :first_name %>
@@ -29,6 +29,11 @@
           </div>
 
           <div>
+           <%= f.label :city %></br>
+           <%= f.collection_select(:city_id, City.all, :id, :name)%>
+          </div>
+
+           <div>
             <%= f.label :phone %>
             <%= f.text_field :phone, :class =>'form-control-sign-in' %>
           </div>
@@ -39,12 +44,27 @@
           </div>
 
           <div>
+          <%= f.label :birthday %>
+          <%= f.date_select :birthday, :start_year=>1900 %>
+          </div>
+
+          <div>
+            <%= f.label :gender %>
+            <%= f.select(:gender, [['Male', 'Male'], ['Female', 'Female'], ['Other', 'Other']]) %>
+          </div>
+
+          <div>
+            <%= f.label :photo, "Photo" %>
+            <%= f.file_field :photo %>
+          </div>
+
+          <div>
             <%= f.submit "Update", :class => "sign-in-button-small" %>
           </div>
         <% end %>
         <%= link_to "Back", :back %>
-      </div>   
-      </div>  
+      </div>
+      </div>
     </div>
   </div>
 </div>

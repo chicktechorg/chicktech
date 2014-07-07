@@ -17,4 +17,8 @@ class LeadershipRole < ActiveRecord::Base
   def owned_by?(user)
     self.user_id == user.id
   end
+
+  def get_event
+    leadable.instance_of?(Event) ? leadable : leadable.event
+  end
 end

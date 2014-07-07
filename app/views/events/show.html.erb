@@ -1,47 +1,62 @@
-<div id="page-content-wrapper">
-  <div class="page-content inset">
-    <div class="row">
-      <div class="col-md-6">
-        <div class="event-info well">
-          <h2 class='section-header'><% provide :title, "#{@event.name}" %></h2>
-          <%= render @event %>
-          <% if can? :update, @event %>
-            <%= link_to "Add jobs", new_job_path(:job => { workable_id: @event.id, workable_type: 'Event' }) %>
-            <%= link_to "Add a team", new_team_path(:team => { event_id: @event.id }) %>
-          <% end %>
-          <% if @event.leadership_role.available? %>
-            <%= form_for @event.leadership_role do |f| %>
-              <%= f.hidden_field :signing_up, :value => true %>
-              <%= f.submit "Take the lead!", :class => "submit-no-button" %>
-            <% end %>
-          <% elsif can? :update, @event.leadership_role %>
-            <%= link_to (@event.leadership_role.owned_by?(current_user) ? "Resign" : "Unassign"), leadership_role_path(@event.leadership_role, :leadership_role => {:resigning => false}), :method => :patch, :class => "remove" %>
-          <% end %>
-          <% if @event.leader %>
-            <h4>Event lead: <%= "#{@event.leader.first_name} #{@event.leader.last_name}" %></h4> 
-          <% end %> 
-        </div> 
-      </div>   
-      <div class="col-md-6 cities well"> 
-          <% if @event.jobs.any? %>
-            <h3>Jobs for this event</h3>
-            <div class="col-md-12 well-event">
-              <% @event.jobs.each do |job| %>
-                <%= render job %>
-              <% end %>
-            </div>
-          <% end %>
+<% provide :title, "#{@event.name}" %>
 
-        <% if @event.teams.any? %>
-          <h2>Teams</h2>
-          <% @event.teams.each do |team| %>
-            <%= render team %>
-          <% end %>
-        <% end %> 
-      </div>  
+<div class="event">
+  <div class="event-header">
+    <% if can? :update, @event %>
+      <div class='admin-buttons pull-right text-right'>
+        <%= button_to('Send Volunteer Invitations', emails_path(event_id: @event.id), :class => "btn btn-warning btn-xs") %>
+        <%= button_to 'Save as Template', templates_path(event_id: @event.id), :class => "btn btn-primary btn-xs" %>
+      </div>
+    <% end %>
+    <h1>
+      <%= @event.name %>
+      <% if can? :manage, @event %>
+        <%= link_to "Edit", edit_event_path(@event), :class => "btn btn-warning btn-xs" %> <%= link_to "Delete", event_path(@event), :method => :delete, :data => { :confirm => 'Are you sure?' }, :class => "btn btn-danger btn-xs" %>
+      <% end %>
+    </h1>
+    <h4><%= event_date_range(@event) %></h4>
+  </div>
+  <div class="event-info">
+    <h5>Lead volunteer: <%= event_leader_display(@event.leadership_role) %></h5>
+    <p class="description">
+      <%= @event.description %>
+    </p>
+  </div>
+
+  <div class="event-positions">
+
+    <div id="teams">
+      <h4>Teams</h4>
+      <%= render partial: 'teams/team_panel', collection: @event.teams, as: :team %>
+      <% if can? :update, @event %>
+        <%= link_to new_team_path(:team => { event_id: @event.id }), id: "new_team_link", class: "pull-right", remote: true do %>
+          <i class="fa fa-plus-circle"></i>
+          add a team
+        <% end %>
+      <% end %>
     </div>
+
+    <div id="event-jobs">
+      <h4>
+        Other jobs
+        <%= content_tag :span, class: 'available-badge' do %>
+          <%= @event.number_of_available_event_jobs %> available
+        <% end %>
+      </h4>
+      <ul class="list-group">
+        <%= render partial: 'jobs/job_list_item', collection: @event.jobs, as: :job %>
+        <% if can? :update, @event %>
+          <%= link_to new_job_path(:job => { workable_id: @event.id, workable_type: 'Event' }) , id: "new_event_job_link", remote: true do %>
+            <li class="add-job">
+              <i class="fa fa-plus-circle"></i>
+              add a job
+            </li>
+          <% end %>
+        <% end %>
+      </ul>
+    </div>
+
   </div>
 </div>
-     
 
 
